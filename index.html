@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="light"><title>心動小鎮五星圖鑑</title>
+<meta name="description" content="心動小鎮五星圖鑑：魚類、蟲類、鳥類、園藝與料理圖鑑紀錄。2026/9/28 製作，依當期資料彙整。">
+<meta property="og:title" content="心動小鎮五星圖鑑">
+<meta property="og:description" content="希望我不要再重複拍到五星鳥了，阿們。">
+<meta property="og:type" content="website"><meta property="og:locale" content="zh_TW">
+<meta name="atlas-updated-at" content="2026-10-12T00:00:00+08:00">
+<meta name="theme-color" content="#34654f">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%2334654f'/%3E%3Cpath d='m32 10 6 15 16 1-12 11 4 17-14-9-14 9 4-17L10 26l16-1z' fill='%23fff6ce'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<!-- 左側導覽列 -->
+<aside class="sidebar">
+  <a class="brand" href="#">心動小鎮五星圖鑑</a>
+  <button id="nav-home" class="nav-item home-nav"><span class="nav-icon" aria-hidden="true">⌂</span><span class="nav-name">首頁</span></button><nav id="categories" aria-label="圖鑑分類"></nav><button id="nav-calculator" class="nav-item calculator-nav" type="button"><span class="nav-icon" aria-hidden="true">＋</span><span class="nav-name">成本計算機</span></button>
+</aside>
+<div class="page">
+ <header class="topbar"><div class="tools"><span id="save-state" role="status">準備保存</span><button id="export" class="button">匯出備份</button><button id="import" class="button">匯入進度</button><button id="help" class="icon-button" aria-label="使用說明">?</button><input id="file" type="file" accept=".json,application/json" hidden></div></header>
+<!-- 主要內容 -->
+ <main>
+<section id="home-view" aria-label="首頁"><div class="home-intro"><h1>心動小鎮五星圖鑑</h1><div class="home-summary"><div class="home-goal"><span>全圖鑑五星目標已達成</span><strong id="home-percent">0%</strong></div><div><span id="home-count"></span><div class="bar"><i id="home-bar"></i></div></div></div><button id="home-continue" class="button primary">繼續紀錄</button></div><h2>看看你的全圖鑑進度</h2><div id="home-cards" class="home-grid"></div><section class="home-guide"><h2>三步開始使用</h2><ol><li><b>選擇圖鑑與條件</b>：依名稱、等級、地點與時段找到目標。</li><li><b>記下已完成五星圖鑑</b>：取得五星後勾選；花卉可展開逐一記錄花色，收齊全部已知花色才算完成。</li><li><b>定期匯出備份</b>：進度保存在目前瀏覽器。換裝置時，先匯出 JSON，再到新裝置匯入。</li></ol><div class="home-actions"><button class="button" id="home-help">完整使用說明</button><button class="button" id="home-export">匯出備份</button><button class="button" id="home-import">匯入進度</button></div></section></section>
+  <section class="hero"><h1>心動小鎮五星圖鑑</h1><div class="total-card"><strong id="total-done">0</strong><span id="total-count"></span><span id="total-ring"><span id="total-percent">0%</span></span></div></section>
+  
+  <div class="storage-note"><p>紀錄進度只保存在目前瀏覽器，不會自動跨裝置同步。清除網站資料前，請先匯出備份。</p><p id="backup-status" role="status"></p></div>
+  <section class="collection">
+   <div class="collection-heading"><div class="title-group"><span id="category-icon" class="category-icon"></span><h2 id="category-title"></h2></div><div class="category-progress"><span id="category-count"></span><div class="bar"><i id="category-bar"></i></div></div></div>
+   <div class="filters">
+    <div class="filter-top"><label class="search-wrap"><span>⌕</span><input id="search" type="search" placeholder="搜尋名稱、地點或食材…" aria-label="搜尋名稱、地點或食材"></label><div id="status-tabs" class="segments" role="group" aria-label="完成狀態"><button data-status="all">全部</button><button data-status="todo">未完成</button><button data-status="done">已完成</button></div></div>
+    <div class="filter-scroll"><div class="filter-grid"><label id="plant-type-label" hidden>花卉／作物<select id="plantType"><option value="all">全部</option><option value="flower">花卉</option><option value="crop">作物</option></select></label><label>愛好等級（含以下）<select id="level"></select></label><fieldset id="kind-filter" class="kind-filter"><legend>收錄類型</legend><button id="kind-toggle" class="kind-toggle" type="button" aria-expanded="false" aria-controls="kind-menu">全部 ▾</button><div id="kind-menu" class="kind-menu" hidden><label><input type="checkbox" data-kind-option value="日常">日常</label><label><input type="checkbox" data-kind-option value="當前活動">當前活動</label><label><input type="checkbox" data-kind-option value="過往活動">過往活動</label><div class="kind-all-row"><label><input id="kind-all" type="checkbox">All</label></div></div></fieldset><label id="profit-star-label" hidden>星級<select id="profitStar"><option value="1" selected>1 星</option><option value="2">2 星</option><option value="3">3 星</option><option value="4">4 星</option><option value="5">5 星</option></select></label><label data-habitat>天氣<select id="weather"><option value="晴">晴天</option><option value="雨">雨天</option><option value="彩虹">彩虹日可出現</option><option value="rainbow-only">彩虹日限定</option></select></label><label data-habitat><span id="time-label">時段</span><select id="time"><option value="all">全部時段</option><option value="0-6時">00:00–06:00</option><option value="6-12時">06:00–12:00</option><option value="12-18時">12:00–18:00</option><option value="18-24時">18:00–24:00</option></select></label><label data-habitat class="location-filter">地點<select id="location"></select></label></div></div>
+    <p class="filter-scroll-hint">左右滑動查看其他篩選條件 →</p>
+    <div class="availability-options"><div id="bird-five-star" hidden><label class="five-star-filter"><input id="five-star-only" type="checkbox">僅五星</label></div><div id="availability-filter"><label class="five-star-filter"><input id="cookable-only" type="checkbox" checked>僅顯示當前可獲取</label></div></div>
+    <p id="bird-five-star-note" class="five-star-note" hidden>勾選「僅五星」，依目前天氣與時段篩選可拍攝五星的鳥類。</p>
+    <div class="filter-foot"><div id="filter-summary" hidden></div><span id="time-context" hidden></span><div class="filter-actions"><button id="use-current-time" class="text-button">切換到現在時段</button><button id="clear-filters" class="text-button">清除其他篩選</button><button id="reset-filters" class="text-button">重設預設條件</button></div></div>
+   </div>
+   <div class="list-toolbar"><div><b id="result-count"></b><span id="result-note"></span></div><button id="dish-number-sort" class="button" type="button" hidden aria-pressed="false" title="依料理編號由小到大排列">編號排序 ↑</button></div>
+   <p class="table-hint">點選欄位標題可排序。</p><div class="table-wrap" tabindex="0" role="region" aria-label="圖鑑清單，可左右滑動"><table class="list"><thead id="thead"></thead><tbody id="rows"></tbody></table></div>
+   <div id="empty" class="empty" hidden><span>⌕</span><h3>這個條件下，還沒有項目</h3><p>試著調整等級、天氣、時段或地點。</p><button id="empty-reset" class="button">清除其他篩選</button></div>
+  </section>
+  <section id="calculator-view" class="calculator-view" aria-label="料理成本計算機" hidden>
+   <header class="calculator-heading">
+ <div class="calc-intro"><p class="calc-site-name">心動小鎮五星圖鑑</p><span class="calc-kicker">料理材料與利潤試算</span><div class="calc-title-row"><h1>成本計算機</h1><button id="calc-help" class="icon-button" type="button" aria-label="開啟成本計算機使用教學" aria-haspopup="dialog" aria-controls="calc-help-dialog" title="計算機使用教學">?</button></div><p>從食材用量到各星級利潤，一次比較最多六道料理。</p></div>
+ 
+</header>
+   <div class="calculator-controls calc-select-controls"><div id="calc-dish-slots" class="calc-dish-slots"><button id="calc-add-dish" class="button calc-dynamic-add" type="button">＋ 新增料理</button></div></div>
+   <div class="calc-recipe-grid" id="calc-recipe-grid"></div>
+   <section id="calc-compare-section" class="calc-card calc-compare-section" hidden><h2>料理利潤比較</h2><div id="calc-comparison"></div></section>
+   <p id="calc-missing" class="calc-note" role="status"></p><p class="calc-note">計算方式：每份成本＝各材料（每份用量 × 單價）加總。料理售價與利潤依每份計算；修改單價會同步反映於所有料理。未維護材料單價預設為 0 金幣；限時材料標籤只表示取得受限，不代表料理停止製作。</p>
+  </section>
+  <section id="release-log" class="release-log release-pages" aria-labelledby="release-heading">
+   <div class="release-section-heading"><h2 id="release-heading">更新紀錄</h2></div>
+   <div id="release-batches">
+    <article class="release-batch" aria-labelledby="release-title-today">
+     <h3 id="release-title-today">v1.2.1 · 2026/10/19 更新</h3>
+     <p class="release-count-line">圖鑑共 <strong>648 筆</strong> · 本批新增 <strong>14 筆</strong> · 修改 <strong>23 筆</strong> · 移除 <strong>0 筆</strong></p>
+     <ul class="release-bullets">
+      <li><strong>篩選優化</strong>：時段選單新增「全部時段」以供勾選已有資料。</li>
+      <li><strong>地點優化</strong>：優化篩選規則；出沒地點若為事件顯示階段。</li>
+      <li><strong>資料顯示及優化</strong>：來源空白或標示為 N/A 的欄位統一顯示為 N/A，優化資料結構。</li>
+     </ul>
+    </article>
+    <article class="release-batch" hidden aria-labelledby="release-title-120">
+     <h3 id="release-title-120">v1.2.0 · 2026/10/12 更新</h3>
+     <p class="release-count-line">圖鑑共 <strong>634 筆</strong> · 本批新增 <strong>39 筆</strong> · 修改 <strong>281 筆</strong> · 移除 <strong>1 筆</strong>同名異體項目</p>
+     <ul class="release-bullets">
+      <li><strong>圖鑑資料更新</strong>：收錄活動:近幽集;修改同名圖鑑資訊:勾粉蝶與鈎粉蝶。</li>
+      <li><strong>活動邏輯優化與與限時材料</strong>：優化活動時間判定:依活動期間分類日常、當前活動與過往活動；依資料表標示限時材料/是否依賴限時料理台，判定是否當前可製作。</li>
+      <li><strong>收錄類型篩選</strong>：改為下拉式多選，可勾選日常、當前活動或過往活動，並可用「All」全選。</li>
+      <li><strong>料理成本計算機</strong>：可選擇料理查看各項材料用量、單價與小計，以及各星級售價、每份成本與利潤；可調整材料單價試算，或選至多六道料理比較利潤。</li>
+     </ul>
+    </article>
+<article class="release-batch" hidden aria-labelledby="release-title-110">
+     <h3 id="release-title-110">v1.1.0 · 2026/10/05 更新</h3>
+     <p class="release-count-line">圖鑑共 <strong>596 筆</strong> · 本批新增 <strong>59 筆</strong></p>
+     <ul class="release-bullets"><li><strong>活動資料更新</strong>：收錄遠古召喚、漢堡王連動、中秋活動及七夕活動。</li><li><strong>價格與條件更新</strong>：更新星級售價、料理成本與利潤、鳥類出現條件及慶典幣價格。</li><li><strong>收錄類型優化</strong>：日常、當前活動、過往活動以不同顏色區分，活動項目直接顯示所屬活動名稱。</li><li><strong>介面優化</strong>：優化介面；各分類新增「僅顯示當前可獲取」，預設勾選；已註明活動外仍可製作的料理也會保留顯示。</li><li><strong>活動時間連動</strong>：依已設定的活動結束時間，自動轉為過往活動，並同步更新可獲取篩選。</li></ul>
+    
+    </article>
+<article class="release-batch" hidden aria-labelledby="release-title-100" hidden>
+     <h3 id="release-title-100">v1.0.0 · 2026/09/28 初版</h3>
+     <p>根據當期資料彙整。製作日期不代表全部來源於同日重新查證。</p>
+     <ul class="release-bullets"><li>整理魚類、蟲類、鳥類、園藝與料理記錄功能，保留既有圖鑑與 JSON 備份相容性。</li><li>新增版本告示、目前篩選摘要、真正清除其他篩選、手動切換現在時段。</li><li>補充公開版使用說明、備份提醒、行動裝置操作及問題紀錄功能。</li></ul>
+    </article>
+   </div>
+   <nav class="release-pagination" aria-label="更新紀錄分頁"><button id="release-newer" class="button" type="button" aria-controls="release-batches" disabled aria-label="較新的更新">← 較新</button><span id="release-page-status" aria-live="polite" aria-atomic="true">1 / 4</span><button id="release-older" class="button" type="button" aria-controls="release-batches" aria-label="較舊的更新">較舊 →</button></nav>
+  </section>
+  <p><button id="report-issue" class="button">記錄資料問題</button> <small>產生問題紀錄，下載後可自行交給維護者；不會自動傳送。</small></p>
+  <!-- 頁尾：資料來源說明 -->
+<footer class="source-footer"><section class="release-source-notes" aria-label="資料來源與測試說明"><h3>資料來源與測試說明</h3><p>目前仍在測試中，如發現資料遺漏、文字錯誤、等級錯誤或其他異常資訊，請告知作者，協助修正。</p><p>資料來源：心動小鎮非官方圖鑑百科（Guava）；鳥類五星條件另依提供的 77 種整理總表。未確認條件尚待補充。</p></section><p>料理利潤＝星級售價－生產成本；成本依資料維護表，不計時間與食材轉售價。</p><p>首次預設 10 級及以下，之後記住上次選擇。等級可選至 14 級。</p><p>本站所有資訊僅供參考，不構成任何建議，不保證資訊的準確性、完整性或及時性。</p></footer>
+  <h2 style="text-align:center;margin:24px 0 8px;font-size:15px;font-weight:500;line-height:1.8;color:var(--muted)">希望我不要再重複拍到五星鳥了，阿們。</h2>
+  <p class="site-update-note">最後更新：<time id="site-last-updated" datetime="2026-10-19T00:00:00+08:00">2026/10/19</time><span>（台灣時間）</span></p>
+<p style="text-align:center;margin:4px 0 8px;font-size:12px;color:var(--muted)">作者：墨染</p>
+ </main>
+</div>
+<div id="toast" role="status" class="toast" hidden></div>
+<!-- 對話視窗：成本計算機教學、使用說明、回報問題、還原進度 -->
+<dialog id="calc-help-dialog" aria-labelledby="calc-help-title"><div class="dialog-heading"><h2 id="calc-help-title">成本計算機使用教學</h2><button class="icon-button" type="button" data-close aria-label="關閉計算機教學" autofocus>×</button></div><div class="calc-help-content"><div class="calc-quick-guide">
+  <ol><li><strong>選料理</strong><span>點開選單瀏覽所有料理，或輸入名稱搜尋；最上方可建立「＋自訂料理」。</span></li><li><strong>調整材料</strong><span>修改每份用量與單價，或新增材料。同名材料的單價會同步套用至所有料理。</span></li><li><strong>比較結果</strong><span>按「＋ 新增料理」加入比較，查看每份成本與 1～5 星利潤。</span></li></ol>
+  <details class="calc-guide-details"><summary>計算與保存須知</summary><p>每份成本＝各材料的用量 × 單價加總；利潤＝該星級售價 − 每份成本。</p><p>未設定的材料單價目前以 0 金幣計算，請先確認價格。自訂料理可試算材料成本，尚無星級售價，利潤會顯示「待補」。</p><p>試算調整僅保留於本次開啟頁面；重新整理後會重設，不包含在圖鑑 JSON 備份中。</p></details>
+ </div></div><button class="button primary" type="button" data-close>知道了</button></dialog>
+<dialog id="help-dialog"><div class="dialog-heading"><h2>使用說明與圖鑑備份</h2><button class="icon-button" data-close aria-label="關閉說明">×</button></div><div class="help-content">
+<aside class="release-notice" aria-label="版本告示">
+   <strong>版本告示 · v1.2.0</strong><p>本圖鑑於 2026 年 9 月 28 日製作，資料及功能於 <time datetime="2026-10-12">2026 年 10 月 12 日</time>更新。</p>
+   <p>非官方玩家整理工具；資料可能隨遊戲更新而變動，未確認內容以標記為準。</p><p>當前紀錄:自遠古召喚起</p><a href="#release-log">查看版本紀錄</a>
+  </aside>
+<p class="help-intro">先選擇你想做的事，展開對應說明。</p>
+<details class="help-topic" open><summary>記錄五星與花色</summary><div><ol><li>選擇圖鑑分類，再依名稱、地點或食材搜尋。</li><li>取得五星後，勾選該項目，首頁會同步顯示收藏進度。</li><li>花卉可展開逐一勾選花色；勾選花名前的方框會全選，取消則全部取消。收齊全部花色才算完成，作物按每種五星記錄。</li></ol></div></details>
+<details class="help-topic"><summary>篩選條件與出沒時間</summary><div><ul><li><strong>初始條件：</strong>10 級及以下、全部收錄類型、晴天與開啟時的本機時段。每次開啟時收錄類型預設全選，其餘條件記住上次選擇。</li><li><strong>等級：</strong>包含所選等級以下的項目；未知等級請選「不限等級」。</li><li><strong>清除其他篩選：</strong>清除目前分類的搜尋及其他篩選，保留天氣與時段。「重設預設條件」恢復初始設定。</li><li><strong>天氣與時段：</strong>魚、蟲、鳥共用這兩項條件。時間不會自動跟著時鐘切換，可按「切換到現在時段」手動更新。</li><li><strong>鳥類五星：</strong>「僅五星」使用五星條件篩選，與一般出沒資訊分開顯示。篩選結果不保證遊戲即時出沒，待確認資訊請以遊戲實際情況為準。</li></ul></div></details>
+<details class="help-topic"><summary>排序與料理利潤</summary><div><ul><li>烹飪與成本計算機的料理選單預設依編號由小到大排列；烹飪列表可按「編號排序」恢復此順序。其他分類依日常、當前活動、過往活動分組。手動切換排序後，以所選欄位為主。</li><li>點選名稱、等級、地點等可排序的欄位標題，再點一次可切換排序方向。</li><li>料理可選 1～5 星查看利潤；展開詳情可查看成本、售價與食材。</li><li>利潤依來源資料計算，不計時間與食材轉售的機會成本；未知數值排在後方。</li></ul></div></details>
+<details class="help-topic"><summary>成本計算機：選料理、改材料、比成本</summary><div><ol><li>從側邊選單進入「成本計算機」。料理下拉選單可瀏覽全部料理，也可輸入名稱搜尋。</li><li>選單最上方的「＋自訂料理」可建立空白料理；輸入名稱後也可用該名稱建立。</li><li>調整每份用量與單價，或輸入材料名稱後按「加入」。修改同名材料單價會同步影響所有比較中的料理。</li><li>按「＋ 新增料理」加入其他料理，可比較最多六道。選擇兩道以上時，下方顯示成本與各星級利潤比較表。</li></ol><div class="help-callout"><p><strong>計算：</strong>每份成本＝各材料（用量 × 單價）加總；每份利潤＝對應星級售價 − 每份成本。</p><p><strong>價格：</strong>未設定的材料單價目前預設為 0 金幣，請自行確認並調整。「限時材料」表示材料取得受限，不代表料理停止製作。</p><p><strong>自訂料理：</strong>可試算材料成本；目前尚無星級售價，利潤顯示「待補」。</p><p><strong>保存：</strong>試算調整僅保留於本次開啟頁面，重新整理後重設；圖鑑 JSON 備份不包含這些調整。</p></div></div></details>
+<details class="help-topic"><summary>備份、還原與換裝置</summary><div><ol><li>按「匯出備份」，確認 JSON 檔案已下載並保存。</li><li>換裝置、換瀏覽器或從本機檔案移到網站時，在新位置按「匯入進度」，選取備份檔。</li><li>「合併進度」保留雙方已完成項目與目前篩選；「取代目前進度」使用備份的勾選與篩選，操作前請先備份。</li></ol><p>收藏進度只保存在目前瀏覽器，不會上傳或跨裝置同步。清除網站資料、更換網址或瀏覽器，可能無法讀取原進度。</p><p>首次累積 10 筆收集，或與上次匯出相比有 10 筆變更時，系統會提醒備份；保存紀錄不代表檔案已下載成功。</p><p><strong>舊版備份：</strong>可匯入相容的舊版 JSON；有兩份進度時可依序合併。舊版花色紀錄會對應至可見花色，無法對應的項目會在匯入前提示，原始備份檔不受影響。</p></div></details>
+<details class="help-topic"><summary>回報資料問題</summary><div><p>使用「記錄資料問題」產生含版本與目前篩選的文字紀錄，補上項目名稱、問題及可核對的來源，下載後自行提供給維護者；目前不會自動傳送。</p></div></details>
+</div><button class="button primary" data-close>知道了</button></dialog>
+<dialog id="report-dialog"><div class="dialog-heading"><h2>記錄資料問題</h2><button class="icon-button" data-close aria-label="關閉問題紀錄">×</button></div><p>請補充問題與來源。此功能不會自動傳送，也不會包含你紀錄清單。</p><label for="report-text">問題內容</label><textarea id="report-text" class="report-field"></textarea><button id="download-report" class="button primary">下載問題紀錄</button></dialog>
+<dialog id="import-dialog"><div class="dialog-heading"><h2>還原進度</h2><button class="icon-button" data-close aria-label="取消匯入">×</button></div><p id="import-summary"></p><p>合併會保留雙方已完成項目；取代會覆蓋目前的勾選與篩選。</p><div class="dialog-actions"><button class="button" data-close>取消</button><button id="replace-backup" class="button">取代目前進度</button><button id="merge-backup" class="button primary">合併進度</button></div></dialog>
+<!-- 載入順序不可調換：核心邏輯 → 資料載入器 → 畫面程式 -->
+<script src="js/journal-core.js"></script>
+<script src="js/data-loader.js"></script>
+<script src="js/app.js"></script>
+</body></html>

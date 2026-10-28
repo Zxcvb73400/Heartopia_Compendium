@@ -1,0 +1,724 @@
+{
+  "materials": [
+    {
+      "name": "梨果仙人掌",
+      "cost": 30,
+      "limited": true,
+      "aliases": []
+    },
+    {
+      "name": "牛奶",
+      "cost": 50,
+      "limited": false,
+      "aliases": []
+    },
+    {
+      "name": "藍莓",
+      "cost": 0,
+      "limited": false,
+      "aliases": []
+    },
+    {
+      "name": "蘋果",
+      "cost": 0,
+      "limited": false,
+      "aliases": []
+    },
+    {
+      "name": "橘子",
+      "cost": 0,
+      "limited": false,
+      "aliases": []
+    },
+    {
+      "name": "樹莓",
+      "cost": 0,
+      "limited": false,
+      "aliases": []
+    },
+    {
+      "name": "鳳梨",
+      "cost": 15,
+      "limited": false,
+      "aliases": [
+        "鳳梨；鳳梨"
+      ]
+    },
+    {
+      "name": "草莓",
+      "cost": 125,
+      "limited": false,
+      "aliases": []
+    },
+    {
+      "name": "葡萄",
+      "cost": 160,
+      "limited": false,
+      "aliases": []
+    },
+    {
+      "name": "肉",
+      "cost": 200,
+      "limited": false,
+      "aliases": []
+    },
+    {
+      "name": "番茄",
+      "cost": 10,
+      "limited": false,
+      "aliases": []
+    },
+    {
+      "name": "馬鈴薯",
+      "cost": 30,
+      "limited": false,
+      "aliases": [
+        "土豆；土豆"
+      ]
+    },
+    {
+      "name": "玉米",
+      "cost": 170,
+      "limited": false,
+      "aliases": []
+    },
+    {
+      "name": "胡蘿蔔",
+      "cost": 50,
+      "limited": false,
+      "aliases": []
+    },
+    {
+      "name": "果木炭",
+      "cost": 50,
+      "limited": true,
+      "aliases": []
+    },
+    {
+      "name": "濃縮棗漿",
+      "cost": 50,
+      "limited": true,
+      "aliases": []
+    },
+    {
+      "name": "任意蔬菜",
+      "cost": 30,
+      "limited": false,
+      "aliases": []
+    },
+    {
+      "name": "茄子",
+      "cost": 406,
+      "limited": false,
+      "aliases": []
+    },
+    {
+      "name": "任意湖魚",
+      "cost": 50,
+      "limited": false,
+      "aliases": []
+    },
+    {
+      "name": "淡金雀鱔",
+      "cost": 215,
+      "limited": true,
+      "aliases": []
+    },
+    {
+      "name": "棕斑雀鱔",
+      "cost": 215,
+      "limited": true,
+      "aliases": []
+    },
+    {
+      "name": "銀白雀鱔",
+      "cost": 215,
+      "limited": true,
+      "aliases": []
+    },
+    {
+      "name": "黑斑雀鱔",
+      "cost": 215,
+      "limited": true,
+      "aliases": []
+    },
+    {
+      "name": "黃金雀鱔",
+      "cost": 320,
+      "limited": true,
+      "aliases": []
+    },
+    {
+      "name": "任意水果",
+      "cost": 0,
+      "limited": false,
+      "aliases": []
+    },
+    {
+      "name": "小麥",
+      "cost": 95,
+      "limited": false,
+      "aliases": []
+    },
+    {
+      "name": "生菜",
+      "cost": 145,
+      "limited": false,
+      "aliases": []
+    },
+    {
+      "name": "南瓜",
+      "cost": 10,
+      "limited": true,
+      "aliases": []
+    },
+    {
+      "name": "椰子",
+      "cost": 27,
+      "limited": false,
+      "aliases": []
+    },
+    {
+      "name": "米粉包",
+      "cost": 50,
+      "limited": false,
+      "aliases": []
+    },
+    {
+      "name": "無菌蛋",
+      "cost": 100,
+      "limited": false,
+      "aliases": []
+    },
+    {
+      "name": "雞蛋",
+      "cost": 100,
+      "limited": false,
+      "aliases": []
+    },
+    {
+      "name": "奶酪",
+      "cost": 100,
+      "limited": false,
+      "aliases": []
+    },
+    {
+      "name": "黃油",
+      "cost": 150,
+      "limited": false,
+      "aliases": [
+        "奶油"
+      ]
+    },
+    {
+      "name": "咖啡豆",
+      "cost": 30,
+      "limited": false,
+      "aliases": []
+    },
+    {
+      "name": "紅茶",
+      "cost": 250,
+      "limited": false,
+      "aliases": []
+    },
+    {
+      "name": "抹茶粉",
+      "cost": 250,
+      "limited": false,
+      "aliases": []
+    },
+    {
+      "name": "紅豆",
+      "cost": 50,
+      "limited": false,
+      "aliases": []
+    },
+    {
+      "name": "食用油",
+      "cost": 100,
+      "limited": false,
+      "aliases": []
+    },
+    {
+      "name": "可可豆",
+      "cost": 110,
+      "limited": false,
+      "aliases": []
+    },
+    {
+      "name": "桂花醬",
+      "cost": 100,
+      "limited": true,
+      "aliases": []
+    },
+    {
+      "name": "平菇",
+      "cost": 0,
+      "limited": false,
+      "aliases": []
+    },
+    {
+      "name": "香菇",
+      "cost": 0,
+      "limited": false,
+      "aliases": []
+    },
+    {
+      "name": "洋菇",
+      "cost": 0,
+      "limited": false,
+      "aliases": [
+        "口蘑"
+      ]
+    },
+    {
+      "name": "牛肝菌",
+      "cost": 0,
+      "limited": false,
+      "aliases": []
+    },
+    {
+      "name": "黑松露",
+      "cost": 0,
+      "limited": false,
+      "aliases": []
+    },
+    {
+      "name": "美味雞肉",
+      "cost": 100,
+      "limited": true,
+      "aliases": []
+    },
+    {
+      "name": "美味牛肉",
+      "cost": 200,
+      "limited": true,
+      "aliases": []
+    },
+    {
+      "name": "冬蔭功醬",
+      "cost": 50,
+      "limited": true,
+      "aliases": []
+    },
+    {
+      "name": "肉桂可可粉",
+      "cost": 50,
+      "limited": true,
+      "aliases": []
+    },
+    {
+      "name": "燈籠果",
+      "cost": 30,
+      "limited": true,
+      "aliases": [
+        "灯笼果"
+      ]
+    },
+    {
+      "name": "蜜環菌",
+      "cost": 30,
+      "limited": true,
+      "aliases": [
+        "蜜环菌"
+      ]
+    },
+    {
+      "name": "任意烏賊",
+      "cost": 155,
+      "limited": true,
+      "aliases": []
+    },
+    {
+      "name": "無針烏賊",
+      "cost": 155,
+      "limited": true,
+      "aliases": []
+    },
+    {
+      "name": "虎斑烏賊",
+      "cost": 155,
+      "limited": true,
+      "aliases": []
+    },
+    {
+      "name": "金烏賊",
+      "cost": 155,
+      "limited": true,
+      "aliases": []
+    },
+    {
+      "name": "雛菊",
+      "cost": 100,
+      "limited": false,
+      "aliases": []
+    },
+    {
+      "name": "玫瑰",
+      "cost": 765,
+      "limited": false,
+      "aliases": []
+    },
+    {
+      "name": "任意顏色糖",
+      "cost": 150,
+      "limited": false,
+      "aliases": []
+    },
+    {
+      "name": "紅色糖",
+      "cost": 150,
+      "limited": false,
+      "aliases": []
+    },
+    {
+      "name": "橙色糖",
+      "cost": 150,
+      "limited": false,
+      "aliases": []
+    },
+    {
+      "name": "黃色糖",
+      "cost": 150,
+      "limited": false,
+      "aliases": []
+    },
+    {
+      "name": "綠色糖",
+      "cost": 150,
+      "limited": false,
+      "aliases": []
+    },
+    {
+      "name": "青色糖",
+      "cost": 150,
+      "limited": false,
+      "aliases": []
+    },
+    {
+      "name": "藍色糖",
+      "cost": 150,
+      "limited": false,
+      "aliases": []
+    },
+    {
+      "name": "紫色糖",
+      "cost": 150,
+      "limited": false,
+      "aliases": []
+    },
+    {
+      "name": "一星魚類",
+      "cost": 50,
+      "limited": false,
+      "aliases": []
+    },
+    {
+      "name": "茶葉",
+      "cost": 75,
+      "limited": false,
+      "aliases": []
+    },
+    {
+      "name": "北歐螯蝦",
+      "cost": 100,
+      "limited": false,
+      "aliases": []
+    },
+    {
+      "name": "月餅",
+      "cost": 820,
+      "limited": false,
+      "aliases": []
+    },
+    {
+      "name": "水果馬鞭草風味派",
+      "cost": 360,
+      "limited": false,
+      "aliases": []
+    },
+    {
+      "name": "仙人掌鮮果飲",
+      "cost": 220,
+      "limited": true,
+      "aliases": []
+    },
+    {
+      "name": "仙人掌鮮魚羹",
+      "cost": 230,
+      "limited": true,
+      "aliases": []
+    },
+    {
+      "name": "奶酪蛋糕",
+      "cost": 480,
+      "limited": false,
+      "aliases": []
+    },
+    {
+      "name": "巧克力月餅",
+      "cost": 1050,
+      "limited": false,
+      "aliases": []
+    },
+    {
+      "name": "玉兔冰皮月餅",
+      "cost": 250,
+      "limited": false,
+      "aliases": []
+    },
+    {
+      "name": "田園沙拉",
+      "cost": 90,
+      "limited": false,
+      "aliases": []
+    },
+    {
+      "name": "白蘿蔔奶油濃湯",
+      "cost": 340,
+      "limited": true,
+      "aliases": []
+    },
+    {
+      "name": "白蘿蔔泥肉",
+      "cost": 630,
+      "limited": true,
+      "aliases": []
+    },
+    {
+      "name": "冰杯咖啡",
+      "cost": 280,
+      "limited": true,
+      "aliases": []
+    },
+    {
+      "name": "咖啡",
+      "cost": 290,
+      "limited": false,
+      "aliases": []
+    },
+    {
+      "name": "春日水果紅茶",
+      "cost": 460,
+      "limited": false,
+      "aliases": []
+    },
+    {
+      "name": "炸魚薯條",
+      "cost": 310,
+      "limited": false,
+      "aliases": []
+    },
+    {
+      "name": "原味糖霜鬆餅",
+      "cost": 330,
+      "limited": false,
+      "aliases": []
+    },
+    {
+      "name": "海鮮披薩",
+      "cost": 780,
+      "limited": false,
+      "aliases": []
+    },
+    {
+      "name": "海鮮燴飯",
+      "cost": 490,
+      "limited": false,
+      "aliases": []
+    },
+    {
+      "name": "甜蜜雙拼桶",
+      "cost": 1150,
+      "limited": false,
+      "aliases": []
+    },
+    {
+      "name": "莎莎醬波浪薯片",
+      "cost": 280,
+      "limited": false,
+      "aliases": []
+    },
+    {
+      "name": "野菜萵苣塔可",
+      "cost": 330,
+      "limited": false,
+      "aliases": []
+    },
+    {
+      "name": "復甦蛋",
+      "cost": 190,
+      "limited": false,
+      "aliases": []
+    },
+    {
+      "name": "復甦紫紋蛋",
+      "cost": 620,
+      "limited": false,
+      "aliases": []
+    },
+    {
+      "name": "復甦綠紋蛋",
+      "cost": 570,
+      "limited": false,
+      "aliases": []
+    },
+    {
+      "name": "復甦橙紋蛋",
+      "cost": 190,
+      "limited": false,
+      "aliases": []
+    },
+    {
+      "name": "提拉米蘇",
+      "cost": 530,
+      "limited": false,
+      "aliases": []
+    },
+    {
+      "name": "焦糖爆米花桶",
+      "cost": 820,
+      "limited": false,
+      "aliases": []
+    },
+    {
+      "name": "番茄醬",
+      "cost": 180,
+      "limited": false,
+      "aliases": []
+    },
+    {
+      "name": "醇香紅茶飲",
+      "cost": 840,
+      "limited": false,
+      "aliases": []
+    },
+    {
+      "name": "積木肉餅蘑菇堡",
+      "cost": 450,
+      "limited": false,
+      "aliases": []
+    },
+    {
+      "name": "積木碗水果刨冰",
+      "cost": 210,
+      "limited": false,
+      "aliases": []
+    },
+    {
+      "name": "鮮蔬烤肉",
+      "cost": 580,
+      "limited": true,
+      "aliases": []
+    },
+    {
+      "name": "燻魚貝果",
+      "cost": 520,
+      "limited": false,
+      "aliases": []
+    },
+    {
+      "name": "蘋果派",
+      "cost": 730,
+      "limited": false,
+      "aliases": []
+    },
+    {
+      "name": "鹹香雙拼桶",
+      "cost": 1230,
+      "limited": false,
+      "aliases": []
+    },
+    {
+      "name": "鹹香爆米花桶",
+      "cost": 900,
+      "limited": false,
+      "aliases": []
+    },
+    {
+      "name": "蘿蔓萵苣塔可",
+      "cost": 260,
+      "limited": false,
+      "aliases": []
+    },
+    {
+      "name": "材料補價規則",
+      "cost": null,
+      "limited": false,
+      "aliases": []
+    },
+    {
+      "name": "黃金帝王蟹",
+      "cost": 850,
+      "limited": false,
+      "aliases": []
+    },
+    {
+      "name": "藍色北歐螯蝦",
+      "cost": 250,
+      "limited": false,
+      "aliases": []
+    },
+    {
+      "name": "稻穀",
+      "cost": 37,
+      "limited": false,
+      "aliases": []
+    },
+    {
+      "name": "白蘿蔔",
+      "cost": 30,
+      "limited": true,
+      "aliases": []
+    },
+    {
+      "name": "雜草",
+      "cost": 0,
+      "limited": false,
+      "aliases": []
+    },
+    {
+      "name": "帝王蟹",
+      "cost": 535,
+      "limited": false,
+      "aliases": []
+    },
+    {
+      "name": "粽葉",
+      "cost": 50,
+      "limited": true,
+      "aliases": []
+    }
+  ],
+  "limitedMaterials": [
+    "南瓜",
+    "梨果仙人掌",
+    "果木炭",
+    "濃縮棗漿",
+    "淡金雀鱔",
+    "棕斑雀鱔",
+    "銀白雀鱔",
+    "黑斑雀鱔",
+    "黃金雀鱔",
+    "桂花醬",
+    "美味雞肉",
+    "美味牛肉",
+    "冬蔭功醬",
+    "肉桂可可粉",
+    "燈籠果",
+    "蜜環菌",
+    "任意烏賊",
+    "無針烏賊",
+    "虎斑烏賊",
+    "金烏賊",
+    "仙人掌鮮果飲",
+    "仙人掌鮮魚羹",
+    "白蘿蔔奶油濃湯",
+    "白蘿蔔泥肉",
+    "冰杯咖啡",
+    "鮮蔬烤肉",
+    "白蘿蔔",
+    "粽葉"
+  ]
+}

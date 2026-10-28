@@ -1,0 +1,44 @@
+{
+  "dataVersion": "2026-10-19",
+  "source": "https://heartopiawiki.weebly.com/",
+  "author": "Guava",
+  "fetchedAt": "2026-09-28T00:18:42+08:00",
+  "rawCounts": {
+    "fish": 101,
+    "bugs": 95,
+    "birds": 94,
+    "flowers": 13,
+    "dishes": 147,
+    "crops": 16
+  },
+  "profitSource": "https://heartopiawiki.weebly.com/files/theme/app.js?1782405341",
+  "mergeSources": [
+    {
+      "label": "五星原版",
+      "fetchedAt": "2026-09-27T22:26:49+08:00"
+    },
+    {
+      "label": "全花色版",
+      "fetchedAt": "2026-09-28T00:18:42+08:00"
+    }
+  ],
+  "birdFiveStarSource": {
+    "workbook": "鳥類五星時段_77種完整合併版.xlsx",
+    "sheet": "五星時段總表",
+    "species": 77,
+    "matchedRecords": 77,
+    "policy": "舒展時間即五星時段，取代舊五星時段"
+  },
+  "maintenanceUpdate": {
+    "updatedAt": "2026-10-19",
+    "source": "小鎮圖鑑_資料維護 -1019.xlsx",
+    "counts": {
+      "fish": 112,
+      "bugs": 89,
+      "birds": 93,
+      "flowers": 155,
+      "dishes": 199
+    },
+    "mergeScope": "僅合併來源新增ID；暫定ID保留來源待確認標記"
+  }
+}

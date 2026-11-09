@@ -1080,7 +1080,7 @@
   });
   $('report-issue').addEventListener('click', () => {
     $('report-text').value =
-      '心動小鎮五星圖鑑 v1.2.0（2026/10/12 更新）\n分類：' +
+      '心動小鎮五星圖鑑 v1.2.2（2026/11/09 更新）\n分類：' +
       meta[state.active].name +
       '\n' +
       $('filter-summary').textContent +

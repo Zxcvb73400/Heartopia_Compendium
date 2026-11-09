@@ -5,16 +5,19 @@
 <meta property="og:title" content="心動小鎮五星圖鑑">
 <meta property="og:description" content="希望我不要再重複拍到五星鳥了，阿們。">
 <meta property="og:type" content="website"><meta property="og:locale" content="zh_TW">
-<meta name="atlas-updated-at" content="2026-10-12T00:00:00+08:00">
+<meta name="atlas-updated-at" content="2026-11-09">
 <meta name="theme-color" content="#34654f">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%2334654f'/%3E%3Cpath d='m32 10 6 15 16 1-12 11 4 17-14-9-14 9 4-17L10 26l16-1z' fill='%23fff6ce'/%3E%3C/svg%3E">
 <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 <!-- 左側導覽列 -->
-<aside class="sidebar">
+<aside class="sidebar" id="sidebar">
+  <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="side-panel">分類 ▾</button>
+  <div class="side-panel" id="side-panel">
   <a class="brand" href="#">心動小鎮五星圖鑑</a>
   <button id="nav-home" class="nav-item home-nav"><span class="nav-icon" aria-hidden="true">⌂</span><span class="nav-name">首頁</span></button><nav id="categories" aria-label="圖鑑分類"></nav><button id="nav-calculator" class="nav-item calculator-nav" type="button"><span class="nav-icon" aria-hidden="true">＋</span><span class="nav-name">成本計算機</span></button>
+</div>
 </aside>
 <div class="page">
  <header class="topbar"><div class="tools"><span id="save-state" role="status">準備保存</span><button id="export" class="button">匯出備份</button><button id="import" class="button">匯入進度</button><button id="help" class="icon-button" aria-label="使用說明">?</button><input id="file" type="file" accept=".json,application/json" hidden></div></header>
@@ -51,10 +54,21 @@
   <section id="release-log" class="release-log release-pages" aria-labelledby="release-heading">
    <div class="release-section-heading"><h2 id="release-heading">更新紀錄</h2></div>
    <div id="release-batches">
+    <article class="release-batch" aria-labelledby="release-title-122">
+     <h3 id="release-title-122">v1.2.2 · 2026/11/09 更新</h3>
+     <p class="release-count-line">圖鑑共 <strong>658 筆</strong> · 新增 <strong>10 道料理</strong> · 更新活動檔期與材料價格資料</p>
+     <ul class="release-bullets">
+      <li><strong>食譜新增</strong>：新增萬聖節 7 道料理，以及「三麗鷗聯動」3 款可麗餅。</li>
+      <li><strong>活動資料</strong>：新增「不給糖就搗蛋」﹑補充過去「三麗鷗聯動」此兩項活動。</li>
+      <li><strong>成本計算</strong>：補齊新增料理的材料成本資料與材料名稱對應。</li>
+      <li><strong>介面調整及優化</strong>：整理材料表格欄寬與數值欄位對齊，優化手機介面。</li>
+     </ul>
+    </article>
     <article class="release-batch" aria-labelledby="release-title-today">
      <h3 id="release-title-today">v1.2.1 · 2026/10/19 更新</h3>
      <p class="release-count-line">圖鑑共 <strong>648 筆</strong> · 本批新增 <strong>14 筆</strong> · 修改 <strong>23 筆</strong> · 移除 <strong>0 筆</strong></p>
      <ul class="release-bullets">
+      <li><strong>圖鑑資料更新</strong>：新增第二周之活動圖鑑。</li>
       <li><strong>篩選優化</strong>：時段選單新增「全部時段」以供勾選已有資料。</li>
       <li><strong>地點優化</strong>：優化篩選規則；出沒地點若為事件顯示階段。</li>
       <li><strong>資料顯示及優化</strong>：來源空白或標示為 N/A 的欄位統一顯示為 N/A，優化資料結構。</li>
@@ -73,7 +87,7 @@
 <article class="release-batch" hidden aria-labelledby="release-title-110">
      <h3 id="release-title-110">v1.1.0 · 2026/10/05 更新</h3>
      <p class="release-count-line">圖鑑共 <strong>596 筆</strong> · 本批新增 <strong>59 筆</strong></p>
-     <ul class="release-bullets"><li><strong>活動資料更新</strong>：收錄遠古召喚、漢堡王連動、中秋活動及七夕活動。</li><li><strong>價格與條件更新</strong>：更新星級售價、料理成本與利潤、鳥類出現條件及慶典幣價格。</li><li><strong>收錄類型優化</strong>：日常、當前活動、過往活動以不同顏色區分，活動項目直接顯示所屬活動名稱。</li><li><strong>介面優化</strong>：優化介面；各分類新增「僅顯示當前可獲取」，預設勾選；已註明活動外仍可製作的料理也會保留顯示。</li><li><strong>活動時間連動</strong>：依已設定的活動結束時間，自動轉為過往活動，並同步更新可獲取篩選。</li></ul>
+     <ul class="release-bullets"><li><strong>活動資料更新</strong>：收錄遠古召喚、漢堡王聯動、中秋活動及七夕活動。</li><li><strong>價格與條件更新</strong>：更新星級售價、料理成本與利潤、鳥類出現條件及慶典幣價格。</li><li><strong>收錄類型優化</strong>：日常、當前活動、過往活動以不同顏色區分，活動項目直接顯示所屬活動名稱。</li><li><strong>介面優化</strong>：優化介面；各分類新增「僅顯示當前可獲取」，預設勾選；已註明活動外仍可製作的料理也會保留顯示。</li><li><strong>活動時間聯動</strong>：依已設定的活動結束時間，自動轉為過往活動，並同步更新可獲取篩選。</li></ul>
     
     </article>
 <article class="release-batch" hidden aria-labelledby="release-title-100" hidden>
@@ -82,7 +96,7 @@
      <ul class="release-bullets"><li>整理魚類、蟲類、鳥類、園藝與料理記錄功能，保留既有圖鑑與 JSON 備份相容性。</li><li>新增版本告示、目前篩選摘要、真正清除其他篩選、手動切換現在時段。</li><li>補充公開版使用說明、備份提醒、行動裝置操作及問題紀錄功能。</li></ul>
     </article>
    </div>
-   <nav class="release-pagination" aria-label="更新紀錄分頁"><button id="release-newer" class="button" type="button" aria-controls="release-batches" disabled aria-label="較新的更新">← 較新</button><span id="release-page-status" aria-live="polite" aria-atomic="true">1 / 4</span><button id="release-older" class="button" type="button" aria-controls="release-batches" aria-label="較舊的更新">較舊 →</button></nav>
+   <nav class="release-pagination" aria-label="更新紀錄分頁"><button id="release-newer" class="button" type="button" aria-controls="release-batches" disabled aria-label="較新的更新">← 較新</button><span id="release-page-status" aria-live="polite" aria-atomic="true">1 / 5</span><button id="release-older" class="button" type="button" aria-controls="release-batches" aria-label="較舊的更新">較舊 →</button></nav>
   </section>
   <p><button id="report-issue" class="button">記錄資料問題</button> <small>產生問題紀錄，下載後可自行交給維護者；不會自動傳送。</small></p>
   <!-- 頁尾：資料來源說明 -->
@@ -100,7 +114,7 @@
  </div></div><button class="button primary" type="button" data-close>知道了</button></dialog>
 <dialog id="help-dialog"><div class="dialog-heading"><h2>使用說明與圖鑑備份</h2><button class="icon-button" data-close aria-label="關閉說明">×</button></div><div class="help-content">
 <aside class="release-notice" aria-label="版本告示">
-   <strong>版本告示 · v1.2.0</strong><p>本圖鑑於 2026 年 9 月 28 日製作，資料及功能於 <time datetime="2026-10-12">2026 年 10 月 12 日</time>更新。</p>
+   <strong>版本告示 · v1.2.2</strong><p>本圖鑑於 2026 年 9 月 28 日製作，資料及功能於 <time datetime="2026-11-09">2026 年 11 月 9 日</time>更新。</p>
    <p>非官方玩家整理工具；資料可能隨遊戲更新而變動，未確認內容以標記為準。</p><p>當前紀錄:自遠古召喚起</p><a href="#release-log">查看版本紀錄</a>
   </aside>
 <p class="help-intro">先選擇你想做的事，展開對應說明。</p>
@@ -117,4 +131,9 @@
 <script src="js/journal-core.js"></script>
 <script src="js/data-loader.js"></script>
 <script src="js/app.js"></script>
+<script>
+(function(){var b=document.querySelector('.menu-toggle'),s=document.getElementById('sidebar');if(!b||!s)return;
+b.addEventListener('click',function(){var o=s.classList.toggle('open');b.setAttribute('aria-expanded',o?'true':'false');});
+s.addEventListener('click',function(e){if(e.target.closest('.nav-item')&&window.innerWidth<=800){s.classList.remove('open');b.setAttribute('aria-expanded','false');}});})();
+</script>
 </body></html>

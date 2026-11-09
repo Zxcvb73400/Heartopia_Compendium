@@ -364,7 +364,9 @@
       "name": "任意顏色糖",
       "cost": 150,
       "limited": false,
-      "aliases": []
+      "aliases": [
+        "任意彩虹糖"
+      ]
     },
     {
       "name": "紅色糖",
@@ -688,6 +690,12 @@
       "name": "粽葉",
       "cost": 50,
       "limited": true,
+      "aliases": []
+    },
+    {
+      "name": "巧克力醬",
+      "cost": 440,
+      "limited": false,
       "aliases": []
     }
   ],

@@ -1,5 +1,5 @@
 {
-  "dataVersion": "2026-10-19",
+  "dataVersion": "2026-11-09.4",
   "source": "https://heartopiawiki.weebly.com/",
   "author": "Guava",
   "fetchedAt": "2026-09-28T00:18:42+08:00",
@@ -30,15 +30,15 @@
     "policy": "舒展時間即五星時段，取代舊五星時段"
   },
   "maintenanceUpdate": {
-    "updatedAt": "2026-10-19",
-    "source": "小鎮圖鑑_資料維護 -1019.xlsx",
+    "updatedAt": "2026-11-09",
+    "source": "使用者提供食譜圖片與活動名稱修正；成本依 data/material-catalog.json",
     "counts": {
       "fish": 112,
       "bugs": 89,
       "birds": 93,
       "flowers": 155,
-      "dishes": 199
+      "dishes": 209
     },
-    "mergeScope": "僅合併來源新增ID；暫定ID保留來源待確認標記"
+    "mergeScope": "新增10筆使用者核稿料理；保留既有項目 ID 與原始來源標記"
   }
 }

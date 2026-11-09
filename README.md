@@ -30,7 +30,10 @@ data/
 
 - **VS Code**：安裝 Live Server 外掛，對 index.html 按右鍵 →「Open with Live Server」
 - **Python**：在此資料夾開啟終端機，執行 `python -m http.server 8000`，然後開 http://localhost:8000
-- **直接上傳**到網站空間（GitHub Pages、Netlify 等）後用網址開啟
+- **線上使用**：可直接開啟以下任一版本：
+  - [Cloudflare Workers 版本](https://heartopia-atlas.zxcvb7340-0.workers.dev/)
+  - [GitHub Pages 版本](https://zxcvb73400.github.io/Heartopia_Compendium/)
+- **自行上傳**到其他網站空間（GitHub Pages、Netlify 等）後用網址開啟
 
 如果誤用雙擊開啟，頁面頂端會出現說明，而不是一片空白。
 
@@ -84,12 +87,4 @@ data/
 - 想改「顏色、間距」→ `css/style.css`
 - 想改「資料怎麼讀進來」→ `data-loader.js`
 
-## 這次改了什麼（與原本單檔版的差異）
 
-- 資料從 HTML 內嵌改成獨立 JSON，總資料量約 800 KB → 約 520 KB（所有資料內容都保留，沒有刪除有內容的欄位）。
-- 移除沒有被程式使用的 `referenceFlowerColors`（約 70 KB，且 ID 全部重複）。
-- 程式邏輯本身沒有改動；`app.js` 只有調整資料來源：資料改由載入器取得、食材目錄改讀 `DATA.materials`，
-  並在資料載入完成後替 `<body>` 加上 `is-ready`。
-- 資料載入完成前，畫面會先隱藏（`css/style.css` 的 `body:not(.is-ready)`），
-  避免先看到沒有分類導覽的空殼再跳成完整畫面。載入失敗時只會顯示錯誤說明。
-- 收藏紀錄（localStorage）使用的鍵名與項目 ID 完全沒變，使用者既有進度不受影響。

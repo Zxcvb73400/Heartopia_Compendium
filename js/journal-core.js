@@ -9,7 +9,7 @@ const JournalCore = (() => {
   /* ----------------------------------------------------------------
    * 基本設定：分類清單、預設篩選條件、活動標籤
    * ---------------------------------------------------------------- */
-  const categories = ['fish', 'bugs', 'birds', 'flowers', 'dishes'];
+  const categories = ['fish', 'bugs', 'birds', 'plants', 'dishes'];
   const currentTimeSlot = (date = new Date()) =>
     ['0-6時', '6-12時', '12-18時', '18-24時'][Math.floor(date.getHours() / 6)];
   const defaults = category => ({
@@ -163,26 +163,35 @@ const JournalCore = (() => {
       if (ak && av !== bv) return f.sort === 'profit-desc' ? bv - av : av - bv;
     }
     const tie = Number(a.number) - Number(b.number) || String(a.id).localeCompare(String(b.id));
-    if (f.sort === 'number') {
-      // 日常在前、依愛好等級再依編號；活動項目一律依編號（編號已依活動開始時間排定）
-      const isEvent = i => Boolean(String(i.eventName || '').trim());
+    // 同值時的排序：日常在前；活動項目依活動開始時間分組（同一活動放一起），
+    // 園藝同活動內作物在前、花卉在後，最後依編號
+    const isEvent = i => Boolean(String(i.eventName || '').trim());
+    const eventTie = () => {
       const ae = isEvent(a),
         be = isEvent(b);
       if (ae !== be) return ae ? 1 : -1;
-      // 園藝的活動項目：同一活動放在一起（依活動開始時間），活動內作物在前、花卉在後
-      if (ae && a.category === 'flowers' && b.category === 'flowers') {
+      if (ae && a.eventName !== b.eventName) {
         const start = i => Date.parse(i.eventSchedule?.startsAt) || Infinity;
-        if (a.eventName !== b.eventName)
-          return start(a) - start(b) || String(a.eventName).localeCompare(String(b.eventName), 'zh-Hant');
+        return start(a) - start(b) || String(a.eventName).localeCompare(String(b.eventName), 'zh-Hant');
+      }
+      if (ae && a.category === 'plants' && b.category === 'plants') {
         const crop = i => (i.plantType === 'crop' ? 0 : 1);
         if (crop(a) !== crop(b)) return crop(a) - crop(b);
       }
+      return tie;
+    };
+    if (f.sort === 'number') {
+      // 日常在前（依愛好等級再依編號）；活動項目依活動分組
+      const ae = isEvent(a),
+        be = isEvent(b);
+      if (ae !== be) return ae ? 1 : -1;
       if (!ae) {
         const al = Number.isFinite(a.level) ? a.level : Infinity,
           bl = Number.isFinite(b.level) ? b.level : Infinity;
         if (al !== bl) return al - bl;
+        return tie;
       }
-      return tie;
+      return eventTie();
     }
     if (f.sort === 'growth' || f.sort === 'growth-desc') {
       const av = growthMinutes(a),
@@ -207,7 +216,12 @@ const JournalCore = (() => {
       const ak = Number.isFinite(a.level),
         bk = Number.isFinite(b.level);
       if (ak !== bk) return ak ? -1 : 1;
+      // 活動項目不論等級，同一活動一律放在一起（日常在前、活動依開始時間分組），活動內再依等級
+      if (isEvent(a) || isEvent(b)) {
+        if (isEvent(a) !== isEvent(b) || a.eventName !== b.eventName) return eventTie();
+      }
       if (ak && a.level !== b.level) return (f.sort === 'level-desc' ? -1 : 1) * (a.level - b.level);
+      return eventTie();
     }
     return tie;
   }
@@ -275,7 +289,7 @@ const JournalCore = (() => {
         const pastRequested = i.kind === '過往活動' && f.kind.includes('過往活動') && f.kind.length < 3;
         if (f.cookableOnly && !pastRequested && !isAvailable(i, limitedMaterials)) return false;
         if (
-          i.category === 'flowers' &&
+          i.category === 'plants' &&
           f.plantType &&
           f.plantType !== 'all' &&
           (i.plantType || 'flower') !== f.plantType
@@ -351,7 +365,7 @@ const JournalCore = (() => {
    * ---------------------------------------------------------------- */
   function flowerGroups(items, done) {
     const groups = new Map();
-    for (const i of items.filter(i => i.category === 'flowers')) {
+    for (const i of items.filter(i => i.category === 'plants')) {
       const key = JSON.stringify([i.plantType || 'flower', i.name, i.kind]);
       if (!groups.has(key)) groups.set(key, { ...i, colors: [] });
       groups.get(key).colors.push(i);
@@ -385,10 +399,13 @@ const JournalCore = (() => {
   /* ----------------------------------------------------------------
    * 存檔：檢查並清理使用者的收藏紀錄與備份檔
    * ---------------------------------------------------------------- */
+  // 舊版的園藝分類代碼是 flowers（2026-11 改為 plants），讀舊存檔／備份時自動對應
+  const LEGACY_CATEGORY = { flowers: 'plants' };
   function sanitizeState(input, items, retiredIds = []) {
     const value = input && typeof input === 'object' ? input : {};
+    const active = LEGACY_CATEGORY[value.active] || value.active;
     const state = {
-      active: categories.includes(value.active) ? value.active : 'fish',
+      active: categories.includes(active) ? active : 'fish',
       done: {},
       filters: {},
     };
@@ -403,7 +420,7 @@ const JournalCore = (() => {
     for (const id of retiredIds) if (value.done?.[id] === true) state.done[id] = true;
     for (const c of categories) {
       const f = defaults(c),
-        v = { ...(value.filters?.[c] || {}) };
+        v = { ...(value.filters?.[c] || value.filters?.[Object.keys(LEGACY_CATEGORY).find(k => LEGACY_CATEGORY[k] === c)] || {}) };
       if (typeof v.search === 'string') f.search = v.search.slice(0, 200);
       f.fiveStarOnly = c === 'birds' && v.fiveStarOnly === true;
       if (typeof v.cookableOnly === 'boolean') f.cookableOnly = v.cookableOnly;
@@ -433,7 +450,7 @@ const JournalCore = (() => {
           'name-desc',
           ...(['fish', 'bugs', 'birds'].includes(c) ? ['location', 'location-desc'] : []),
           ...(c === 'dishes' ? ['profit-desc', 'profit-asc', 'price-asc', 'price-desc'] : []),
-          ...(c === 'flowers' ? ['growth', 'growth-desc'] : []),
+          ...(c === 'plants' ? ['growth', 'growth-desc'] : []),
         ],
         profitStar: ['1', '2', '3', '4', '5'],
         plantType: ['all', 'flower', 'crop'],

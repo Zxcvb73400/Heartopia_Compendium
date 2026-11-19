@@ -431,7 +431,7 @@
     bugs: '<path d="M12 9C4-1 0 7 5 12C0 17 6 24 12 15C18 24 24 17 19 12C24 7 20-1 12 9Z"/><path d="M12 8v10m0-10-2-4m2 4 2-4"/>',
     birds:
       '<path d="M4 17C9 20 19 19 19 10c0-5-6-6-7-1L4 8l4 6-5 4m16-9 3 1-3 1M10 18v3m4-3v3M9 12l5 2 2-3"/><circle cx="16" cy="8" r=".5"/>',
-    flowers:
+    plants:
       '<path d="M12 9C4-2 0 10 8 12C-2 19 11 24 12 16C15 25 25 16 17 12C26 7 14-2 12 9Z"/><circle cx="12" cy="12" r="3"/>',
     dishes:
       '<path d="M4 12h16c0 5-3 8-8 8s-8-3-8-8ZM2 12h20M8 8c-3-3 3-3 0-6m5 6c-3-3 3-3 0-6m5 6c-3-3 3-3 0-6M8 22h8"/>',
@@ -449,7 +449,7 @@
     fish: { name: '魚類', desc: '河流、湖泊與海洋裡，等待上鉤的五星。' },
     bugs: { name: '蟲類', desc: '走進花田與森林，尋找小小的五星蹤跡。' },
     birds: { name: '鳥類', desc: '抬頭看一看，記錄最美的五星身影。' },
-    flowers: { name: '園藝', desc: '紀錄作物與花卉，每種花的所有已知花色分別勾選。' },
+    plants: { name: '園藝', desc: '紀錄作物與花卉，每種花的所有已知花色分別勾選。' },
     dishes: { name: '料理', desc: '把喜歡的食譜，做成一道道五星料理。' },
   };
   let state = JournalCore.sanitizeState({}, ALL_ITEMS, RETIRED_ITEM_IDS),
@@ -519,7 +519,7 @@
     $('home-bar').style.width = pct + '%';
     $('home-continue').textContent =
       '繼續收集 · ' +
-      { fish: '釣魚', bugs: '捕蟲', birds: '觀鳥', flowers: '園藝', dishes: '烹飪' }[state.active];
+      { fish: '釣魚', bugs: '捕蟲', birds: '觀鳥', plants: '園藝', dishes: '烹飪' }[state.active];
     $('home-cards').innerHTML = JournalCore.categories
       .map(c => {
         const all = trackable.filter(i => i.category === c),
@@ -530,7 +530,7 @@
           c +
           '"><span class="home-card-title">' +
           icon(c) +
-          { fish: '釣魚', bugs: '捕蟲', birds: '觀鳥', flowers: '園藝', dishes: '烹飪' }[c] +
+          { fish: '釣魚', bugs: '捕蟲', birds: '觀鳥', plants: '園藝', dishes: '烹飪' }[c] +
           '</span><strong>' +
           n +
           '</strong><small> / ' +
@@ -550,10 +550,10 @@
   }
   function updateProgress() {
     const trackable = [
-        ...ITEMS.filter(i => i.category !== 'flowers' && i.trackable),
+        ...ITEMS.filter(i => i.category !== 'plants' && i.trackable),
         ...JournalCore.flowerGroups(ITEMS, state.done).filter(i => i.trackable),
       ],
-      isComplete = i => (i.category === 'flowers' ? i.complete : !!state.done[i.id]),
+      isComplete = i => (i.category === 'plants' ? i.complete : !!state.done[i.id]),
       total = trackable.length,
       done = trackable.filter(isComplete).length,
       pct = Math.round((done / total) * 100);
@@ -571,7 +571,7 @@
       b.querySelector('.nav-count').textContent = `${n} / ${all.length}`;
       if (c === state.active) {
         $('category-count').textContent =
-          `${n} / ${all.length} ${c === 'flowers' ? '種已完成' : '已完成'} · ${Math.round((n / all.length) * 100)}%`;
+          `${n} / ${all.length} ${c === 'plants' ? '種已完成' : '已完成'} · ${Math.round((n / all.length) * 100)}%`;
         $('category-bar').style.width = `${(n / all.length) * 100}%`;
       }
     }
@@ -585,7 +585,7 @@
       f = state.filters[c],
       group = ITEMS.filter(i => i.category === c);
     $('category-title').textContent =
-      { fish: '釣魚', bugs: '捕蟲', birds: '觀鳥', flowers: '園藝', dishes: '烹飪' }[c] + '圖鑑';
+      { fish: '釣魚', bugs: '捕蟲', birds: '觀鳥', plants: '園藝', dishes: '烹飪' }[c] + '圖鑑';
     $('category-icon').innerHTML = icon(c);
     const places = JournalCore.locationChoices(group);
     $('location').innerHTML =
@@ -604,11 +604,11 @@
       .querySelectorAll('[data-kind-option]')
       .forEach(box => (box.checked = f.kind.includes(box.value)));
     updateKindDropdown();
-    $('plant-type-label').hidden = c !== 'flowers';
+    $('plant-type-label').hidden = c !== 'plants';
     $('profit-star-label').hidden = c !== 'dishes';
     $('dish-number-sort').hidden = c !== 'dishes';
     document.querySelector('.list').classList.toggle('dish-list', c === 'dishes');
-    document.querySelector('.list').classList.toggle('flower-list', c === 'flowers');
+    document.querySelector('.list').classList.toggle('flower-list', c === 'plants');
     $('cookable-only').checked = f.cookableOnly;
     $('bird-five-star').hidden = c !== 'birds';
     $('bird-five-star-note').hidden = c !== 'birds';
@@ -771,8 +771,8 @@
   }
   function renderFlowers() {
     const visible = JournalCore.visibleFlowers(
-      ITEMS.filter(i => i.category === 'flowers'),
-      state.filters.flowers,
+      ITEMS.filter(i => i.category === 'plants'),
+      state.filters.plants,
       state.done,
     );
     $('result-count').textContent = `顯示 ${visible.length} 種`;
@@ -859,7 +859,7 @@
       b.classList.toggle('active', active);
       b.setAttribute('aria-pressed', String(active));
     });
-    if (state.active === 'flowers') {
+    if (state.active === 'plants') {
       renderFlowers();
       return;
     }
@@ -877,7 +877,7 @@
     $('result-note').textContent =
       `${visible.filter(i => state.done[i.id]).length} 項已完成${pending ? ' · ' + pending + ' 項資料待確認' : ''}`;
     $('thead').innerHTML =
-      `<tr><th>${c === 'flowers' ? '收集' : '五星'}</th>${sortHeader(meta[c].name + '名稱', 'name')}${sortHeader('等級', 'level')}${habitat ? sortHeader('出沒地點', 'location') : `<th>${c === 'flowers' ? '花色・生長' : '所需食材'}</th>`}${c === 'dishes' ? sortHeader(`${Number(f.profitStar || 1)} 星利潤`, 'profit') + sortHeader('金額', 'price') : `<th>${habitat ? '時段・天氣' : '花色資料'}</th>`}<th>詳情</th></tr>`;
+      `<tr><th>${c === 'plants' ? '收集' : '五星'}</th>${sortHeader(meta[c].name + '名稱', 'name')}${sortHeader('等級', 'level')}${habitat ? sortHeader('出沒地點', 'location') : `<th>${c === 'plants' ? '花色・生長' : '所需食材'}</th>`}${c === 'dishes' ? sortHeader(`${Number(f.profitStar || 1)} 星利潤`, 'profit') + sortHeader('金額', 'price') : `<th>${habitat ? '時段・天氣' : '花色資料'}</th>`}<th>詳情</th></tr>`;
     $('rows').innerHTML = visible
       .map(i => {
         let info = '',
@@ -892,7 +892,7 @@
           extra =
             line(i.times.length === 4 ? '全天' : i.times.join(' / ') || '時段未知') +
             `<div class="weather-symbols">${i.weather.map(w => `<span class="${w === '彩虹' ? 'rainbow' : ''}">${{ 晴: '☀ 晴', 雨: '☂ 雨', 彩虹: '🌈 彩虹日' }[w]}</span>`).join('') || '天氣未知'}</div>`;
-        } else if (c === 'flowers') {
+        } else if (c === 'plants') {
           info =
             line(i.color === '待確認' ? '花色待確認' : i.color + ' · ' + i.stars.join('/') + '星') +
             `<span class="number">生長：${esc(i.raw['生長週期'] || '未知')}</span>`;
@@ -928,7 +928,7 @@
               ? '<div class="bird-whistle-info"><strong>鳥哨</strong>' + line(birdWhistleNote(i)) + '</div>'
               : '');
         const fullname = i.name + (i.color ? '・' + i.color : '');
-        return `<tr class="item ${state.done[i.id] ? 'complete' : ''}" data-item="${i.id}"><td><label class="check-label"><input type="checkbox" data-check="${i.id}" aria-label="${esc(fullname)} ${c === 'flowers' ? '已收集此花色' : '已取得五星'}" ${state.done[i.id] ? 'checked' : ''} ${i.trackable ? '' : i.displayOnly ? 'disabled title="僅供展示，不列入收集"' : 'disabled title="來源花色尚待確認"'}><span aria-hidden="true">✓</span></label></td><td><span class="item-name">${esc(i.name)}</span><div class="item-meta"><span class="badge ${JournalCore.kindClass(i)}">${esc(JournalCore.kindLabel(i))}</span>${c === 'dishes' && JournalCore.limitedIngredients(i, LIMITED_MATERIALS).length ? '<span class="badge limited">限時材料</span>' : ''}${c === 'dishes' && i.eventSchedule?.requiresActivityStation === true ? '<span class="badge station" title="需要活動限定料理台，活動結束後無法製作">限時料理台</span>' : ''}${i.color ? `<span class="badge ${i.trackable ? 'color' : 'unknown'}">${esc(i.color)}</span>` : ''}</div></td><td><span class="level-badge">${i.level === null ? '未知' : 'Lv. ' + i.level}</span></td><td>${info}</td><td>${extra}</td>${c === 'dishes' ? `<td class="dish-currency-cell">${dishCurrencySummary(i, Number(f.profitStar || 1))}</td>` : ''}<td><button class="row-detail" data-detail="${i.id}" aria-label="查看${esc(fullname)}資料" aria-expanded="false">${c === 'dishes' ? '詳情 ＋' : '資料 ＋'}</button></td></tr>`;
+        return `<tr class="item ${state.done[i.id] ? 'complete' : ''}" data-item="${i.id}"><td><label class="check-label"><input type="checkbox" data-check="${i.id}" aria-label="${esc(fullname)} ${c === 'plants' ? '已收集此花色' : '已取得五星'}" ${state.done[i.id] ? 'checked' : ''} ${i.trackable ? '' : i.displayOnly ? 'disabled title="僅供展示，不列入收集"' : 'disabled title="來源花色尚待確認"'}><span aria-hidden="true">✓</span></label></td><td><span class="item-name">${esc(i.name)}</span><div class="item-meta"><span class="badge ${JournalCore.kindClass(i)}">${esc(JournalCore.kindLabel(i))}</span>${c === 'dishes' && JournalCore.limitedIngredients(i, LIMITED_MATERIALS).length ? '<span class="badge limited">限時材料</span>' : ''}${c === 'dishes' && i.eventSchedule?.requiresActivityStation === true ? '<span class="badge station" title="需要活動限定料理台，活動結束後無法製作">限時料理台</span>' : ''}${i.color ? `<span class="badge ${i.trackable ? 'color' : 'unknown'}">${esc(i.color)}</span>` : ''}</div></td><td><span class="level-badge">${i.level === null ? '未知' : 'Lv. ' + i.level}</span></td><td>${info}</td><td>${extra}</td>${c === 'dishes' ? `<td class="dish-currency-cell">${dishCurrencySummary(i, Number(f.profitStar || 1))}</td>` : ''}<td><button class="row-detail" data-detail="${i.id}" aria-label="查看${esc(fullname)}資料" aria-expanded="false">${c === 'dishes' ? '詳情 ＋' : '資料 ＋'}</button></td></tr>`;
       })
       .join('');
     $('empty').hidden = visible.length > 0;
@@ -938,7 +938,7 @@
   $('categories').innerHTML = JournalCore.categories
     .map(
       c =>
-        `<button id="nav-${c}" class="nav-item" data-category="${c}"><span class="nav-icon">${icon(c)}</span><span class="nav-name">${{ fish: '釣魚', bugs: '捕蟲', birds: '觀鳥', flowers: '園藝', dishes: '烹飪' }[c]}</span><span class="nav-count"></span></button>`,
+        `<button id="nav-${c}" class="nav-item" data-category="${c}"><span class="nav-icon">${icon(c)}</span><span class="nav-name">${{ fish: '釣魚', bugs: '捕蟲', birds: '觀鳥', plants: '園藝', dishes: '烹飪' }[c]}</span><span class="nav-count"></span></button>`,
     )
     .join('');
   $('level').innerHTML =
@@ -956,7 +956,7 @@
       f = state.filters[state.active];
     if (
       !['name', 'level', 'profit', 'price', 'location', 'growth'].includes(key) ||
-      (key === 'growth' && state.active !== 'flowers') ||
+      (key === 'growth' && state.active !== 'plants') ||
       (['profit', 'price'].includes(key) && state.active !== 'dishes') ||
       (key === 'location' && !['fish', 'bugs', 'birds'].includes(state.active))
     )
@@ -1112,7 +1112,7 @@
       );
       if (c === 'birds') parts.push(f.fiveStarOnly ? '五星條件' : '一般出沒條件');
     }
-    if (c === 'flowers') parts.push({ all: '花卉與作物', flower: '花卉', crop: '作物' }[f.plantType]);
+    if (c === 'plants') parts.push({ all: '花卉與作物', flower: '花卉', crop: '作物' }[f.plantType]);
     if (c === 'dishes') parts.push(f.profitStar + ' 星利潤');
     if (f.cookableOnly) parts.push('僅顯示當前可獲取');
     $('filter-summary').textContent = '目前篩選：' + parts.join(' · ');
@@ -1163,7 +1163,7 @@
   $('report-issue').addEventListener('click', () => {
     $('report-text').value =
       '心動小鎮五星圖鑑 ' + currentReleaseLabel() + '\n分類：' +
-      { fish: '釣魚', bugs: '捕蟲', birds: '觀鳥', flowers: '園藝', dishes: '烹飪' }[state.active] +
+      { fish: '釣魚', bugs: '捕蟲', birds: '觀鳥', plants: '園藝', dishes: '烹飪' }[state.active] +
       '\n' +
       $('filter-summary').textContent +
       '\n\n項目名稱：\n遇到的問題：\n預期資料：\n可核對的來源與日期：\n裝置與瀏覽器：';
@@ -1227,7 +1227,7 @@
     if (e.target.checked) state.done[id] = true;
     else delete state.done[id];
     save();
-    if (i.category === 'flowers') {
+    if (i.category === 'plants') {
       renderRows();
       const next = document.querySelector('input[data-check="' + id + '"]');
       if (next) next.focus({ preventScroll: true });

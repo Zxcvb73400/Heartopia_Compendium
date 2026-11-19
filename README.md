@@ -22,10 +22,10 @@ css/           樣式
 js/            程式（核心邏輯、資料載入、畫面互動）
 data/          圖鑑資料（JSON）
   meta.json             資料版本號、來源、更新紀錄
-  fish.json             魚類
+  fish.json             釣魚
   bugs.json             捕蟲
-  birds.json            鳥類
-  flowers.json          花朵
+  birds.json            觀鳥
+  plants.json           園藝（花卉、作物）
   dishes.json           料理
   shared.json           重複出現的長文字（活動檔期、匯入備註、五星來源）
   activity-schedules.json   活動檔期（開始／結束時間、代幣名稱）
@@ -168,7 +168,7 @@ python -m http.server 8000
 - 活動／聯動料理用到 `material-catalog.json` 中 `limited: true` 的材料時，會顯示「限時材料」；
   `limited` 與檔案頂層的 `limitedMaterials` 清單要同步。
 - 價格分兩種用途：作為**料理材料**時，`material-catalog.json` 的單價用售出價格（作物、魚類、子料理都取 1 星售價）；
-  作為**種子**時，園藝頁的種植成本用 `flowers.json` 的 `raw.種子價格`（原始價格），兩者不要互相覆蓋。
+  作為**種子**時，園藝頁的種植成本用 `plants.json` 的 `raw.種子價格`（原始價格），兩者不要互相覆蓋。
 - 子料理（材料本身是一道料理，`material-catalog.json` 標 `"subDish": true`）一律以該料理的 **1 星售價**計入成本；
   用到子料理的套餐，`economics.cost` 依此加總，畫面的詳情與成本計算機會標示「子料理以 1 星售價計入成本」。
   「任意」子料理（材料目錄有 `options`）取該系列最低 1 星售價；詳情裡可展開「子料理材料明細」，看每道子料理用材料目錄單價統計的材料成本（僅供參考，不計入成本）。

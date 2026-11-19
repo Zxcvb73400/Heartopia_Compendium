@@ -15,7 +15,7 @@ const AtlasData = (() => {
 
   const DATA_DIR = 'data/';
   // 圖鑑分類：同時也是 data/ 底下的檔名，順序即畫面上的預設順序
-  const CATEGORY_NAMES = ['fish', 'bugs', 'birds', 'flowers', 'dishes'];
+  const CATEGORY_NAMES = ['fish', 'bugs', 'birds', 'plants', 'dishes'];
   // JSON 裡寫 "all" 時，代表「全時段」或「全天氣」
   const ALL_TIMES = ['0-6時', '6-12時', '12-18時', '18-24時'];
   const ALL_WEATHER = ['晴', '雨', '彩虹'];

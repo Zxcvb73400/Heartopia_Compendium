@@ -1,0 +1,10 @@
+# 維護用檔案（只留在本機，不推送到 GitHub）
+# VS Code / GitHub Copilot 本機 Agent
+.github/agents/
+# Code review 交接文件
+.github/review-handoff.md
+# 缺漏資料表與產生工具
+缺漏資料表.md
+tools/
+# 本機預覽設定
+.claude/

@@ -38,7 +38,7 @@
     },
     {
       "name": "鳳梨",
-      "cost": 15,
+      "cost": 52,
       "limited": false,
       "aliases": [
         "鳳梨；鳳梨"
@@ -46,13 +46,13 @@
     },
     {
       "name": "草莓",
-      "cost": 125,
+      "cost": 375,
       "limited": false,
       "aliases": []
     },
     {
       "name": "葡萄",
-      "cost": 160,
+      "cost": 480,
       "limited": false,
       "aliases": []
     },
@@ -64,13 +64,13 @@
     },
     {
       "name": "番茄",
-      "cost": 10,
+      "cost": 30,
       "limited": false,
       "aliases": []
     },
     {
       "name": "馬鈴薯",
-      "cost": 30,
+      "cost": 90,
       "limited": false,
       "aliases": [
         "土豆；土豆"
@@ -78,13 +78,13 @@
     },
     {
       "name": "玉米",
-      "cost": 170,
+      "cost": 515,
       "limited": false,
       "aliases": []
     },
     {
       "name": "胡蘿蔔",
-      "cost": 50,
+      "cost": 155,
       "limited": false,
       "aliases": []
     },
@@ -156,19 +156,19 @@
     },
     {
       "name": "小麥",
-      "cost": 95,
+      "cost": 285,
       "limited": false,
       "aliases": []
     },
     {
       "name": "生菜",
-      "cost": 145,
+      "cost": 435,
       "limited": false,
       "aliases": []
     },
     {
       "name": "南瓜",
-      "cost": 10,
+      "cost": 30,
       "limited": true,
       "aliases": []
     },
@@ -212,7 +212,7 @@
     },
     {
       "name": "咖啡豆",
-      "cost": 30,
+      "cost": 50,
       "limited": false,
       "aliases": []
     },
@@ -242,7 +242,7 @@
     },
     {
       "name": "可可豆",
-      "cost": 110,
+      "cost": 330,
       "limited": false,
       "aliases": []
     },
@@ -432,223 +432,253 @@
       "name": "月餅",
       "cost": 820,
       "limited": false,
-      "aliases": []
+      "aliases": [],
+      "subDish": true
     },
     {
       "name": "水果馬鞭草風味派",
       "cost": 360,
       "limited": false,
-      "aliases": []
+      "aliases": [],
+      "subDish": true
     },
     {
       "name": "仙人掌鮮果飲",
       "cost": 220,
       "limited": true,
-      "aliases": []
+      "aliases": [],
+      "subDish": true
     },
     {
       "name": "仙人掌鮮魚羹",
       "cost": 230,
       "limited": true,
-      "aliases": []
+      "aliases": [],
+      "subDish": true
     },
     {
       "name": "奶酪蛋糕",
       "cost": 480,
       "limited": false,
-      "aliases": []
+      "aliases": [],
+      "subDish": true
     },
     {
       "name": "巧克力月餅",
       "cost": 1050,
       "limited": false,
-      "aliases": []
+      "aliases": [],
+      "subDish": true
     },
     {
       "name": "玉兔冰皮月餅",
       "cost": 250,
       "limited": false,
-      "aliases": []
+      "aliases": [],
+      "subDish": true
     },
     {
       "name": "田園沙拉",
       "cost": 90,
       "limited": false,
-      "aliases": []
+      "aliases": [],
+      "subDish": true
     },
     {
       "name": "白蘿蔔奶油濃湯",
       "cost": 340,
       "limited": true,
-      "aliases": []
+      "aliases": [],
+      "subDish": true
     },
     {
       "name": "白蘿蔔泥肉",
       "cost": 630,
       "limited": true,
-      "aliases": []
+      "aliases": [],
+      "subDish": true
     },
     {
       "name": "冰杯咖啡",
       "cost": 280,
       "limited": true,
-      "aliases": []
+      "aliases": [],
+      "subDish": true
     },
     {
       "name": "咖啡",
       "cost": 290,
       "limited": false,
-      "aliases": []
+      "aliases": [],
+      "subDish": true
     },
     {
       "name": "春日水果紅茶",
       "cost": 460,
       "limited": false,
-      "aliases": []
+      "aliases": [],
+      "subDish": true
     },
     {
       "name": "炸魚薯條",
       "cost": 310,
       "limited": false,
-      "aliases": []
+      "aliases": [],
+      "subDish": true
     },
     {
       "name": "原味糖霜鬆餅",
       "cost": 330,
       "limited": false,
-      "aliases": []
+      "aliases": [],
+      "subDish": true
     },
     {
       "name": "海鮮披薩",
       "cost": 780,
       "limited": false,
-      "aliases": []
+      "aliases": [],
+      "subDish": true
     },
     {
       "name": "海鮮燴飯",
       "cost": 490,
       "limited": false,
-      "aliases": []
+      "aliases": [],
+      "subDish": true
     },
     {
       "name": "甜蜜雙拼桶",
       "cost": 1150,
       "limited": false,
-      "aliases": []
+      "aliases": [],
+      "subDish": true
     },
     {
       "name": "莎莎醬波浪薯片",
       "cost": 280,
       "limited": false,
-      "aliases": []
+      "aliases": [],
+      "subDish": true
     },
     {
       "name": "野菜萵苣塔可",
       "cost": 330,
       "limited": false,
-      "aliases": []
+      "aliases": [],
+      "subDish": true
     },
     {
       "name": "復甦蛋",
       "cost": 190,
       "limited": false,
-      "aliases": []
+      "aliases": [],
+      "subDish": true
     },
     {
       "name": "復甦紫紋蛋",
       "cost": 620,
       "limited": false,
-      "aliases": []
+      "aliases": [],
+      "subDish": true
     },
     {
       "name": "復甦綠紋蛋",
       "cost": 570,
       "limited": false,
-      "aliases": []
+      "aliases": [],
+      "subDish": true
     },
     {
       "name": "復甦橙紋蛋",
       "cost": 190,
       "limited": false,
-      "aliases": []
+      "aliases": [],
+      "subDish": true
     },
     {
       "name": "提拉米蘇",
       "cost": 530,
       "limited": false,
-      "aliases": []
+      "aliases": [],
+      "subDish": true
     },
     {
       "name": "焦糖爆米花桶",
       "cost": 820,
       "limited": false,
-      "aliases": []
+      "aliases": [],
+      "subDish": true
     },
     {
       "name": "番茄醬",
       "cost": 180,
       "limited": false,
-      "aliases": []
+      "aliases": [],
+      "subDish": true
     },
     {
       "name": "醇香紅茶飲",
       "cost": 840,
       "limited": false,
-      "aliases": []
+      "aliases": [],
+      "subDish": true
     },
     {
       "name": "積木肉餅蘑菇堡",
       "cost": 450,
       "limited": false,
-      "aliases": []
+      "aliases": [],
+      "subDish": true
     },
     {
       "name": "積木碗水果刨冰",
       "cost": 210,
       "limited": false,
-      "aliases": []
+      "aliases": [],
+      "subDish": true
     },
     {
       "name": "鮮蔬烤肉",
       "cost": 580,
       "limited": true,
-      "aliases": []
+      "aliases": [],
+      "subDish": true
     },
     {
       "name": "燻魚貝果",
       "cost": 520,
       "limited": false,
-      "aliases": []
+      "aliases": [],
+      "subDish": true
     },
     {
       "name": "蘋果派",
       "cost": 730,
       "limited": false,
-      "aliases": []
+      "aliases": [],
+      "subDish": true
     },
     {
       "name": "鹹香雙拼桶",
       "cost": 1230,
       "limited": false,
-      "aliases": []
+      "aliases": [],
+      "subDish": true
     },
     {
       "name": "鹹香爆米花桶",
       "cost": 900,
       "limited": false,
-      "aliases": []
+      "aliases": [],
+      "subDish": true
     },
     {
       "name": "蘿蔓萵苣塔可",
       "cost": 260,
       "limited": false,
-      "aliases": []
-    },
-    {
-      "name": "材料補價規則",
-      "cost": null,
-      "limited": false,
-      "aliases": []
+      "aliases": [],
+      "subDish": true
     },
     {
       "name": "黃金帝王蟹",
@@ -694,8 +724,132 @@
     },
     {
       "name": "巧克力醬",
-      "cost": 440,
+      "cost": 1400,
       "limited": false,
+      "aliases": [],
+      "subDish": true
+    },
+    {
+      "name": "任意作物/水果",
+      "cost": 0,
+      "limited": false,
+      "aliases": []
+    },
+    {
+      "name": "糖霜",
+      "cost": 50,
+      "limited": true,
+      "aliases": []
+    },
+    {
+      "name": "春日黃糖包",
+      "cost": 50,
+      "limited": true,
+      "aliases": []
+    },
+    {
+      "name": "莎莎醬",
+      "cost": 50,
+      "limited": true,
+      "aliases": []
+    },
+    {
+      "name": "積木肉餅",
+      "cost": 50,
+      "limited": true,
+      "aliases": []
+    },
+    {
+      "name": "馬鞭草",
+      "cost": 30,
+      "limited": true,
+      "aliases": []
+    },
+    {
+      "name": "蘿蔓萵苣",
+      "cost": 30,
+      "limited": true,
+      "aliases": []
+    },
+    {
+      "name": "任意燈籠熱可可",
+      "cost": 240,
+      "limited": true,
+      "aliases": [],
+      "subDish": true,
+      "options": [
+        "燈籠果香熱可可",
+        "燈籠藍莓熱可可",
+        "燈籠覆盆子熱可可",
+        "燈籠鳳梨熱可可",
+        "燈籠蘋果熱可可",
+        "燈籠橘子熱可可",
+        "燈籠草莓熱可可",
+        "燈籠葡萄熱可可"
+      ]
+    },
+    {
+      "name": "任意南瓜奶油濃湯",
+      "cost": 240,
+      "limited": true,
+      "aliases": [],
+      "subDish": true,
+      "options": [
+        "南瓜奶油蘑菇濃湯",
+        "南瓜奶油番茄濃湯",
+        "南瓜奶油馬鈴薯濃湯",
+        "南瓜奶油胡蘿蔔濃湯",
+        "南瓜奶油茄子濃湯",
+        "南瓜奶油玉米濃湯"
+      ]
+    },
+    {
+      "name": "任意冬蔭功烏賊麵",
+      "cost": 290,
+      "limited": true,
+      "aliases": [],
+      "subDish": true,
+      "options": [
+        "冬蔭功烏賊麵",
+        "冬蔭功無針烏賊麵",
+        "冬蔭功虎斑烏賊麵",
+        "冬蔭功金烏賊麵"
+      ]
+    },
+    {
+      "name": "積木冰塊",
+      "cost": 50,
+      "limited": true,
+      "aliases": []
+    },
+    {
+      "name": "煉乳",
+      "cost": 50,
+      "limited": true,
+      "aliases": []
+    },
+    {
+      "name": "野蕨菜",
+      "cost": 5,
+      "limited": true,
+      "aliases": []
+    },
+    {
+      "name": "野蒜芥",
+      "cost": 5,
+      "limited": true,
+      "aliases": []
+    },
+    {
+      "name": "野牛蒡",
+      "cost": 5,
+      "limited": true,
+      "aliases": []
+    },
+    {
+      "name": "野芥菜",
+      "cost": 5,
+      "limited": true,
       "aliases": []
     }
   ],
@@ -727,6 +881,21 @@
     "冰杯咖啡",
     "鮮蔬烤肉",
     "白蘿蔔",
-    "粽葉"
+    "粽葉",
+    "馬鞭草",
+    "蘿蔓萵苣",
+    "任意燈籠熱可可",
+    "任意南瓜奶油濃湯",
+    "任意冬蔭功烏賊麵",
+    "糖霜",
+    "春日黃糖包",
+    "莎莎醬",
+    "積木肉餅",
+    "積木冰塊",
+    "煉乳",
+    "野蕨菜",
+    "野蒜芥",
+    "野牛蒡",
+    "野芥菜"
   ]
 }

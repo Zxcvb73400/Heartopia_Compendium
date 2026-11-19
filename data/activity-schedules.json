@@ -1,57 +1,182 @@
 {
-  "中秋共明月": {
-    "startsAt": null,
-    "endsAt": "2026-10-12T05:59:00+08:00",
+  "冰雪季": {
+    "activityType": "潮流季",
+    "startsAt": "2026-01-31T05:59:00+08:00",
+    "endsAt": "2026-03-14T05:59:00+08:00",
     "outsideAvailable": false,
-    "requiresActivityStation": false,
-    "tokenName": "待補"
+    "tokenName": "潮流幣",
+    "requiresActivityStation": true
   },
-  "遠古召喚": {
-    "startsAt": "2026-08-29T06:00:00+08:00",
-    "endsAt": "2026-10-11T05:59:00+08:00",
+  "尋鯨季": {
+    "activityType": "潮流季",
+    "startsAt": "2026-07-11T05:59:00+08:00",
+    "endsAt": "2026-08-22T05:59:00+08:00",
     "outsideAvailable": false,
+    "tokenName": "潮流幣",
+    "requiresActivityStation": true
+  },
+  "妙想經營季": {
+    "activityType": "潮流季",
+    "startsAt": "2026-12-12T05:59:00+08:00",
+    "endsAt": "2026-12-12T05:59:00+08:00",
+    "outsideAvailable": false,
+    "tokenName": "潮流幣",
+    "requiresActivityStation": true
+  },
+  "夢光影": {
+    "activityType": "慶典",
+    "startsAt": "2026-03-21T05:59:00+08:00",
+    "endsAt": "2026-05-02T05:59:00+08:00",
+    "dateNote": "台服攻略記載 3/21～5/2；國際服整理站記載至 5/9",
+    "outsideAvailable": false,
+    "requiresActivityStation": true,
     "tokenName": "慶典幣"
   },
-  "漢堡王連動": {
-    "startsAt": null,
-    "endsAt": "2026-10-12T05:59:00+08:00",
+  "拼合街市": {
+    "activityType": "慶典",
+    "startsAt": "2026-05-09T05:59:00+08:00",
+    "endsAt": "2026-06-20T05:59:00+08:00",
+    "dateNote": "巴哈情報記載 5/9～6/20；另有攻略記載 6/27 05:59 截止",
     "outsideAvailable": false,
-    "requiresActivityStation": false,
-    "tokenName": "待補"
+    "requiresActivityStation": true,
+    "tokenName": "慶典幣"
   },
-  "七夕蘭月夜": {
-    "startsAt": "2026-08-31T06:00:00+08:00",
+  "遠古召喚": {
+    "activityType": "慶典",
+    "startsAt": "2026-08-29T05:59:00+08:00",
     "endsAt": "2026-10-11T05:59:00+08:00",
-    "outsideAvailable": true,
-    "requiresActivityStation": false,
-    "tokenName": "待補"
+    "outsideAvailable": false,
+    "tokenName": "慶典幣",
+    "requiresActivityStation": true
   },
   "近幽集": {
-    "startsAt": "2026-10-10T06:00:00+08:00",
-    "endsAt": "2026-11-21T06:00:00+08:00",
+    "activityType": "慶典",
+    "startsAt": "2026-10-10T05:59:00+08:00",
+    "endsAt": "2026-11-21T05:59:00+08:00",
     "outsideAvailable": false,
+    "requiresActivityStation": true,
     "tokenName": "慶典幣"
   },
   "仲夏端陽": {
-    "startsAt": "2026-06-10T00:00:00+08:00",
-    "endsAt": "2026-06-10T00:00:00+08:00",
+    "activityType": "活動",
+    "startsAt": "2026-06-10T05:59:00+08:00",
+    "endsAt": "2026-06-10T05:59:00+08:00",
     "status": "expired",
     "dateNote": "使用者指定過去日期，非實際活動期間",
-    "tokenName": "待補"
-  },
-  "不給糖就搗蛋": {
-    "startsAt": "2026-10-10T06:00:00+08:00",
-    "endsAt": "2026-11-21T06:00:00+08:00",
     "outsideAvailable": true,
     "requiresActivityStation": false,
-    "tokenName": "慶典幣"
+    "tokenName": "無"
   },
-  "三麗鷗連動": {
-    "startsAt": null,
-    "endsAt": null,
-    "status": "expired",
-    "dateNote": "使用者確認活動已過期；起迄日期未提供",
+  "七夕蘭月夜": {
+    "activityType": "活動",
+    "startsAt": "2026-08-31T05:59:00+08:00",
+    "endsAt": "2026-10-11T05:59:00+08:00",
     "outsideAvailable": true,
-    "requiresActivityStation": false
+    "requiresActivityStation": false,
+    "tokenName": "無"
+  },
+  "中秋共明月": {
+    "activityType": "活動",
+    "startsAt": "2026-09-25T05:59:00+08:00",
+    "endsAt": "2026-10-12T05:59:00+08:00",
+    "outsideAvailable": true,
+    "requiresActivityStation": false,
+    "tokenName": "無"
+  },
+  "奇靈夜": {
+    "activityType": "活動",
+    "startsAt": "2026-10-30T05:59:00+08:00",
+    "endsAt": "2026-11-16T05:59:00+08:00",
+    "dateNote": "兌換商店開放至 2026-11-23 05:59",
+    "outsideAvailable": true,
+    "requiresActivityStation": false,
+    "tokenName": "無"
+  },
+  "彩虹小馬（第一期）": {
+    "activityType": "聯動",
+    "startsAt": "2026-02-14T05:59:00+08:00",
+    "endsAt": "2026-03-25T05:59:00+08:00",
+    "status": "expired",
+    "dateNote": "結束日各來源不一（3/15、3/24、3/25），採 3/25",
+    "outsideAvailable": true,
+    "requiresActivityStation": false,
+    "tokenName": "無"
+  },
+  "喜羊羊與灰太狼": {
+    "activityType": "聯動",
+    "startsAt": "2026-03-28T05:59:00+08:00",
+    "endsAt": "2026-04-27T05:59:00+08:00",
+    "outsideAvailable": true,
+    "requiresActivityStation": false,
+    "tokenName": "無"
+  },
+  "復甦頌歌": {
+    "activityType": "活動",
+    "startsAt": "2026-04-04T05:59:00+08:00",
+    "endsAt": "2026-04-27T05:59:00+08:00",
+    "status": "expired",
+    "outsideAvailable": true,
+    "requiresActivityStation": false,
+    "tokenName": "無"
+  },
+  "線條小狗": {
+    "activityType": "聯動",
+    "startsAt": "2026-04-30T05:59:00+08:00",
+    "endsAt": "2026-05-25T05:59:00+08:00",
+    "outsideAvailable": true,
+    "requiresActivityStation": false,
+    "tokenName": "無"
+  },
+  "彩虹糖": {
+    "activityType": "聯動",
+    "startsAt": "2026-05-28T05:59:00+08:00",
+    "endsAt": "2026-06-22T05:59:00+08:00",
+    "dateNote": "國際服名稱 Rainbow Verse；對應彩虹糖（Skittles）聯動為推測",
+    "outsideAvailable": true,
+    "requiresActivityStation": false,
+    "tokenName": "無"
+  },
+  "三麗鷗": {
+    "activityType": "聯動",
+    "startsAt": "2026-07-17T05:59:00+08:00",
+    "endsAt": "2026-08-23T05:59:00+08:00",
+    "status": "expired",
+    "dateNote": "使用者確認活動已過期；日期依國際服活動整理站補上，另有來源記載至 8/24",
+    "outsideAvailable": true,
+    "requiresActivityStation": false,
+    "tokenName": "無"
+  },
+  "潛水員戴夫": {
+    "activityType": "聯動",
+    "startsAt": "2026-08-08T05:59:00+08:00",
+    "endsAt": "2026-09-07T05:59:00+08:00",
+    "outsideAvailable": true,
+    "requiresActivityStation": false,
+    "tokenName": "無"
+  },
+  "漢堡王": {
+    "activityType": "聯動",
+    "startsAt": "2026-09-19T05:59:00+08:00",
+    "endsAt": "2026-10-12T05:59:00+08:00",
+    "outsideAvailable": true,
+    "requiresActivityStation": false,
+    "tokenName": "無"
+  },
+  "新白娘子傳奇": {
+    "activityType": "聯動",
+    "startsAt": "2026-09-30T05:59:00+08:00",
+    "endsAt": "2026-10-26T05:59:00+08:00",
+    "dateNote": "兌換商店開放至 2026-11-02 05:59",
+    "outsideAvailable": true,
+    "requiresActivityStation": false,
+    "tokenName": "無"
+  },
+  "彩虹小馬(第二期)": {
+    "activityType": "聯動",
+    "startsAt": "2026-11-21T05:59:00+08:00",
+    "endsAt": "2026-12-28T05:59:00+08:00",
+    "outsideAvailable": true,
+    "requiresActivityStation": false,
+    "tokenName": "無"
   }
 }

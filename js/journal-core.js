@@ -26,9 +26,12 @@ const JournalCore = (() => {
     fiveStarOnly: false,
     cookableOnly: true,
   });
+  // 活動徽章：依目前時間顯示「當前／過往」＋活動類型＋活動名稱，例如「過往潮流季-冰雪季」
   const kindLabel = item =>
     ['當前活動', '過往活動'].includes(item.kind) && item.eventName
-      ? `${item.kind} · ${item.eventName}`
+      ? item.eventSchedule?.activityType
+        ? `${item.kind === '當前活動' ? '當前' : '過往'}${item.eventSchedule.activityType}-${item.eventName}`
+        : `${item.kind} · ${item.eventName}`
       : item.eventStatus === 'upcoming'
         ? '活動（尚未開始）'
         : item.kind === '活動'
@@ -37,6 +40,8 @@ const JournalCore = (() => {
   /* ----------------------------------------------------------------
    * 地點處理：把地點整理成「區域」與篩選選項
    * ---------------------------------------------------------------- */
+  const SPECIAL_EVENT = '活動特殊事件';
+  const DAILY_EVENTS = ['海釣（事件）', '百鳥歸巢（事件）', '引蟲出洞（事件）'];
   function locationRegions(value, category) {
     if (category === 'birds' && /[／/]/.test(value))
       return [
@@ -48,6 +53,11 @@ const JournalCore = (() => {
             .flatMap(part => locationRegions(part, category)),
         ),
       ];
+    // 活動限定的事件（雀鱔魚、幽光魚潮、冰晶魚、積木魚、戴勝鳥、糞金龜異變…）在地點選單統一歸成「活動特殊事件」；
+    // 常駐事件（海釣、百鳥歸巢、引蟲出洞）維持各自的選項
+    // 「戴勝鳥（事件）-額外階段」這類帶階段的寫法，以「（事件）」之前的事件名稱判斷
+    const eventName = String(value).trim().match(/^[^／/]*?（事件）/)?.[0];
+    if (eventName && !DAILY_EVENTS.includes(eventName)) return [SPECIAL_EVENT];
     if (category === 'fish' && value === '雀鱔魚（事件）') return ['雀鱔魚（事件）'];
     if (category === 'fish' && value === '海釣（事件）') return ['海釣（事件）'];
     if (category === 'birds' && /^(戴勝鳥事件|戴勝鳥（事件）)/.test(value))
@@ -96,6 +106,9 @@ const JournalCore = (() => {
     ].sort((a, b) => {
       const eventOrder = Number(a.includes('事件')) - Number(b.includes('事件'));
       if (eventOrder) return eventOrder;
+      // 「活動特殊事件」固定排在所有事件的最後
+      const specialOrder = Number(a === SPECIAL_EVENT) - Number(b === SPECIAL_EVENT);
+      if (specialOrder) return specialOrder;
       if (items.some(i => i.category === 'fish') && a.includes('事件') && b.includes('事件')) {
         const order = ['海釣（事件）', '雀鱔魚事件（事件）', '幽光魚潮（事件）'];
         const ai = order.indexOf(a),
@@ -127,15 +140,6 @@ const JournalCore = (() => {
       0,
     );
   }
-  function compareActivityGroups(a, b) {
-    const rank = i => (i.kind === '日常' ? 0 : i.kind === '當前活動' ? 1 : i.kind === '過往活動' ? 2 : 3);
-    const name = i => (i.kind === '日常' ? '' : String(i.eventName || '').trim());
-    const av = name(a),
-      bv = name(b);
-    return (
-      rank(a) - rank(b) || (Boolean(av) !== Boolean(bv) ? (av ? -1 : 1) : av.localeCompare(bv, 'zh-Hant'))
-    );
-  }
   function excludesProfit(item) {
     return item?.category === 'dishes' && item.name?.startsWith('詭異的');
   }
@@ -160,18 +164,25 @@ const JournalCore = (() => {
     }
     const tie = Number(a.number) - Number(b.number) || String(a.id).localeCompare(String(b.id));
     if (f.sort === 'number') {
-      if (a.category === 'birds' && b.category === 'birds') {
-        const raven = i => /渡鴉/.test(i.name);
-        const position = i => {
-          const n = Number(i.number);
-          return raven(i) ? 306 + n / 10000 : n >= 306 ? n + 10 : n;
-        };
-        const av = position(a),
-          bv = position(b);
-        if (av !== bv) return av - bv;
-        if (raven(a) && raven(b)) return String(a.id).localeCompare(String(b.id));
+      // 日常在前、依愛好等級再依編號；活動項目一律依編號（編號已依活動開始時間排定）
+      const isEvent = i => Boolean(String(i.eventName || '').trim());
+      const ae = isEvent(a),
+        be = isEvent(b);
+      if (ae !== be) return ae ? 1 : -1;
+      // 園藝的活動項目：同一活動放在一起（依活動開始時間），活動內作物在前、花卉在後
+      if (ae && a.category === 'flowers' && b.category === 'flowers') {
+        const start = i => Date.parse(i.eventSchedule?.startsAt) || Infinity;
+        if (a.eventName !== b.eventName)
+          return start(a) - start(b) || String(a.eventName).localeCompare(String(b.eventName), 'zh-Hant');
+        const crop = i => (i.plantType === 'crop' ? 0 : 1);
+        if (crop(a) !== crop(b)) return crop(a) - crop(b);
       }
-      return a.category === 'dishes' && b.category === 'dishes' ? tie : compareActivityGroups(a, b) || tie;
+      if (!ae) {
+        const al = Number.isFinite(a.level) ? a.level : Infinity,
+          bl = Number.isFinite(b.level) ? b.level : Infinity;
+        if (al !== bl) return al - bl;
+      }
+      return tie;
     }
     if (f.sort === 'growth' || f.sort === 'growth-desc') {
       const av = growthMinutes(a),
@@ -204,7 +215,9 @@ const JournalCore = (() => {
    * 活動檔期：判斷活動進行中／已結束、料理能否製作
    * ---------------------------------------------------------------- */
   function applyEventSchedule(item, now = Date.now(), schedules = {}) {
-    const schedule = (item.eventName && schedules[item.eventName]) || item.eventSchedule;
+    // activity-schedules.json 為準；shared.json 的舊檔期只補它沒寫到的欄位
+    const named = item.eventName && schedules[item.eventName];
+    const schedule = named ? { ...(item.eventSchedule || {}), ...named } : item.eventSchedule;
     if (!schedule) return { ...item };
     const start = schedule.startsAt ? Date.parse(schedule.startsAt) : NaN,
       end = schedule.endsAt ? Date.parse(schedule.endsAt) : NaN;
@@ -215,6 +228,7 @@ const JournalCore = (() => {
     const outside = expired || upcoming;
     return {
       ...item,
+      eventSchedule: schedule,
       kind: expired ? '過往活動' : upcoming ? '活動' : '當前活動',
       eventStatus: expired ? 'expired' : upcoming ? 'upcoming' : 'active',
       eventAvailable: item.category === 'dishes' ? undefined : !outside,
@@ -256,7 +270,10 @@ const JournalCore = (() => {
           !(f.kind.length === 3 && !['日常', '當前活動', '過往活動'].includes(i.kind))
         )
           return false;
-        if (f.cookableOnly && !isAvailable(i, limitedMaterials)) return false;
+        // 「僅顯示當前可獲取」預設會藏起已結束的活動；但使用者在收錄類型中特地勾選「過往活動」
+        // （沒有全選）時，代表要查過往活動，就不以可獲取與否過濾這些項目。
+        const pastRequested = i.kind === '過往活動' && f.kind.includes('過往活動') && f.kind.length < 3;
+        if (f.cookableOnly && !pastRequested && !isAvailable(i, limitedMaterials)) return false;
         if (
           i.category === 'flowers' &&
           f.plantType &&

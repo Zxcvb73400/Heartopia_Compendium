@@ -1,4 +1,10 @@
 User-agent: *
 Allow: /
+# 維護用文件與設定，不需要被搜尋引擎收錄
+Disallow: /README.md
+Disallow: /%E7%BC%BA%E6%BC%8F%E8%B3%87%E6%96%99%E8%A1%A8.md
+Disallow: /.claude/
+Disallow: /.github/
+Disallow: /tools/
 
 Sitemap: https://heartopia-atlas.zxcvb7340-0.workers.dev/sitemap.xml

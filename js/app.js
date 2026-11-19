@@ -8,6 +8,22 @@
  *
  * 載入順序（index.html 底部）：journal-core.js → data-loader.js → app.js
  * ===================================================================== */
+// 手機版漢堡選單：不等資料載入就先綁定（原本是 index.html 的內嵌程式，搬到這裡以符合 CSP）
+(() => {
+  const button = document.querySelector('.menu-toggle'),
+    sidebar = document.getElementById('sidebar');
+  if (!button || !sidebar) return;
+  button.addEventListener('click', () => {
+    const open = sidebar.classList.toggle('open');
+    button.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+  sidebar.addEventListener('click', e => {
+    if (e.target.closest('.nav-item') && window.innerWidth <= 800) {
+      sidebar.classList.remove('open');
+      button.setAttribute('aria-expanded', 'false');
+    }
+  });
+})();
 (async () => {
   'use strict';
   const DATA = await AtlasData.loadOrShowError();
@@ -75,6 +91,25 @@
     MATERIAL_BY_NAME.set(m.name, m);
     for (const a of m.aliases || []) MATERIAL_BY_NAME.set(a, m);
   }
+  // 料理成本以材料目錄即時計算（單一來源，避免資料檔成本與目錄單價對不上）。
+  // 有任何食材缺單價時，沿用資料檔 economics.cost。
+  const DISH_BY_NAME = new Map(ALL_ITEMS.filter(i => i.category === 'dishes').map(i => [i.name, i]));
+  for (const i of DISH_BY_NAME.values()) {
+    const e = i.economics,
+      ingredients = Object.entries(i.ingredients || {});
+    if (!e || !ingredients.length || !ingredients.every(([n]) => Number.isFinite(MATERIAL_BY_NAME.get(n)?.cost))) continue;
+    const cost = ingredients.reduce((sum, [n, q]) => sum + MATERIAL_BY_NAME.get(n).cost * q, 0);
+    if (cost !== e.cost) console.warn(`[資料檢查] ${i.name} 資料檔成本 ${e.cost}，依材料目錄為 ${cost}，已採用材料目錄。`);
+    e.cost = cost;
+    e.stars.forEach(s => (s.profit = Number.isFinite(s.price) ? s.price - cost : null));
+  }
+  // 子料理：材料目錄 subDish:true。「任意」子料理有 options，取系列中 1 星售價最低的那道。
+  function subDishSource(name) {
+    const m = MATERIAL_BY_NAME.get(name);
+    if (!m?.subDish) return null;
+    const candidates = (m.options || [m.name]).map(n => DISH_BY_NAME.get(n)).filter(Boolean);
+    return candidates.sort((a, b) => (a.economics?.stars?.[0]?.price ?? Infinity) - (b.economics?.stars?.[0]?.price ?? Infinity))[0] || null;
+  }
   /* ----------------------------------------------------------------
    * 成本計算機：選料理 → 算食材成本與利潤
    * ---------------------------------------------------------------- */
@@ -123,6 +158,7 @@
         subtotal,
         valid,
         limited: MATERIAL_BY_NAME.get(row.name)?.limited === true || LIMITED_MATERIALS.has(row.name),
+        subDish: MATERIAL_BY_NAME.get(row.name)?.subDish === true,
       };
     });
     return { rows, total, missing: [...new Set(missing)], complete: missing.length === 0 };
@@ -139,7 +175,7 @@
         '<p class="calc-empty-materials">\u8acb\u8f38\u5165\u6750\u6599\u540d\u7a31\uff0c\u6309\u300c\u52a0\u5165\u300d\u65b0\u589e\u6750\u6599\u3002</p>';
       return;
     }
-    host.innerHTML = `<div class="calc-table-scroll"><table class="calc-material-table"><thead><tr><th>原材料</th><th>每份用量</th><th>單價</th><th>材料小計</th></tr></thead><tbody>${stats.rows.map((r, n) => `<tr><td class="calc-row-name">${esc(r.name)}${r.limited ? '<small>限時材料</small>' : ''}</td><td><input type="number" min="0" max="4" step="1" data-calc-field="qty" data-calc-slot="${slot}" data-calc-dish="${esc(item.id)}" data-calc-name="${esc(r.name)}" value="${esc(r.qty)}" aria-label="${esc(r.name)}每份用量"></td><td><input type="number" min="0" step="1" data-calc-field="price" data-calc-name="${esc(r.name)}" value="${r.price ?? ''}" placeholder="待補" aria-label="${esc(r.name)}單價"></td><td><span data-calc-subtotal="${slot}-${n}">${r.valid ? calcMoney(r.subtotal) : '待補'}</span>${r.custom ? ` <button class="button calc-add-remove" type="button" data-calc-remove="${esc(r.name)}" data-calc-dish="${esc(item.id)}" aria-label="移除${esc(r.name)}">×</button>` : ''}</td></tr>`).join('')}</tbody></table></div>`;
+    host.innerHTML = `<div class="calc-table-scroll"><table class="calc-material-table"><thead><tr><th>原材料</th><th>每份用量</th><th>單價</th><th>材料小計</th></tr></thead><tbody>${stats.rows.map((r, n) => `<tr><td class="calc-row-name">${esc(r.name)}${r.limited ? '<small>限時材料</small>' : ''}${r.subDish ? '<small>子料理・以1星售價計</small>' : ''}</td><td><input type="number" min="0" max="4" step="1" data-calc-field="qty" data-calc-slot="${slot}" data-calc-dish="${esc(item.id)}" data-calc-name="${esc(r.name)}" value="${esc(r.qty)}" aria-label="${esc(r.name)}每份用量"></td><td><input type="number" min="0" step="1" data-calc-field="price" data-calc-name="${esc(r.name)}" value="${r.price ?? ''}" placeholder="待補" aria-label="${esc(r.name)}單價"></td><td><span data-calc-subtotal="${slot}-${n}">${r.valid ? calcMoney(r.subtotal) : '待補'}</span>${r.custom ? ` <button class="button calc-add-remove" type="button" data-calc-remove="${esc(r.name)}" data-calc-dish="${esc(item.id)}" aria-label="移除${esc(r.name)}">×</button>` : ''}</td></tr>`).join('')}</tbody></table></div>`;
   }
   function calcProfit(item, st, stats) {
     return item.custom || JournalCore.excludesProfit(item)
@@ -379,7 +415,6 @@
     const b = $('nav-calculator');
     b.classList.add('active');
     b.setAttribute('aria-current', 'page');
-    rememberPage();
   }
   /* ----------------------------------------------------------------
    * 共用工具與畫面狀態：存檔鍵名、圖示、目前頁面、收藏紀錄
@@ -401,8 +436,15 @@
     dishes:
       '<path d="M4 12h16c0 5-3 8-8 8s-8-3-8-8ZM2 12h20M8 8c-3-3 3-3 0-6m5 6c-3-3 3-3 0-6m5 6c-3-3 3-3 0-6M8 22h8"/>',
   };
+  // 成本計算機：計算機外框＋螢幕＋按鍵
+  paths.calculator =
+    '<rect x="5" y="2.5" width="14" height="19" rx="2.5"/><path d="M8 6h8v3.5H8Z"/><path d="M8.5 13h.01M12 13h.01M15.5 13h.01M8.5 17h.01M12 17h.01M15.5 13v4"/>';
   const icon = c =>
     `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${paths[c]}</svg>`;
+  $('nav-calculator').querySelector('.nav-icon').innerHTML = icon('calculator');
+  // 首頁：房屋外框＋門
+  paths.home = '<path d="M3.5 11 12 4l8.5 7"/><path d="M5.5 9.5V20h13V9.5"/><path d="M10 20v-5.5h4V20"/>';
+  $('nav-home').querySelector('.nav-icon').innerHTML = icon('home');
   const meta = {
     fish: { name: '魚類', desc: '河流、湖泊與海洋裡，等待上鉤的五星。' },
     bugs: { name: '蟲類', desc: '走進花田與森林，尋找小小的五星蹤跡。' },
@@ -421,31 +463,10 @@
     storageAvailable = false;
     startupWarning = '無法讀取本機進度。請匯入備份，並確認瀏覽器允許儲存。';
   }
-  // 收錄類型沿用本機保存的篩選設定。
-  let homeVisible = true,
-    restoreCalculator = false;
-  // 僅重新整理時還原同一分頁的位置；新進網站仍顯示首頁。
-  try {
-    const page = JSON.parse(sessionStorage.getItem(KEY + '.page') || 'null');
-    if (performance.getEntriesByType('navigation')[0]?.type === 'reload' && page) {
-      homeVisible = page.view !== 'collection';
-      restoreCalculator = page.view === 'calculator';
-      if (JournalCore.categories.includes(page.active)) state.active = page.active;
-    }
-  } catch {}
-  function rememberPage() {
-    try {
-      const calculatorOpen = !$('calculator-view').hidden;
-      sessionStorage.setItem(
-        KEY + '.page',
-        JSON.stringify({
-          view: calculatorOpen ? 'calculator' : homeVisible ? 'home' : 'collection',
-          active: state.active,
-        }),
-      );
-    } catch {}
-  }
-  window.addEventListener('pagehide', rememberPage);
+  // 每次開啟或重新整理網頁：回到首頁，所有分類的篩選恢復預設（時段＝現在的時段）。
+  // 勾選進度（state.done）不受影響；載入後手動改的篩選會照常保存，直到下次重新載入。
+  for (const c of JournalCore.categories) state.filters[c] = JournalCore.defaults(c);
+  let homeVisible = true;
   const openFlowers = new Set();
   let toastTimer;
   /* ----------------------------------------------------------------
@@ -469,7 +490,7 @@
       toast('瀏覽器無法保存進度；請按「匯出備份」保留這次勾選。');
     }
   }
-  function showView(home, remember = true) {
+  function showView(home) {
     homeVisible = home;
     $('calculator-view').hidden = true;
     $('nav-calculator').classList.remove('active');
@@ -488,7 +509,6 @@
       if (active) b.setAttribute('aria-current', 'page');
       else b.removeAttribute('aria-current');
     }
-    if (remember) rememberPage();
   }
   /* ----------------------------------------------------------------
    * 首頁與整體進度
@@ -522,9 +542,11 @@
           '%"></i></div></button>'
         );
       })
-      .join('');
+      .join('') +
+      // 首頁也放一張成本計算機的入口卡片
+      `<button class="home-card home-card-calculator" data-home-calculator><span class="home-card-title">${icon('calculator')}成本計算機</span><strong>試算</strong><small> · 料理材料與利潤</small></button>`;
     if (!$('calculator-view').hidden) showCalculator();
-    else showView(homeVisible, false);
+    else showView(homeVisible);
   }
   function updateProgress() {
     const trackable = [
@@ -658,20 +680,30 @@
   }
   function activityToken(i, star) {
     const schedule = DATA.activitySchedules?.[i.eventName] || i.eventSchedule || {};
+    const activityType = String(schedule.activityType || '').trim();
+    if (activityType === '聯動')
+      return { label: '', amount: null, applicable: false };
+
     const configured = String(schedule.tokenName || '').trim();
-    const label = configured && configured !== '待補' ? configured : '活動代幣';
-    const raw = i.raw || {},
-      key = star + '星活動代幣';
-    const value = Object.prototype.hasOwnProperty.call(raw, key) ? raw[key] : raw[star + '星慶典幣'];
+    const defaultLabel = activityType === '潮流季' ? '潮流幣' : '慶典幣';
+    const label = configured && configured !== '待補' ? configured : defaultLabel;
+    const raw = i.raw || {};
+    const keys = [star + '星活動代幣', star + '星' + label, star + '星慶典幣', star + '星潮流幣'];
+    const key = keys.find(name => Object.prototype.hasOwnProperty.call(raw, name));
+    const value = key ? raw[key] : undefined;
     const known =
       value !== null && value !== undefined && String(value).trim() !== '' && Number.isFinite(Number(value));
     const hasAny = [1, 2, 3, 4, 5].some(s =>
-      [raw[s + '星活動代幣'], raw[s + '星慶典幣']].some(v => v !== undefined && v !== null && v !== ''),
+      ['活動代幣', label, '慶典幣', '潮流幣'].some(token => {
+        const value = raw[s + '星' + token];
+        return value !== undefined && value !== null && value !== '';
+      }),
     );
     return {
       label,
       amount: known ? Number(value) : null,
-      applicable: Boolean(i.eventName || configured || hasAny),
+      notApplicable: value === 'N/A',
+      applicable: Boolean(i.eventName || configured || activityType || hasAny),
     };
   }
   function dishCurrencySummary(i, star) {
@@ -683,9 +715,11 @@
   function eventDetails(i) {
     const stars = [1, 2, 3, 4, 5],
       tokens = stars.map(s => activityToken(i, s));
+    const schedule = DATA.activitySchedules?.[i.eventName] || i.eventSchedule || {};
     const raw = i.raw || {},
-      hasCoins = stars.some(s =>
-        [raw[s + '星活動代幣'], raw[s + '星慶典幣']].some(v => v !== undefined && v !== null && v !== ''),
+      hasCoins = String(schedule.activityType || '') !== '聯動' && stars.some(s =>
+        [raw[s + '星活動代幣'], raw[s + '星慶典幣'], raw[s + '星潮流幣']]
+          .some(v => v !== undefined && v !== null && v !== ''),
       );
     return hasCoins
       ? '<h4>' +
@@ -697,7 +731,7 @@
                 '<div class="raw-pair"><dt>' +
                 esc(n + 1 + '星' + t.label) +
                 '</dt><dd>' +
-                esc(t.amount === null ? '待補' : money(t.amount)) +
+                esc(t.amount === null ? (t.notApplicable ? 'N/A' : '待補') : money(t.amount)) +
                 '</dd></div>',
             )
             .join('') +
@@ -790,7 +824,26 @@
   function dishEconomics(i) {
     const e = i.economics;
     if (!e) return line('成本待確認');
-    return `<div class="dish-price-wrap"><table class="dish-price-table" aria-label="${esc(i.name)}各星級成本、售價與利潤"><thead><tr><th scope="col">星級</th><th scope="col">成本</th><th scope="col">售價</th><th scope="col">利潤</th></tr></thead><tbody>${e.stars.map(s => `<tr><th scope="row">${s.star} 星</th><td>${money(e.cost)}</td><td>${money(s.price)}</td><td class="${JournalCore.excludesProfit(i) ? '' : Number.isFinite(s.profit) && s.profit < 0 ? 'loss' : 'gain'}">${JournalCore.excludesProfit(i) ? 'X' : (Number.isFinite(s.profit) && s.profit > 0 ? '+' : '') + money(s.profit)}</td></tr>`).join('')}</tbody></table></div>${e.costNote ? `<p class="dish-cost-note">${esc(e.costNote)}</p>` : ''}${e.missing.length ? `<p class="dish-cost-note">缺少單價：${esc(e.missing.join('、'))}</p>` : ''}`;
+    // 用到子料理時，提示子料理是以 1 星售價計入成本
+    const subDishes = Object.keys(i.ingredients || {}).filter(name => MATERIAL_BY_NAME.get(name)?.subDish === true);
+    // 子料理材料明細：每道子料理的材料成本（以材料目錄單價統計），僅供參考，不計入本料理成本
+    const subDishRows = subDishes
+      .map(name => {
+        const src = subDishSource(name);
+        if (!src) return '';
+        const parts = Object.entries(src.ingredients || {}).map(([n, q]) => {
+          const m = MATERIAL_BY_NAME.get(n);
+          return `${n}${m?.subDish ? '（子料理售價）' : ''} ${money(m?.cost)}${q > 1 ? '×' + q : ''}`;
+        });
+        const label = name === src.name ? name : `${name} → ${src.name}（系列最低售價）`;
+        return `<li><b>${esc(label)}</b>：1 星售價 ${money(src.economics?.stars?.[0]?.price)}｜材料成本 ${money(src.economics?.cost)}${parts.length ? `（${esc(parts.join('＋'))}）` : ''}</li>`;
+      })
+      .join('');
+    const subDishNote = subDishes.length
+      ? `<p class="dish-cost-note">※ 子料理（${esc(subDishes.join('、'))}）以 1 星售價計入成本；「任意」子料理以該系列最低 1 星售價計算。</p>` +
+        (subDishRows ? `<details class="dish-cost-note sub-dish-detail"><summary>子料理材料明細（參考，不計入成本）</summary><ul>${subDishRows}</ul></details>` : '')
+      : '';
+    return `${subDishNote}<div class="dish-price-wrap"><table class="dish-price-table" aria-label="${esc(i.name)}各星級成本、售價與利潤"><thead><tr><th scope="col">星級</th><th scope="col">成本</th><th scope="col">售價</th><th scope="col">利潤</th></tr></thead><tbody>${e.stars.map(s => `<tr><th scope="row">${s.star} 星</th><td>${money(e.cost)}</td><td>${money(s.price)}</td><td class="${JournalCore.excludesProfit(i) ? '' : Number.isFinite(s.profit) && s.profit < 0 ? 'loss' : 'gain'}">${JournalCore.excludesProfit(i) ? 'X' : (Number.isFinite(s.profit) && s.profit > 0 ? '+' : '') + money(s.profit)}</td></tr>`).join('')}</tbody></table></div>${e.costNote ? `<p class="dish-cost-note">${esc(e.costNote)}</p>` : ''}${e.missing.length ? `<p class="dish-cost-note">缺少單價：${esc(e.missing.join('、'))}</p>` : ''}`;
   }
   /* ----------------------------------------------------------------
    * 主要列表：魚、蟲、鳥、料理的表格渲染
@@ -815,7 +868,7 @@
       group = ITEMS.filter(i => i.category === c),
       visible = JournalCore.filterItems(group, f, state.done, LIMITED_MATERIALS);
     const habitat = ['fish', 'bugs', 'birds'].includes(c),
-      pending = visible.filter(i => !i.trackable).length;
+      pending = visible.filter(i => !i.trackable && !i.displayOnly).length;
     document.querySelectorAll('[data-status]').forEach(b => {
       b.classList.toggle('active', b.dataset.status === f.status);
       b.setAttribute('aria-pressed', String(b.dataset.status === f.status));
@@ -875,7 +928,7 @@
               ? '<div class="bird-whistle-info"><strong>鳥哨</strong>' + line(birdWhistleNote(i)) + '</div>'
               : '');
         const fullname = i.name + (i.color ? '・' + i.color : '');
-        return `<tr class="item ${state.done[i.id] ? 'complete' : ''}" data-item="${i.id}"><td><label class="check-label"><input type="checkbox" data-check="${i.id}" aria-label="${esc(fullname)} ${c === 'flowers' ? '已收集此花色' : '已取得五星'}" ${state.done[i.id] ? 'checked' : ''} ${i.trackable ? '' : 'disabled title="來源花色尚待確認"'}><span aria-hidden="true">✓</span></label></td><td><span class="item-name">${esc(i.name)}</span><div class="item-meta"><span class="badge ${JournalCore.kindClass(i)}">${esc(JournalCore.kindLabel(i))}</span>${c === 'dishes' && JournalCore.limitedIngredients(i, LIMITED_MATERIALS).length ? '<span class="badge limited">限時材料</span>' : ''}${c === 'dishes' && i.eventSchedule?.requiresActivityStation === true ? '<span class="badge station" title="需要活動限定料理台，活動結束後無法製作">限時料理台</span>' : ''}${i.color ? `<span class="badge ${i.trackable ? 'color' : 'unknown'}">${esc(i.color)}</span>` : ''}</div></td><td><span class="level-badge">${i.level === null ? '未知' : 'Lv. ' + i.level}</span></td><td>${info}</td><td>${extra}</td>${c === 'dishes' ? `<td class="dish-currency-cell">${dishCurrencySummary(i, Number(f.profitStar || 1))}</td>` : ''}<td><button class="row-detail" data-detail="${i.id}" aria-label="查看${esc(fullname)}資料" aria-expanded="false">${c === 'dishes' ? '詳情 ＋' : '資料 ＋'}</button></td></tr>`;
+        return `<tr class="item ${state.done[i.id] ? 'complete' : ''}" data-item="${i.id}"><td><label class="check-label"><input type="checkbox" data-check="${i.id}" aria-label="${esc(fullname)} ${c === 'flowers' ? '已收集此花色' : '已取得五星'}" ${state.done[i.id] ? 'checked' : ''} ${i.trackable ? '' : i.displayOnly ? 'disabled title="僅供展示，不列入收集"' : 'disabled title="來源花色尚待確認"'}><span aria-hidden="true">✓</span></label></td><td><span class="item-name">${esc(i.name)}</span><div class="item-meta"><span class="badge ${JournalCore.kindClass(i)}">${esc(JournalCore.kindLabel(i))}</span>${c === 'dishes' && JournalCore.limitedIngredients(i, LIMITED_MATERIALS).length ? '<span class="badge limited">限時材料</span>' : ''}${c === 'dishes' && i.eventSchedule?.requiresActivityStation === true ? '<span class="badge station" title="需要活動限定料理台，活動結束後無法製作">限時料理台</span>' : ''}${i.color ? `<span class="badge ${i.trackable ? 'color' : 'unknown'}">${esc(i.color)}</span>` : ''}</div></td><td><span class="level-badge">${i.level === null ? '未知' : 'Lv. ' + i.level}</span></td><td>${info}</td><td>${extra}</td>${c === 'dishes' ? `<td class="dish-currency-cell">${dishCurrencySummary(i, Number(f.profitStar || 1))}</td>` : ''}<td><button class="row-detail" data-detail="${i.id}" aria-label="查看${esc(fullname)}資料" aria-expanded="false">${c === 'dishes' ? '詳情 ＋' : '資料 ＋'}</button></td></tr>`;
       })
       .join('');
     $('empty').hidden = visible.length > 0;
@@ -917,10 +970,31 @@
       ?.focus({ preventScroll: true });
   });
 
+  // 換分類時沿用上一頁的共用篩選：收錄類型、可獲取、等級、完成狀態；
+  // 天氣與時段只在釣魚、捕蟲、觀鳥之間同步（園藝、烹飪沒有這兩項）
+  const HABITAT = ['fish', 'bugs', 'birds'];
+  function switchCategory(next) {
+    const from = state.filters[state.active],
+      to = state.filters[next];
+    if (from && to && next !== state.active) {
+      // 搜尋文字不跨頁保留：換頁時兩邊都清空
+      from.search = '';
+      to.search = '';
+      to.kind = [...from.kind];
+      to.cookableOnly = from.cookableOnly;
+      to.level = from.level;
+      to.status = from.status;
+      if (HABITAT.includes(state.active) && HABITAT.includes(next)) {
+        to.weather = from.weather;
+        to.time = from.time;
+      }
+    }
+    state.active = next;
+  }
   $('categories').addEventListener('click', e => {
     const b = e.target.closest('[data-category]');
     if (!b) return;
-    state.active = b.dataset.category;
+    switchCategory(b.dataset.category);
     showView(false);
     save();
     configureCategory();
@@ -1078,10 +1152,18 @@
   document.addEventListener('visibilitychange', () => {
     if (!document.hidden) renderFilterSummary();
   });
+  // 問題紀錄的版本資訊一律取自最新一筆更新紀錄與資料版本，更新網站時不用手動改
+  function currentReleaseLabel() {
+    const latest = (DATA.changelog || [])[0];
+    const release = latest
+      ? `v${latest.version}（${String(latest.date || '').replaceAll('-', '/')} 更新）`
+      : '版本未知';
+    return `${release}・資料版本 ${DATA.dataVersion || '未知'}`;
+  }
   $('report-issue').addEventListener('click', () => {
     $('report-text').value =
-      '心動小鎮五星圖鑑 v1.2.2（2026/11/09 更新）\n分類：' +
-      meta[state.active].name +
+      '心動小鎮五星圖鑑 ' + currentReleaseLabel() + '\n分類：' +
+      { fish: '釣魚', bugs: '捕蟲', birds: '觀鳥', flowers: '園藝', dishes: '烹飪' }[state.active] +
       '\n' +
       $('filter-summary').textContent +
       '\n\n項目名稱：\n遇到的問題：\n預期資料：\n可核對的來源與日期：\n裝置與瀏覽器：';
@@ -1091,7 +1173,7 @@
     const url = URL.createObjectURL(new Blob([$('report-text').value], { type: 'text/plain;charset=utf-8' })),
       a = document.createElement('a');
     a.href = url;
-    a.download = '圖鑑問題紀錄-v1.0.0.txt';
+    a.download = `圖鑑問題紀錄-v${(DATA.changelog || [])[0]?.version || '未知'}.txt`;
     a.click();
     setTimeout(() => URL.revokeObjectURL(url), 10000);
     toast('已送出問題紀錄下載；請自行提供給維護者。');
@@ -1158,7 +1240,7 @@
       updateProgress();
       const group = ITEMS.filter(i => i.category === state.active),
         visible = JournalCore.filterItems(group, state.filters[state.active], state.done),
-        pending = visible.filter(i => !i.trackable).length;
+        pending = visible.filter(i => !i.trackable && !i.displayOnly).length;
       $('result-note').textContent =
         `${visible.filter(i => state.done[i.id]).length} 項已完成${pending ? ' · ' + pending + ' 項資料待確認' : ''}`;
     }
@@ -1188,9 +1270,11 @@
     tr.className = 'detail-row';
     tr.innerHTML = `<td colspan="${i.category === 'dishes' ? 7 : 6}">${eventDetails(i)}${
       i.category === 'dishes'
-        ? '<section class="dish-economics-detail"><h4>成本・售價・利潤</h4>' +
+        ? // 特殊製作方式（不是在料理台製作的料理，例如溫泉蛋），只在展開詳情時顯示
+          (i.raw?.['製作方式'] ? '<section class="dish-method"><h4>製作方式</h4><p>' + esc(i.raw['製作方式']) + '</p></section>' : '') +
+          '<section class="dish-economics-detail"><h4>成本・售價・利潤</h4>' +
           dishEconomics(i) +
-          '</section><section class="dish-ingredients"><h4>食材</h4>' +
+                  '</section><section class="dish-ingredients"><h4>食材</h4>' +
           (Object.keys(i.ingredients || {}).length
             ? '<ul>' +
               Object.entries(i.ingredients)
@@ -1209,7 +1293,7 @@
             : line('來源未提供')) +
           '</section>'
         : ''
-    }${i.category === 'birds' ? birdDetails(i) + (i.id.startsWith('trial-') ? '' : '<h4>一般出沒條件（百科）</h4>' + line('時段：' + (i.times.length === 4 ? '全天' : i.times.join(' / '))) + line('天氣：' + i.weather.join('／'))) : ''}${['fish', 'bugs', 'birds'].includes(i.category) ? '<h4>星級售價</h4>' : ''}<dl ${i.category === 'dishes' ? 'hidden' : ''} class="raw-grid${['fish', 'bugs', 'birds'].includes(i.category) ? ' fish-prices' : ''}">${Object.entries(
+    }${i.category === 'birds' ? birdDetails(i) + (i.eventName ? '' : '<h4>一般出沒條件（百科）</h4>' + line('時段：' + (i.times.length === 4 ? '全天' : i.times.join(' / '))) + line('天氣：' + i.weather.join('／'))) : ''}${['fish', 'bugs', 'birds'].includes(i.category) ? '<h4>星級售價</h4>' : ''}<dl ${i.category === 'dishes' ? 'hidden' : ''} class="raw-grid${['fish', 'bugs', 'birds'].includes(i.category) ? ' fish-prices' : ''}">${Object.entries(
       i.raw,
     )
       .filter(
@@ -1310,6 +1394,33 @@
       toast('其他分頁的進度格式有誤，保留目前畫面。');
     }
   });
+  // 更新紀錄：由 data/changelog.json 產生。文字先全部跳脫，只放行 <strong>…</strong>
+  const changelog = DATA.changelog || [];
+  const richText = s => esc(s).replace(/&lt;(\/?)strong&gt;/g, '<$1strong>');
+  $('release-batches').innerHTML = changelog.length
+    ? changelog
+        .map(
+          (entry, n) =>
+            `<article class="release-batch" aria-labelledby="release-title-${n}"><h3 id="release-title-${n}">v${esc(entry.version)} · ${esc(String(entry.date || '').replaceAll('-', '/'))} ${esc(entry.label || '更新')}</h3>` +
+            (entry.summary ? `<p class="release-count-line">${richText(entry.summary)}</p>` : '') +
+            `<ul class="release-bullets">${(entry.items || [])
+              .map(item => `<li>${item.title ? `<strong>${esc(item.title)}</strong>：` : ''}${richText(item.text)}</li>`)
+              .join('')}</ul></article>`,
+        )
+        .join('')
+    : '<p class="release-loading">目前沒有更新紀錄。</p>';
+  // 版本告示（說明視窗）跟著最新一筆更新紀錄
+  if (changelog[0]) {
+    const latest = changelog[0],
+      [y, m, d] = String(latest.date || '').split('-').map(Number);
+    const versionEl = document.querySelector('#help-dialog .release-notice strong'),
+      timeEl = document.querySelector('#help-dialog .release-notice time');
+    if (versionEl) versionEl.textContent = '版本告示 · v' + latest.version;
+    if (timeEl && y) {
+      timeEl.setAttribute('datetime', latest.date);
+      timeEl.textContent = `${y} 年 ${m} 月 ${d} 日`;
+    }
+  }
   const releaseBatches = [...document.querySelectorAll('#release-batches .release-batch')];
   let releasePage = 0;
   function showReleasePage(index) {
@@ -1336,9 +1447,10 @@
     showView(true);
   });
   $('home-cards').addEventListener('click', e => {
+    if (e.target.closest('[data-home-calculator]')) return showCalculator();
     const b = e.target.closest('[data-home-category]');
     if (!b) return;
-    state.active = b.dataset.homeCategory;
+    switchCategory(b.dataset.homeCategory);
     showView(false);
     save();
     configureCategory();
@@ -1390,8 +1502,6 @@
   });
   refreshEventSchedule();
   configureCategory();
-  if (restoreCalculator) showCalculator();
-  rememberPage();
   updateBackupStatus();
   // Check whether this browser permits persistence without overwriting existing progress.
   try {

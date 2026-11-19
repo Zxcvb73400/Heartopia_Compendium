@@ -270,6 +270,14 @@ h1 {
   margin: 0;
   font-weight: 650;
 }
+/* 首頁進度區的標題：外觀同 h1，但一頁只保留一個 h1（SEO） */
+.hero-title {
+  font-family: "Microsoft JhengHei", sans-serif;
+  font-size: 32px;
+  letter-spacing: 2px;
+  margin: 0;
+  font-weight: 650;
+}
 h1 span {
   color: #b4bb8b;
   margin-left: 17px;
@@ -847,7 +855,7 @@ dialog::backdrop {
     padding: 16px;
     gap: 13px;
   }
-  .hero h1 {
+  .hero .hero-title {
     font-size: 28px;
   }
   .filter-grid {
@@ -928,7 +936,7 @@ dialog::backdrop {
   .total-card {
     padding: 12px 20px;
   }
-  .hero h1 {
+  .hero .hero-title {
     font-size: 29px;
   }
   .collection-heading {
@@ -1030,7 +1038,7 @@ nav {
   margin-bottom: 18px;
   gap: 14px;
 }
-.hero h1 {
+.hero .hero-title {
   font-size: 21px;
   letter-spacing: 0;
 }
@@ -1155,7 +1163,7 @@ main {
     flex-direction: row;
     align-items: center;
   }
-  .hero h1 {
+  .hero .hero-title {
     font-size: 20px;
   }
   .total-card {
@@ -1290,7 +1298,7 @@ main {
   flex-wrap: wrap;
 }
 @media (max-width: 800px) {
-  .hero h1 {
+  .hero .hero-title {
     font-size: 19px;
   }
 }
@@ -1368,6 +1376,19 @@ th[aria-sort="descending"] {
   background: var(--paper);
   border: 1px solid var(--line);
   border-radius: 6px;
+}
+/* 子料理材料明細（料理詳情內，可展開） */
+.sub-dish-detail {
+  margin: 4px 0 10px;
+}
+.sub-dish-detail summary {
+  cursor: pointer;
+}
+.sub-dish-detail ul {
+  margin: 6px 0 0;
+  padding-left: 1.2em;
+  line-height: 1.6;
+  overflow-wrap: anywhere;
 }
 .dish-price-wrap {
   border: 1px solid var(--line);
@@ -3876,7 +3897,7 @@ body:not(.is-ready) > :not(.load-error) {
     gap: 12px;
     margin-bottom: 18px;
   }
-  .hero h1 { font-size: 21px; letter-spacing: 0; line-height: 1.35; }
+  .hero .hero-title { font-size: 21px; letter-spacing: 0; line-height: 1.35; }
   .total-card { min-width: 0; width: 100%; padding: 10px 14px; gap: 10px; border-radius: 11px; }
   .total-card strong { font-size: 23px; }
   .ring { width: 44px; height: 44px; }
@@ -4061,3 +4082,13 @@ body:not(.is-ready) > :not(.load-error) {
   .sidebar #nav-calculator { margin-top: 6px; border-color: var(--line); }
 }
 
+
+/* 頁尾「資料來源與更新說明」：字級放大，較易閱讀（放在檔尾以覆蓋前面的設定） */
+.source-footer {
+  font-size: 11px;
+  line-height: 1.85;
+}
+.source-footer .release-source-notes h3 {
+  font-size: 12px;
+  font-weight: 600;
+}

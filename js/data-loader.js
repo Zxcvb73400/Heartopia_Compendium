@@ -100,6 +100,12 @@ const AtlasData = (() => {
       ...CATEGORY_NAMES.map(name => fetchJson(name + '.json', version)),
     ]);
 
+    // 更新紀錄獨立在 changelog.json；讀不到時不影響圖鑑本身
+    const changelog = await fetchJson('changelog.json', version).catch(error => {
+      console.warn('更新紀錄讀取失敗', error);
+      return [];
+    });
+
     const items = CATEGORY_NAMES.flatMap((category, index) =>
       categoryLists[index].map(entry => restoreItem(entry, category, shared)));
 
@@ -110,6 +116,7 @@ const AtlasData = (() => {
       retiredItemIds,
       materials: materialFile.materials,
       limitedMaterials: materialFile.limitedMaterials,
+      changelog: Array.isArray(changelog) ? changelog : [],
     };
   }
 

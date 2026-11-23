@@ -415,6 +415,7 @@
     const b = $('nav-calculator');
     b.classList.add('active');
     b.setAttribute('aria-current', 'page');
+    rememberView('calculator');
   }
   /* ----------------------------------------------------------------
    * 共用工具與畫面狀態：存檔鍵名、圖示、目前頁面、收藏紀錄
@@ -463,10 +464,19 @@
     storageAvailable = false;
     startupWarning = '無法讀取本機進度。請匯入備份，並確認瀏覽器允許儲存。';
   }
-  // 每次開啟或重新整理網頁：回到首頁，所有分類的篩選恢復預設（時段＝現在的時段）。
+  // 開啟或重新整理時回到上次瀏覽的頁面；所有分類的篩選恢復預設（時段＝現在的時段）。
   // 勾選進度（state.done）不受影響；載入後手動改的篩選會照常保存，直到下次重新載入。
   for (const c of JournalCore.categories) state.filters[c] = JournalCore.defaults(c);
-  let homeVisible = true;
+  let initialView = 'home';
+  try {
+    const savedView = localStorage.getItem(KEY + '.view');
+    if (savedView === 'calculator' || JournalCore.categories.includes(savedView))
+      initialView = savedView;
+  } catch {
+    // 瀏覽器不允許本機儲存時，仍可正常使用網站並從首頁開始。
+  }
+  if (JournalCore.categories.includes(initialView)) state.active = initialView;
+  let homeVisible = initialView === 'home';
   const openFlowers = new Set();
   let toastTimer;
   /* ----------------------------------------------------------------
@@ -490,6 +500,13 @@
       toast('瀏覽器無法保存進度；請按「匯出備份」保留這次勾選。');
     }
   }
+  function rememberView(view) {
+    try {
+      localStorage.setItem(KEY + '.view', view);
+    } catch {
+      // 頁面記憶失敗不影響切換頁面或收藏進度的保存。
+    }
+  }
   function showView(home) {
     homeVisible = home;
     $('calculator-view').hidden = true;
@@ -509,6 +526,7 @@
       if (active) b.setAttribute('aria-current', 'page');
       else b.removeAttribute('aria-current');
     }
+    rememberView(home ? 'home' : state.active);
   }
   /* ----------------------------------------------------------------
    * 首頁與整體進度
@@ -1500,6 +1518,8 @@
   document.addEventListener('visibilitychange', () => {
     if (!document.hidden) refreshEventSchedule();
   });
+  if (initialView === 'calculator') showCalculator();
+  else showView(homeVisible);
   refreshEventSchedule();
   configureCategory();
   updateBackupStatus();

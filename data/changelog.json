@@ -1,4 +1,16 @@
 [
+    {
+    "version": "1.2.5",
+    "date": "2026-11-23",
+    "label": "更新",
+    "summary": "圖鑑共 <strong>675 筆</strong> · 本批新增 <strong>6 筆</strong> ",
+    "items": [
+      {
+        "title": "活動菜譜新增",
+        "text": "新增彩虹小馬(第二期)菜譜，共6筆。"
+      }
+    ]
+  },
   {
     "version": "1.2.4",
     "date": "2026-11-19",

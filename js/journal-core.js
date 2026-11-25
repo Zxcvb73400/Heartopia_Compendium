@@ -26,11 +26,11 @@ const JournalCore = (() => {
     fiveStarOnly: false,
     cookableOnly: true,
   });
-  // 活動徽章：依目前時間顯示「當前／過往」＋活動類型＋活動名稱，例如「過往潮流季-冰雪季」
+  // 活動徽章：依目前時間顯示「當前／過往」＋活動類型＋活動名稱，例如「過往潮流季·冰雪季」
   const kindLabel = item =>
     ['當前活動', '過往活動'].includes(item.kind) && item.eventName
       ? item.eventSchedule?.activityType
-        ? `${item.kind === '當前活動' ? '當前' : '過往'}${item.eventSchedule.activityType}-${item.eventName}`
+        ? `${item.kind === '當前活動' ? '當前' : '過往'}${item.eventSchedule.activityType}·${item.eventName}`
         : `${item.kind} · ${item.eventName}`
       : item.eventStatus === 'upcoming'
         ? '活動（尚未開始）'
@@ -58,6 +58,8 @@ const JournalCore = (() => {
     // 「戴勝鳥（事件）-額外階段」這類帶階段的寫法，以「（事件）」之前的事件名稱判斷
     const eventName = String(value).trim().match(/^[^／/]*?（事件）/)?.[0];
     if (eventName && !DAILY_EVENTS.includes(eventName)) return [SPECIAL_EVENT];
+    // 常駐事件帶階段（例如「百鳥歸巢（事件）－第二階段」）時，仍歸在原本的事件選項
+    if (eventName && String(value).trim() !== eventName) return locationRegions(eventName, category);
     if (category === 'fish' && value === '雀鱔魚（事件）') return ['雀鱔魚（事件）'];
     if (category === 'fish' && value === '海釣（事件）') return ['海釣（事件）'];
     if (category === 'birds' && /^(戴勝鳥事件|戴勝鳥（事件）)/.test(value))

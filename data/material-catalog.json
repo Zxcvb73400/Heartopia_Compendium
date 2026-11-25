@@ -851,6 +851,48 @@
       "cost": 5,
       "limited": true,
       "aliases": []
+    },
+    {
+      "name": "藍藻粉",
+      "cost": 50,
+      "limited": true,
+      "aliases": []
+    },
+    {
+      "name": "海蝦",
+      "cost": 50,
+      "limited": false,
+      "aliases": []
+    },
+    {
+      "name": "海蘆筍",
+      "cost": 0,
+      "limited": true,
+      "aliases": []
+    },
+    {
+      "name": "海葡萄",
+      "cost": 0,
+      "limited": true,
+      "aliases": []
+    },
+    {
+      "name": "裙帶菜",
+      "cost": 0,
+      "limited": true,
+      "aliases": []
+    },
+    {
+      "name": "扇貝",
+      "cost": 100,
+      "limited": true,
+      "aliases": []
+    },
+    {
+      "name": "楊桃",
+      "cost": 30,
+      "limited": true,
+      "aliases": []
     }
   ],
   "limitedMaterials": [
@@ -896,6 +938,12 @@
     "野蕨菜",
     "野蒜芥",
     "野牛蒡",
-    "野芥菜"
+    "野芥菜",
+    "藍藻粉",
+    "海蘆筍",
+    "海葡萄",
+    "裙帶菜",
+    "扇貝",
+    "楊桃"
   ]
 }

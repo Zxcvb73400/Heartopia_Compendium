@@ -648,6 +648,9 @@
       ''
     );
   }
+  // 地點細節（例如「緩風海（礁石上）」）只用於顯示；搜尋與篩選仍使用原本的 locations
+  const withLocationNote = (item, value) =>
+    item.locationNotes?.[value] ? `${value}（${item.locationNotes[value]}）` : value;
   function birdLocationSummary(item) {
     const locations = [...(item.locations || [])];
     for (const raw of item.fiveStar?.locations || []) {
@@ -671,13 +674,14 @@
         } else locations.push(formatted);
       }
     }
-    return [...new Set(locations)].join(' / ') || '來源未提供';
+    return [...new Set(locations.map(value => withLocationNote(item, value)))].join(' / ') || '來源未提供';
   }
   function locationSummary(item) {
     if (item.category === 'birds') return birdLocationSummary(item);
     const stage = ['fish', 'bugs'].includes(item.category) ? eventStage(item) : '';
     return (
       (item.locations || [])
+        .map(value => withLocationNote(item, value))
         .map(value => (stage && value.includes('事件') ? value + ' - ' + stage : value))
         .join(' / ') || '來源未提供'
     );
@@ -804,7 +808,7 @@
         const open = openFlowers.has(g.id),
           panel = 'flower-' + g.id;
         return `<tr class="item ${g.complete ? 'complete' : ''}" data-item="${g.id}"><td><label class="check-label" title="勾選或取消${esc(g.name)}的全部花色"><input type="checkbox" data-complete-flower="${g.id}" aria-label="${esc(g.name)}全部花色" ${g.complete ? 'checked' : ''} ${g.trackable ? '' : 'disabled'}><span aria-hidden="true">✓</span></label></td><td><button class="flower-toggle item-name" data-flower="${g.id}" aria-expanded="${open}" aria-controls="${panel}">${esc(g.name)}</button><div class="item-meta"><span class="badge">花卉</span> <span class="badge ${JournalCore.kindClass(g)}">${esc(JournalCore.kindLabel(g))}</span></div></td><td><span class="level-badge">${g.level === null ? '未知' : 'Lv. ' + g.level}</span></td><td>${line(g.trackable ? `${g.collected} / ${g.colors.length} 花色${g.complete ? ' · 已完成' : ''}` : '花色待確認')}</td><td>${line(g.raw['生長週期'] || '未知')}</td><td><button class="row-detail" data-flower="${g.id}" aria-expanded="${open}" aria-controls="${panel}" aria-label="${open ? '收起' : '展開'}${esc(g.name)}花色">${open ? '收起 −' : '展開 ＋'}</button></td></tr>
-      <tr class="detail-row" id="${panel}" ${open ? '' : 'hidden'}><td colspan="6"><strong>${esc(g.name)} · 花色收集</strong><div class="flower-colors">${g.colors.map(i => `<div class="flower-color ${state.done[i.id] ? 'collected' : ''}"><label><input type="checkbox" data-check="${i.id}" aria-label="${esc(i.name + '・' + i.color)} 已收集此花色" ${state.done[i.id] ? 'checked' : ''} ${i.trackable ? '' : 'disabled'}><span><b>${esc(i.color)}</b><small>${i.stars?.length ? i.stars.map(s => s + ' 星').join(' / ') : '星數待確認'}</small></span></label><div class="info-text">${(i.stars || []).map(s => `${s} 星售價：${esc(i.raw[s + '星'] === 'N/A' ? '未知' : (i.raw[s + '星'] ?? '未知'))}`).join('<br>')}</div></div>`).join('')}</div>${g.trackable ? '' : '<span class="info-text">來源尚未提供花色，暫不列入完成統計。</span>'}<h4>星級售價</h4>${gardenPriceRow(g.raw)}${eventDetails(g)}</td></tr>`;
+      <tr class="detail-row" id="${panel}" ${open ? '' : 'hidden'}><td colspan="6"><strong>${esc(g.name)} · 花色收集</strong><div class="flower-colors">${g.colors.map(i => `<div class="flower-color ${state.done[i.id] ? 'collected' : ''}"><label><input type="checkbox" data-check="${i.id}" aria-label="${esc(i.name + '・' + i.color)} 已收集此花色" ${state.done[i.id] ? 'checked' : ''} ${i.trackable ? '' : 'disabled'}><span><b>${esc(i.color)}</b><small>${i.stars?.length ? i.stars.map(s => s + ' 星').join(' / ') : '星數待確認'}</small></span></label><div class="info-text">${(i.stars || []).map(s => `${s} 星售價：${esc(i.raw[s + '星'] === 'N/A' ? '未知' : (i.raw[s + '星'] ?? '未知'))}`).join('<br>')}</div></div>`).join('')}</div>${g.trackable ? '' : '<span class="info-text">來源尚未提供花色，暫不列入完成統計。</span>'}${g.raw['種子價格'] !== '' && g.raw['種子價格'] != null ? `<h4>成本</h4>${gardenPriceRow(g.raw, ['種子價格'])}` : ''}<h4>星級售價</h4>${gardenPriceRow(g.raw)}${eventDetails(g)}</td></tr>`;
       })
       .join('');
     $('empty').hidden = visible.length > 0;
@@ -833,6 +837,7 @@
       text += line('五星天氣：' + s.weatherLabel);
       text += line('五星時段：' + (s.times.length === 4 ? '全天（00:00～24:00）' : s.timeLabel));
       if (!compact && birdWhistleNote(i)) text += line('鳥哨：' + birdWhistleNote(i));
+      if (!compact && s.remark) text += line('備註：' + s.remark);
       if (!compact && s.name !== i.name) text += line('圖表名稱：' + s.name);
     } else text += line('本次 77 種總表未收錄五星條件。');
     return text + (compact ? '' : '</div>');
@@ -1187,14 +1192,25 @@
       '\n\n項目名稱：\n遇到的問題：\n預期資料：\n可核對的來源與日期：\n裝置與瀏覽器：';
     $('report-dialog').showModal();
   });
-  $('download-report').addEventListener('click', () => {
-    const url = URL.createObjectURL(new Blob([$('report-text').value], { type: 'text/plain;charset=utf-8' })),
-      a = document.createElement('a');
-    a.href = url;
-    a.download = `圖鑑問題紀錄-v${(DATA.changelog || [])[0]?.version || '未知'}.txt`;
-    a.click();
-    setTimeout(() => URL.revokeObjectURL(url), 10000);
-    toast('已送出問題紀錄下載；請自行提供給維護者。');
+  $('copy-report').addEventListener('click', async () => {
+    const field = $('report-text');
+    try {
+      await navigator.clipboard.writeText(field.value);
+    } catch {
+      // 不支援剪貼簿 API（例如非 HTTPS）時，改用選取文字＋execCommand
+      field.focus();
+      field.select();
+      if (!document.execCommand('copy')) {
+        toast('無法自動複製，請手動選取文字後複製。');
+        return;
+      }
+    }
+    toast('已複製問題紀錄，請貼到留言告知作者。');
+    // 提示會被對話框背景遮住，按鈕本身也短暫顯示已複製
+    const button = $('copy-report');
+    button.textContent = '已複製 ✓';
+    clearTimeout(button._resetTimer);
+    button._resetTimer = setTimeout(() => (button.textContent = '複製問題紀錄'), 2000);
   });
   function resetFilters() {
     state.filters[state.active] = JournalCore.defaults(state.active);

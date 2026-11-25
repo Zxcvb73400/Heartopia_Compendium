@@ -25,6 +25,8 @@ const JournalCore = (() => {
     plantType: 'all',
     fiveStarOnly: false,
     cookableOnly: true,
+    // 烹飪專用：僅顯示可製作（可獲取的料理一定可製作）
+    craftableOnly: true,
   });
   // 活動徽章：依目前時間顯示「當前／過往」＋活動類型＋活動名稱，例如「過往潮流季·冰雪季」
   const kindLabel = item =>
@@ -250,15 +252,37 @@ const JournalCore = (() => {
       eventAvailable: item.category === 'dishes' ? undefined : !outside,
     };
   }
+  // 是否需要活動限定料理台：料理資料的「活動料理台需求」優先，其次才看活動檔期設定
+  function needsActivityStation(item) {
+    if (item.category !== 'dishes') return undefined;
+    const mark = item.raw?.['活動料理台需求'];
+    if (mark === '否') return false;
+    if (mark === '是') return true;
+    return item.eventSchedule?.requiresActivityStation;
+  }
   function limitedIngredients(item, limitedMaterials = new Set()) {
-    const schedule = item.eventSchedule;
-    if (item.category !== 'dishes' || schedule?.requiresActivityStation === true) return [];
+    if (item.category !== 'dishes' || needsActivityStation(item) === true) return [];
     return Object.keys(item.ingredients || {}).filter(name => limitedMaterials.has(name));
   }
+  // 「當前可獲取」：過往活動一律不可獲取；料理另需可製作，且是日常或進行中活動的料理
+  function isObtainable(item, limitedMaterials = new Set()) {
+    if (item.kind === '過往活動') return false;
+    if (item.category !== 'dishes') return isAvailable(item, limitedMaterials);
+    return (item.kind === '日常' || item.kind === '當前活動') && isAvailable(item, limitedMaterials);
+  }
+  // 料理時代表「當前可製作」：需要限時料理台的料理只在活動期間可製作；
+  // 活動不在進行中時，用到限時材料的料理也無法製作
   function isAvailable(item, limitedMaterials = new Set()) {
-    const schedule = item.category === 'dishes' && item.eventSchedule;
-    if (schedule?.requiresActivityStation === true) return item.eventStatus === 'active';
-    if (schedule?.requiresActivityStation === false) return true;
+    const station = needsActivityStation(item);
+    if (station === true) return item.eventStatus === 'active';
+    if (
+      item.category === 'dishes' &&
+      item.eventStatus &&
+      item.eventStatus !== 'active' &&
+      limitedIngredients(item, limitedMaterials).length
+    )
+      return false;
+    if (station === false) return true;
     if (typeof item.eventAvailable === 'boolean') return item.eventAvailable;
     if (typeof item.available === 'boolean') return item.available;
     if (item.category === 'dishes' && typeof item.cookable === 'boolean') return item.cookable;
@@ -286,10 +310,11 @@ const JournalCore = (() => {
           !(f.kind.length === 3 && !['日常', '當前活動', '過往活動'].includes(i.kind))
         )
           return false;
-        // 「僅顯示當前可獲取」預設會藏起已結束的活動；但使用者在收錄類型中特地勾選「過往活動」
-        // （沒有全選）時，代表要查過往活動，就不以可獲取與否過濾這些項目。
-        const pastRequested = i.kind === '過往活動' && f.kind.includes('過往活動') && f.kind.length < 3;
-        if (f.cookableOnly && !pastRequested && !isAvailable(i, limitedMaterials)) return false;
+        // 「當前可獲取」：過往活動一律不可獲取
+        if (f.cookableOnly && !isObtainable(i, limitedMaterials)) return false;
+        // 料理的「當前可製作」：勾選可獲取時也一定要可製作
+        if (i.category === 'dishes' && (f.craftableOnly || f.cookableOnly) && !isAvailable(i, limitedMaterials))
+          return false;
         if (
           i.category === 'plants' &&
           f.plantType &&
@@ -426,6 +451,7 @@ const JournalCore = (() => {
       if (typeof v.search === 'string') f.search = v.search.slice(0, 200);
       f.fiveStarOnly = c === 'birds' && v.fiveStarOnly === true;
       if (typeof v.cookableOnly === 'boolean') f.cookableOnly = v.cookableOnly;
+      if (typeof v.craftableOnly === 'boolean') f.craftableOnly = v.craftableOnly;
       const places = locationChoices(items.filter(i => i.category === c));
       if (c === 'bugs' && v.location === 'exact:引蟲出洞（事件）') v.location = 'group:事件';
       if (typeof v.location === 'string' && /^(exact|group):/.test(v.location)) {
@@ -510,7 +536,9 @@ const JournalCore = (() => {
     kindLabel,
     kindClass,
     isAvailable,
+    isObtainable,
     limitedIngredients,
+    needsActivityStation,
     applyEventSchedule,
     locationRegions,
     locationChoices,

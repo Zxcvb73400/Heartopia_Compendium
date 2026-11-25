@@ -169,7 +169,7 @@
     {
       "name": "南瓜",
       "cost": 30,
-      "limited": true,
+      "limited": false,
       "aliases": []
     },
     {
@@ -203,11 +203,11 @@
       "aliases": []
     },
     {
-      "name": "黃油",
+      "name": "奶油",
       "cost": 150,
       "limited": false,
       "aliases": [
-        "奶油"
+        "黃油"
       ]
     },
     {
@@ -867,19 +867,19 @@
     {
       "name": "海蘆筍",
       "cost": 0,
-      "limited": true,
+      "limited": false,
       "aliases": []
     },
     {
       "name": "海葡萄",
       "cost": 0,
-      "limited": true,
+      "limited": false,
       "aliases": []
     },
     {
       "name": "裙帶菜",
       "cost": 0,
-      "limited": true,
+      "limited": false,
       "aliases": []
     },
     {
@@ -896,7 +896,6 @@
     }
   ],
   "limitedMaterials": [
-    "南瓜",
     "梨果仙人掌",
     "果木炭",
     "濃縮棗漿",
@@ -940,9 +939,6 @@
     "野牛蒡",
     "野芥菜",
     "藍藻粉",
-    "海蘆筍",
-    "海葡萄",
-    "裙帶菜",
     "扇貝",
     "楊桃"
   ]

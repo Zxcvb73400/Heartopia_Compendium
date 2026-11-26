@@ -502,7 +502,62 @@ const JournalCore = (() => {
       state.filters[c] = f;
     }
     syncHabitatFilters(state, ['fish', 'bugs', 'birds'].includes(state.active) ? state.active : 'fish');
+    state.achievements = sanitizeFlags(value.achievements);
+    state.pets = sanitizePets(value.pets);
     return state;
+  }
+  /* ----------------------------------------------------------------
+   * 成就與寵物：不計入圖鑑總進度，但和勾選紀錄一起保存與備份。
+   * 不依目前資料檔過濾 ID，資料暫時下架或還沒補齊時，玩家的紀錄也不會遺失。
+   * ---------------------------------------------------------------- */
+  const MAX_PETS = 50;
+  const MAX_PET_NOTE = 100; // 每樣食物的備註字數上限
+  const isRecordId = id => typeof id === 'string' && /^[\w-]{1,64}$/.test(id);
+  // { id: true } 形式的勾選紀錄：只保留合法 ID 且值為 true 的項目
+  function sanitizeFlags(input) {
+    const flags = {};
+    if (input && typeof input === 'object' && !Array.isArray(input))
+      for (const [id, v] of Object.entries(input)) if (v === true && isRecordId(id)) flags[id] = true;
+    return flags;
+  }
+  // { 食物 ID: '備註' }：只保留合法 ID 與非空白文字
+  function sanitizeNotes(input) {
+    const notes = {};
+    if (input && typeof input === 'object' && !Array.isArray(input))
+      for (const [id, v] of Object.entries(input))
+        if (isRecordId(id) && typeof v === 'string' && v.trim()) notes[id] = v.slice(0, MAX_PET_NOTE);
+    return notes;
+  }
+  function sanitizePets(input) {
+    if (!Array.isArray(input)) return [];
+    const seen = new Set(),
+      pets = [];
+    for (const p of input) {
+      if (!p || typeof p !== 'object' || !isRecordId(p.id) || seen.has(p.id)) continue;
+      const name = typeof p.name === 'string' ? p.name.trim().slice(0, 20) : '';
+      if (!name) continue;
+      seen.add(p.id);
+      const liked = sanitizeFlags(p.liked);
+      // 喜歡的食物一定吃過；吃過但沒標喜歡＝不喜歡（不另存）
+      // notes：每樣食物各自的備註（例如要餵幾隻），最多 MAX_PET_NOTE 字
+      pets.push({ id: p.id, name, type: p.type === 'dog' ? 'dog' : 'cat', eaten: { ...sanitizeFlags(p.eaten), ...liked }, liked, notes: sanitizeNotes(p.notes) });
+      if (pets.length >= MAX_PETS) break;
+    }
+    return pets;
+  }
+  // 合併兩份寵物紀錄：同一隻（同 ID）合併吃過與喜歡，備份裡多出來的寵物加在後面
+  function mergePets(current, incoming) {
+    const merged = current.map(p => ({ ...p, eaten: { ...p.eaten }, liked: { ...p.liked }, notes: { ...p.notes } }));
+    for (const p of incoming) {
+      const same = merged.find(m => m.id === p.id);
+      if (same) {
+        Object.assign(same.eaten, p.eaten);
+        Object.assign(same.liked, p.liked);
+        // 食物備註：目前沒寫的才採用備份裡的內容，避免覆蓋
+        for (const [id, text] of Object.entries(p.notes || {})) if (!same.notes[id]) same.notes[id] = text;
+      } else if (merged.length < MAX_PETS) merged.push(p);
+    }
+    return merged;
   }
   function readBackup(value, items, retiredIds = []) {
     if (
@@ -548,6 +603,9 @@ const JournalCore = (() => {
     syncHabitatFilters,
     sanitizeState,
     readBackup,
+    mergePets,
+    MAX_PETS,
+    MAX_PET_NOTE,
   };
 })();
 if (typeof module !== 'undefined' && module.exports) module.exports = JournalCore;

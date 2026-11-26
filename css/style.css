@@ -79,9 +79,7 @@ button:hover {
   width: 238px;
   position: fixed;
   inset: 0 auto 0 0;
-  background: #f1f3e9;
   border-right: 1px solid #dfe5d7;
-  padding: 36px 23px 25px;
   display: flex;
   flex-direction: column;
   z-index: 2;
@@ -91,9 +89,7 @@ button:hover {
   gap: 12px;
   align-items: center;
   text-decoration: none;
-  font-size: 20px;
   font-weight: 700;
-  letter-spacing: 1px;
 }
 .brand small {
   display: block;
@@ -115,7 +111,6 @@ button:hover {
 }
 nav {
   display: grid;
-  gap: 9px;
 }
 .nav-item {
   width: 100%;
@@ -130,7 +125,6 @@ nav {
 .nav-item.active {
   background: var(--green);
   color: white;
-  box-shadow: 0 6px 15px #345d4814;
 }
 .nav-item:not(.active):hover {
   background: #e6ecdf;
@@ -202,13 +196,10 @@ svg {
   margin-left: 238px;
 }
 .topbar {
-  height: 79px;
   padding: 0 42px;
   border-bottom: 1px solid var(--line);
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  background: #fbfcf7;
   font-size: 12px;
   color: #7e887a;
 }
@@ -230,7 +221,6 @@ svg {
   border: 1px solid #dce2d6;
   background: var(--paper);
   padding: 7px 13px;
-  font-size: 12px;
 }
 .primary {
   background: var(--green);
@@ -254,8 +244,6 @@ main {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 30px;
-  margin-bottom: 32px;
 }
 .eyebrow {
   font-size: 9px;
@@ -291,12 +279,6 @@ h1 span {
 .total-card {
   display: flex;
   align-items: center;
-  gap: 17px;
-  padding: 18px 24px;
-  background: #edf1e5;
-  border: 1px solid #e1e7d7;
-  border-radius: 13px;
-  min-width: 305px;
 }
 .total-star {
   color: #a4ad7d;
@@ -308,12 +290,10 @@ h1 span {
   letter-spacing: 1px;
 }
 .total-card strong {
-  font-size: 29px;
   font-weight: 600;
   line-height: 1.4;
 }
 .total-card #total-count {
-  font-size: 12px;
   color: #8c9780;
   margin-left: 7px;
 }
@@ -339,12 +319,9 @@ h1 span {
 .collection {
   border: 1px solid var(--line);
   background: var(--paper);
-  border-radius: 15px;
   overflow: hidden;
-  box-shadow: 0 6px 22px #364d351f;
 }
 .collection-heading {
-  padding: 25px 27px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -353,13 +330,8 @@ h1 span {
 .title-group {
   display: flex;
   align-items: center;
-  gap: 16px;
 }
 .category-icon {
-  width: 48px;
-  height: 48px;
-  background: var(--pale);
-  border-radius: 13px;
   display: grid;
   place-items: center;
   color: var(--green);
@@ -381,8 +353,6 @@ h2 {
 .category-progress {
   width: 180px;
   text-align: right;
-  font-size: 11px;
-  color: #829079;
   flex-shrink: 0;
 }
 .bar {
@@ -399,18 +369,11 @@ h2 {
   border-radius: 6px;
 }
 .filters {
-  margin: 0 27px;
-  padding: 20px;
-  background: #f7f8f2;
   border: 1px solid #e7ebde;
-  border-radius: 10px;
 }
 .filter-top {
   display: flex;
-  align-items: center;
   justify-content: space-between;
-  gap: 20px;
-  margin-bottom: 17px;
 }
 .search-wrap {
   display: flex;
@@ -420,7 +383,6 @@ h2 {
   border: 1px solid #dde3d4;
   border-radius: 8px;
   padding: 4px 12px;
-  max-width: 400px;
   width: 100%;
   color: #9ca58f;
 }
@@ -445,13 +407,11 @@ input::placeholder {
   background: #e9edde;
   border-radius: 7px;
   padding: 3px;
-  flex-shrink: 0;
 }
 .segments button {
   border: 0;
   background: none;
   font-size: 11px;
-  padding: 5px 17px;
   color: #7e8b70;
   border-radius: 5px;
 }
@@ -460,35 +420,22 @@ input::placeholder {
   color: var(--green);
   box-shadow: 0 1px 3px #243a3314;
 }
-.filter-grid {
-  display: grid;
-  grid-template-columns: 0.9fr 0.9fr 1.1fr 1.05fr 1.45fr;
-  gap: 13px;
-}
 .filter-grid label {
   font-size: 11px;
   color: #858f79;
   min-width: 0;
 }
 .filter-grid select {
-  display: block;
-  margin-top: 6px;
-  width: 100%;
-  height: 36px;
   border: 1px solid #e0e6d8;
   background: #fffefc;
-  padding: 0 9px;
   font-size: 12px;
   color: #536449;
 }
 .filter-foot {
   font-size: 10px;
   color: #929d86;
-  margin-top: 13px;
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 14px;
 }
 .text-button {
   border: 0;
@@ -499,7 +446,6 @@ input::placeholder {
   padding: 0;
 }
 .list-toolbar {
-  padding: 23px 28px 14px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -527,6 +473,12 @@ input::placeholder {
 .table-wrap {
   overflow: auto;
 }
+/* 表格的左右捲軸改細，顏色跟著版面（Chrome／Edge／Firefox） */
+.table-wrap,
+.calc-table-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: #c4cfbd transparent;
+}
 .list {
   width: 100%;
   border-collapse: collapse;
@@ -552,7 +504,6 @@ input::placeholder {
 }
 .list th:first-child,
 .list td:first-child {
-  padding-left: 28px;
   width: 74px;
 }
 .list th:nth-child(2) {
@@ -610,7 +561,6 @@ input::placeholder {
 }
 .item-name {
   font-weight: 650;
-  font-size: 13px;
   color: #384b31;
   display: block;
 }
@@ -623,7 +573,6 @@ input::placeholder {
   color: #96a08b;
 }
 .badge {
-  font-size: 9px;
   border-radius: 4px;
   padding: 1px 5px;
   background: #eef1e7;
@@ -650,7 +599,6 @@ input::placeholder {
   color: #9a7735;
 }
 .number {
-  color: #a7af9c;
   font-size: 10px;
 }
 .level-badge {
@@ -658,12 +606,8 @@ input::placeholder {
   border: 1px solid #e5e9dc;
   border-radius: 5px;
   padding: 1px 7px;
-  font-size: 10px;
-  color: #83916f;
 }
 .info-text {
-  font-size: 11px;
-  color: #76856a;
   line-height: 1.8;
 }
 .weather-symbols {
@@ -682,9 +626,9 @@ input::placeholder {
 .row-detail {
   border: 0;
   background: none;
-  font-size: 10px;
-  color: #829771;
   padding: 5px;
+  /* 「資料 ＋」「詳情 ＋」不換行 */
+  white-space: nowrap;
 }
 .detail-row td {
   padding: 17px 28px !important;
@@ -738,13 +682,10 @@ input::placeholder {
   background: #fafbf5;
 }
 .source-footer {
-  display: flex;
   gap: 8px 16px;
   justify-content: space-between;
   flex-wrap: wrap;
   margin: 21px 2px 0;
-  font-size: 10px;
-  color: #9aa18f;
 }
 .source-footer a {
   color: #839471;
@@ -858,23 +799,13 @@ dialog::backdrop {
   .hero .hero-title {
     font-size: 28px;
   }
-  .filter-grid {
-    grid-template-columns: repeat(3, 1fr);
-  }
-  .location-filter {
-    grid-column: span 2;
-  }
   .raw-grid {
     grid-template-columns: repeat(3, 1fr);
   }
 }
 @media (max-width: 800px) {
   .sidebar {
-    position: static;
-    width: auto;
-    padding: 16px 20px;
     border-right: 0;
-    border-bottom: 1px solid var(--line);
   }
   .brand {
     font-size: 18px;
@@ -890,7 +821,6 @@ dialog::backdrop {
   nav {
     display: flex;
     gap: 5px;
-    margin-top: 15px;
   }
   .nav-item {
     padding: 8px 10px;
@@ -912,7 +842,6 @@ dialog::backdrop {
   .topbar {
     height: auto;
     min-height: 65px;
-    padding: 10px 20px;
     gap: 10px;
   }
   .topbar > div:first-child {
@@ -929,42 +858,16 @@ dialog::backdrop {
     padding: 25px 16px;
   }
   .hero {
-    align-items: stretch;
     gap: 20px;
-    flex-direction: column;
-  }
-  .total-card {
-    padding: 12px 20px;
-  }
-  .hero .hero-title {
-    font-size: 29px;
-  }
-  .collection-heading {
-    padding: 20px;
-  }
-  .category-progress {
-    width: 110px;
   }
   .title-group p {
     font-size: 10px;
   }
-  .filters {
-    margin: 0 16px;
-    padding: 15px;
-  }
   .filter-top {
     flex-direction: column;
-    align-items: stretch;
-    gap: 12px;
   }
   .search-wrap {
     max-width: none;
-  }
-  .segments button {
-    flex: 1;
-  }
-  .filter-grid {
-    grid-template-columns: repeat(2, 1fr);
   }
   .location-filter {
     grid-column: span 2;
@@ -972,12 +875,8 @@ dialog::backdrop {
   .filter-foot {
     align-items: flex-start;
   }
-  .list-toolbar {
-    padding: 18px 18px 12px;
-  }
   .list-toolbar #result-note {
     display: block;
-    margin: 2px 0 0;
   }
   .collection-footer {
     flex-direction: column;
@@ -1027,7 +926,6 @@ nav {
   box-shadow: none;
 }
 .topbar {
-  height: 61px;
   background: #fffefb;
   justify-content: flex-end;
 }
@@ -1068,9 +966,6 @@ main {
   border-radius: 8px;
   box-shadow: none;
 }
-.collection-heading {
-  padding: 20px 24px;
-}
 .category-icon {
   background: none;
   width: 26px;
@@ -1086,10 +981,6 @@ main {
 }
 .filters {
   border-radius: 6px;
-  background: #f7f8f4;
-}
-.filter-foot {
-  justify-content: flex-end;
 }
 .filter-grid label,
 .list-toolbar label {
@@ -1153,9 +1044,6 @@ main {
   }
 }
 @media (max-width: 800px) {
-  .sidebar {
-    padding: 16px 20px;
-  }
   nav {
     margin-top: 15px;
   }
@@ -1163,20 +1051,11 @@ main {
     flex-direction: row;
     align-items: center;
   }
-  .hero .hero-title {
-    font-size: 20px;
-  }
   .total-card {
     padding: 0;
   }
   .topbar > .tools {
     display: flex;
-  }
-  .collection-heading {
-    padding: 18px;
-  }
-  .filter-grid {
-    gap: 12px;
   }
 }
 .flower-toggle {
@@ -1310,13 +1189,14 @@ main {
   font-weight: 700;
 }
 
+/* 星級售價：放得下就排一行，寬度不夠時自動換行（不出現橫向捲軸） */
 .raw-grid.fish-prices {
   display: flex;
-  flex-wrap: nowrap;
+  flex-wrap: wrap;
   align-items: baseline;
-  gap: 24px;
+  gap: 6px 24px;
   margin: 0;
-  overflow-x: auto;
+  overflow-x: visible;
 }
 .fish-prices .raw-pair {
   display: flex;
@@ -1460,23 +1340,16 @@ th[aria-sort="descending"] {
 }
 .filters {
   margin: 0 24px;
-  padding: 20px;
-}
-.filter-top {
-  gap: 16px;
-  margin-bottom: 16px;
 }
 .search-wrap {
   max-width: none;
   flex: 1;
   min-width: 0;
-  height: 40px;
 }
 .search-wrap input {
   min-width: 0;
 }
 .segments {
-  min-height: 40px;
   align-items: stretch;
 }
 .segments button {
@@ -1484,18 +1357,11 @@ th[aria-sort="descending"] {
 }
 .filter-grid {
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 16px;
 }
 .filter-grid label {
   line-height: 1.5;
 }
-.filter-grid select {
-  height: 40px;
-  margin-top: 8px;
-}
 .filter-foot {
-  margin-top: 16px;
-  padding-top: 12px;
   border-top: 1px solid var(--line);
 }
 .filter-foot .text-button {
@@ -1543,10 +1409,6 @@ th[aria-sort="descending"] {
   }
   .filters {
     margin: 0 16px;
-    padding: 16px;
-  }
-  .filter-top {
-    gap: 12px;
   }
   .search-wrap {
     flex: auto;
@@ -1554,10 +1416,6 @@ th[aria-sort="descending"] {
   }
   .segments button {
     padding: 6px 10px;
-  }
-  .filter-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 14px 12px;
   }
   .list-toolbar {
     padding: 16px;
@@ -1567,9 +1425,6 @@ th[aria-sort="descending"] {
   }
   .tools {
     flex-wrap: wrap;
-  }
-  .category-progress {
-    width: 100px;
   }
   .list th:first-child,
   .list td:first-child {
@@ -1637,10 +1492,7 @@ th[aria-sort="descending"] {
   gap: 8px;
 }
 .filter-actions {
-  display: flex;
   flex-wrap: wrap;
-  gap: 12px;
-  align-items: center;
 }
 #filter-summary {
   flex: 1 1 100%;
@@ -1757,9 +1609,6 @@ button.row-detail,
     width: 100%;
     text-align: left;
   }
-  .filter-actions {
-    gap: 10px;
-  }
   .table-hint {
     margin-left: 16px;
   }
@@ -1790,15 +1639,12 @@ body:has(dialog[open]) {
   overflow: hidden;
 }
 .home-intro {
-  padding: 28px;
   background: #eaf0e5;
   border: 1px solid #dce5d5;
   border-radius: 14px;
-  margin-bottom: 24px;
 }
 .home-intro h1 {
   font-size: 28px;
-  margin: 8px 0;
 }
 .home-intro p {
   color: #61745a;
@@ -1806,11 +1652,8 @@ body:has(dialog[open]) {
 .home-summary {
   display: flex;
   align-items: center;
-  gap: 25px;
-  margin: 22px 0;
 }
 .home-summary strong {
-  font-size: 44px;
   color: var(--green);
 }
 .home-summary .bar {
@@ -1820,13 +1663,10 @@ body:has(dialog[open]) {
 .home-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 14px;
-  margin: 16px 0 25px;
 }
 .home-card {
   border: 1px solid var(--line);
   background: var(--paper);
-  padding: 20px;
   text-align: left;
   border-radius: 12px;
   min-width: 0;
@@ -1853,19 +1693,13 @@ body:has(dialog[open]) {
   background: var(--paper);
   border: 1px solid var(--line);
   border-radius: 12px;
-  padding: 22px;
-  margin-bottom: 18px;
 }
 .home-guide ol {
   padding-left: 22px;
 }
-.home-guide li {
-  margin: 12px 0;
-}
 .home-actions {
   display: flex;
   flex-wrap: wrap;
-  gap: 10px;
 }
 .home-kicker {
   font-size: 12px;
@@ -1876,23 +1710,14 @@ body:has(dialog[open]) {
   margin-top: 24px;
 }
 .home-nav + nav {
-  margin-top: 8px;
+  margin-top: 6px;
 }
 @media (max-width: 800px) {
   .home-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
-  .home-intro {
-    padding: 20px;
-  }
   .home-intro h1 {
     font-size: 23px;
-  }
-  .home-summary {
-    gap: 16px;
-  }
-  .home-summary .bar {
-    width: 140px;
   }
   .home-nav {
     margin-top: 12px;
@@ -1918,9 +1743,6 @@ body:has(dialog[open]) {
   font-size: 14px;
   color: #61745a;
 }
-.home-card-title {
-  margin-bottom: 18px;
-}
 .home-about {
   margin: 24px 0;
   padding: 18px 22px;
@@ -1939,16 +1761,6 @@ body:has(dialog[open]) {
 }
 
 /* Keep all visible desktop filters on one row. */
-@media（min-width:801px） {
-  .filter-grid {
-    grid-template-columns: none;
-    grid-auto-flow: column;
-    grid-auto-columns: minmax（0, 1fr）;
-  }
-  .filter-grid .location-filter {
-    grid-column: auto;
-  }
-}
 .badge.kind-daily {
   background: #f0f1ef;
   color: #555c56;
@@ -2200,20 +2012,15 @@ body:has(dialog[open]) {
 .release-pagination {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 10px;
   margin: 14px 0 0;
   padding-top: 12px;
   border-top: 1px solid var(--line);
   width: 100%;
 }
 .release-pagination .button {
-  min-height: 34px;
-  padding: 5px 10px;
   font-size: 12px;
 }
 .release-pagination .button:disabled {
-  opacity: 0.45;
   filter: none;
 }
 .release-pagination > span {
@@ -2237,12 +2044,8 @@ body:has(dialog[open]) {
   .release-pages {
     padding: 16px;
   }
-  .release-pagination {
-    gap: 6px;
-  }
   .release-pagination .button {
     font-size: 11px;
-    min-height: 40px;
     padding: 6px 8px;
   }
 }
@@ -2352,7 +2155,6 @@ body:has(dialog[open]) {
 }
 .source-footer .release-source-notes {
   width: 100%;
-  margin: 0 0 8px;
 }
 .release-source-notes h3 {
   margin: 0 0 6px;
@@ -2393,6 +2195,12 @@ main > .site-update-note {
 .home-grid {
   gap: 12px;
   margin: 12px 0 18px;
+}
+/* 寬螢幕一排 4 張（8 張剛好兩排），首頁不用捲動就看得到最後一排 */
+@media (min-width: 1180px) {
+  .home-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
 }
 .home-card {
   padding: 16px 18px;
@@ -2450,8 +2258,6 @@ main > .site-update-note {
 /* Consistent footer typography and spacing. */
 .source-footer {
   display: block;
-  line-height: 1.8;
-  font-size: 10px;
   color: #8b9583;
 }
 .source-footer .release-source-notes {
@@ -2469,23 +2275,8 @@ main > .site-update-note {
   margin: 4px 0;
 }
 
-.calculator-view {
-  max-width: 1100px;
-  margin: 28px auto;
-  padding: 24px;
-  background: var(--surface, #fff);
-  border: 1px solid var(--line);
-  border-radius: 12px;
-}
-.calculator-heading {
-  margin-bottom: 20px;
-}
-.calculator-heading h1 {
-  margin: 0 0 6px;
-}
 .calculator-heading p {
   margin: 0;
-  color: var(--muted);
 }
 .calculator-controls {
   display: grid;
@@ -2505,16 +2296,9 @@ main > .site-update-note {
   min-height: 40px;
   padding: 8px 10px;
   border: 1px solid var(--line);
-  border-radius: 7px;
   background: #fff;
   color: var(--ink, #222);
   font: inherit;
-}
-.calc-card {
-  padding: 18px;
-  border: 1px solid var(--line);
-  border-radius: 10px;
-  background: var(--paper, #fafaf7);
 }
 .calc-card h2 {
   margin: 0 0 14px;
@@ -2557,7 +2341,6 @@ main > .site-update-note {
 }
 .calc-note {
   color: var(--muted);
-  font-size: 13px;
 }
 .calc-actions {
   display: flex;
@@ -2565,8 +2348,13 @@ main > .site-update-note {
   flex-wrap: wrap;
   margin: 12px 0;
 }
-.calculator-nav {
-  margin-top: 10px;
+/* 側欄：成就、寵物接在圖鑑分類後，成本計算機固定放最下方；每一項間距都和分類之間一樣是 6px */
+#categories + .panel-nav {
+  margin-top: 6px;
+}
+.panel-nav ~ .panel-nav,
+.panel-nav ~ .calculator-nav {
+  margin-top: 6px;
 }
 .kind-filter {
   border: 0;
@@ -2671,8 +2459,6 @@ main > .site-update-note {
 }
 .calc-recipe-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, 430px), 1fr));
-  gap: 16px;
 }
 .calc-recipe-grid > .calc-card {
   min-width: 0;
@@ -2708,12 +2494,12 @@ main > .site-update-note {
   background: #eef2e8;
 }
 .calc-material-table input {
-  width: 78px;
+  /* 最寬 78px；卡片變窄時跟著欄位縮小，用量和單價的框才不會黏在一起 */
+  width: 100%;
+  max-width: 78px;
   min-width: 0;
-  padding: 6px;
   border: 1px solid var(--line);
   border-radius: 5px;
-  text-align: right;
 }
 .calc-row-name {
   text-align: left !important;
@@ -2723,27 +2509,11 @@ main > .site-update-note {
   color: #9a6338;
 }
 .calc-recipe-summary {
-  display: flex;
   justify-content: space-between;
-  gap: 8px;
   flex-wrap: wrap;
-  margin: 14px 0;
-  padding: 12px;
-  background: #f5f6f0;
-  border-radius: 8px;
-}
-.calc-recipe-summary strong {
-  font-size: 17px;
-}
-.calc-recipe-summary span {
-  color: var(--muted);
-  font-size: 12px;
 }
 .calc-star-table {
   margin-top: 12px;
-}
-.calc-compare-section {
-  margin-top: 16px;
 }
 .calc-comparison-table th,
 .calc-comparison-table td {
@@ -2840,7 +2610,6 @@ main > .site-update-note {
 }
 .calculator-heading {
   margin: 0 0 22px;
-  padding-bottom: 20px;
   border-bottom: 1px solid #e8ede4;
 }
 .calc-kicker {
@@ -3187,7 +2956,6 @@ main > .site-update-note {
 .calc-comparison-table thead th {
   position: sticky;
   top: 0;
-  background: #edf2e9;
   z-index: 2;
 }
 .calc-comparison-table thead th:first-child {
@@ -3596,7 +3364,7 @@ main > .site-update-note {
 /* ======== 料理表格：活動代幣欄位 ======== */
 /* Cooking columns: collection, name, level, ingredients, profit, price, details. */
 .list.dish-list {
-  min-width: 900px;
+  min-width: 780px;
   table-layout: fixed;
 }
 .list.dish-list > thead > tr > th:nth-child(1) {
@@ -3738,15 +3506,9 @@ main > .site-update-note {
 /* ======== 手機版導覽列配置 ======== */
 @media (max-width: 800px) {
   .sidebar {
-    display: grid;
     grid-template-columns: repeat(4, minmax(0, 1fr));
     gap: 6px;
-    position: static;
     inset: auto;
-    width: auto;
-    height: auto;
-    min-height: 0;
-    padding: 16px 12px 12px;
     align-content: start;
   }
   .sidebar .brand {
@@ -3756,9 +3518,6 @@ main > .site-update-note {
     line-height: 1.4;
     letter-spacing: 0;
     min-width: 0;
-  }
-  .sidebar #categories {
-    display: contents;
   }
   .sidebar .nav-item {
     width: 100%;
@@ -3781,10 +3540,6 @@ main > .site-update-note {
     background: var(--green);
     color: #fff;
   }
-  .sidebar .nav-name {
-    font-size: 13px;
-    font-weight: 600;
-  }
   .sidebar .nav-icon {
     width: 20px;
     height: 20px;
@@ -3799,7 +3554,8 @@ main > .site-update-note {
   .sidebar .nav-count {
     display: none;
   }
-  .sidebar #nav-calculator {
+  .sidebar #nav-calculator,
+  .sidebar .panel-nav {
     grid-column: span 2;
   }
 }
@@ -3822,7 +3578,6 @@ body:not(.is-ready) > :not(.load-error) {
 .load-error p {
   margin: 6px 0 0;
 }
-
 
 /* ======== 手機版：固定底部導覽與單欄操作 ======== */
 @media (max-width: 640px) {
@@ -3853,7 +3608,8 @@ body:not(.is-ready) > :not(.load-error) {
   .sidebar .brand { display: none; }
   .sidebar #categories { display: contents; }
   .sidebar .nav-item,
-  .sidebar #nav-calculator {
+  .sidebar #nav-calculator,
+  .sidebar .panel-nav {
     display: flex;
     flex: 1 0 62px;
     flex-direction: column;
@@ -3883,7 +3639,8 @@ body:not(.is-ready) > :not(.load-error) {
   }
   .sidebar .nav-name { font-size: 10px; line-height: 1.2; font-weight: 600; }
   .sidebar .nav-count { display: none; }
-  .sidebar #nav-calculator { flex-basis: 68px; }
+  .sidebar #nav-calculator,
+  .sidebar .panel-nav { flex-basis: 68px; }
 
   .page { width: 100%; margin: 0; }
   .topbar {
@@ -4023,10 +3780,10 @@ body:not(.is-ready) > :not(.load-error) {
   .filter-grid { gap: 8px; }
   .sidebar { padding-inline: 5px; }
   .sidebar .nav-item,
-  .sidebar #nav-calculator { min-width: 58px; flex-basis: 58px; }
+  .sidebar #nav-calculator,
+  .sidebar .panel-nav { min-width: 58px; flex-basis: 58px; }
   .topbar .button { padding-inline: 7px; }
 }
-
 
 /* ======== 手機版：網頁式展開分類選單（僅 800px 以下） ======== */
 @media (max-width: 800px) {
@@ -4066,7 +3823,8 @@ body:not(.is-ready) > :not(.load-error) {
   .sidebar.open .side-panel { display: block; }
   .sidebar #categories { display: grid; gap: 6px; margin: 0; }
   .sidebar .nav-item,
-  .sidebar #nav-calculator {
+  .sidebar #nav-calculator,
+  .sidebar .panel-nav {
     display: flex;
     flex: none;
     flex-direction: row;
@@ -4087,15 +3845,19 @@ body:not(.is-ready) > :not(.load-error) {
   }
   .sidebar .nav-item:not(.active):hover { background: #f4f6ef; }
   .sidebar .nav-item.active,
-  .sidebar #nav-calculator.active { background: var(--green); color: #fff; }
+  .sidebar #nav-calculator.active,
+  .sidebar .panel-nav.active { background: var(--green); color: #fff; }
   .sidebar .nav-icon,
   .sidebar .nav-icon svg { width: 20px; height: 20px; flex: none; font-size: 16px; line-height: 1; }
   .sidebar .nav-name { font-size: 15px; font-weight: 600; }
   .sidebar .nav-count { display: inline; margin-left: auto; font-size: 12px; color: #8e9a88; }
   .sidebar .nav-item.active .nav-count { color: #d6e3d7; }
-  .sidebar #nav-calculator { margin-top: 6px; border-color: var(--line); }
+  .sidebar #nav-calculator,
+  .sidebar .panel-nav { margin-top: 6px; border-color: var(--line); }
+  /* 下拉選單每一項上下距一致：首頁與釣魚之間、烹飪與成就之間都是 6px */
+  .sidebar #categories { margin-top: 6px; }
+  .sidebar #categories + .panel-nav { margin-top: 6px; }
 }
-
 
 /* 頁尾「資料來源與更新說明」：字級放大，較易閱讀（放在檔尾以覆蓋前面的設定） */
 .source-footer {
@@ -4105,4 +3867,1446 @@ body:not(.is-ready) > :not(.load-error) {
 .source-footer .release-source-notes h3 {
   font-size: 12px;
   font-weight: 600;
+}
+
+
+/* ======== 成就與寵物：獨立頁面（外框沿用成本計算機的 .calculator-view） ======== */
+.panel-progress {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 12px;
+  font-size: 12px;
+  color: #63745e;
+}
+.panel-progress .bar {
+  flex: 1;
+  max-width: 260px;
+}
+.panel-empty {
+  margin: 0;
+  padding: 18px;
+  color: var(--muted);
+  font-size: 13px;
+}
+/* 用多欄排版：某組收合變矮時，後面的組會往上補位，不留空白 */
+.achievement-groups {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+}
+.achievement-col {
+  flex: 1 1 0;
+  min-width: 0;
+}
+.achievement-groups .achievement-group {
+  display: inline-block;
+  width: 100%;
+  margin: 0 0 16px;
+  break-inside: avoid;
+}
+.achievement-group-count,
+.pet-stats {
+  margin-left: auto;
+  font-size: 12px;
+  color: #71806c;
+  font-variant-numeric: tabular-nums;
+}
+.achievement-info {
+  padding: 12px 18px 4px;
+  font-size: 13px;
+}
+.achievement-info p {
+  margin: 0 0 6px;
+}
+.achievement-info b {
+  display: inline-block;
+  min-width: 5em;
+  margin-right: 8px;
+  color: #63745e;
+  font-size: 12px;
+}
+.achievement-reward {
+  color: #8a6a2c;
+  font-weight: 700;
+}
+.achievement-badge {
+  padding: 3px 9px;
+  border-radius: 999px;
+  background: var(--green);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+}
+.achievement-group.is-complete {
+  border-color: #b9cdb0;
+}
+.achievement-foot {
+  padding: 10px 18px 14px;
+  border-top: 1px solid #eef1ea;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.7;
+}
+.achievement-foot p {
+  margin: 0 0 4px;
+}
+.achievement-list {
+  list-style: none;
+  margin: 0;
+  padding: 6px 0;
+}
+.achievement-item {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  padding: 10px 18px;
+  cursor: pointer;
+}
+.achievement-item:hover {
+  background: #f7f9f4;
+}
+.achievement-item input {
+  margin-top: 4px;
+  accent-color: var(--green);
+}
+.achievement-item b {
+  display: block;
+  font-weight: 600;
+}
+.achievement-item small {
+  display: block;
+  color: var(--muted);
+  line-height: 1.6;
+}
+.achievement-item.is-done b {
+  color: var(--green);
+}
+.pet-form {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 10px 14px;
+  padding: 12px;
+  margin: 0 0 14px;
+  background: #f2f5ee;
+  border: 1px solid #e4eadf;
+  border-radius: 12px;
+}
+.pet-form label {
+  display: grid;
+  gap: 4px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #63745e;
+}
+.pet-form input,
+.pet-form select {
+  min-height: 36px;
+  padding: 6px 10px;
+  border: 1px solid #d9e1d4;
+}
+.pet-form input {
+  width: min(220px, 60vw);
+}
+.pet-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0 0 14px;
+}
+.pet-tabs:empty {
+  display: none;
+}
+.pet-tab {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 6px 12px 6px 7px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: #fff;
+  color: var(--ink);
+  font-weight: 600;
+}
+.pet-tab.active {
+  border-color: var(--green);
+  background: var(--green);
+  color: #fff;
+}
+.pet-type-badge {
+  flex: none;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: #f4e8d2;
+  color: #8a6a2c;
+  font-size: 11px;
+  font-weight: 700;
+}
+.pet-type-badge.pet-dog {
+  background: #e6eaf4;
+  color: #566384;
+}
+.pet-card .calc-card-heading {
+  flex-wrap: wrap;
+}
+.pet-actions {
+  display: flex;
+  gap: 4px;
+}
+.pet-delete {
+  color: #a4513f;
+}
+.pet-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 18px;
+  border-bottom: 1px solid #e8ede4;
+}
+.pet-toolbar .search-wrap {
+  flex: 1 1 200px;
+}
+.calculator-view .pet-toolbar .search-wrap input {
+  border: 0;
+  box-shadow: none;
+  outline: 0;
+}
+.pet-toolbar .segments {
+  margin: 0;
+}
+.pet-food-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.pet-food {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 18px;
+  border-bottom: 1px solid #eef1ea;
+}
+.pet-food:last-child {
+  border-bottom: 0;
+}
+.pet-food.is-like {
+  background: #fdf6f6;
+}
+.pet-food.is-dislike {
+  background: #f6f7f4;
+}
+.pet-food-name {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+.pet-food-name small {
+  display: block;
+  color: var(--muted);
+}
+.pet-food.is-done .pet-food-name {
+  color: var(--green);
+}
+.pet-pref {
+  display: flex;
+  flex: 0 0 auto;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  overflow: hidden;
+}
+.pet-choice {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  min-height: 38px;
+  padding: 0 14px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: #fff;
+  color: var(--muted);
+  font: inherit;
+  font-size: 14px;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s, border-color 0.15s;
+}
+.pet-choice span {
+  font-size: 13px;
+}
+.pet-pref .pet-choice {
+  border: 0;
+  border-radius: 0;
+}
+.pet-pref .pet-choice + .pet-choice {
+  border-left: 1px solid var(--line);
+}
+.pet-choice:hover {
+  background: var(--pale);
+}
+.pet-none.active {
+  background: var(--pale);
+  color: var(--ink);
+  font-weight: 600;
+}
+.pet-like.active {
+  background: #fdeeee;
+  color: #c9434e;
+  font-weight: 600;
+}
+.pet-dislike.active {
+  background: #e3e8e1;
+  color: #3f4c42;
+  font-weight: 600;
+}
+@media (max-width: 800px) {
+  .achievement-groups {
+    display: block;
+  }
+  .pet-food {
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 12px;
+  }
+  .pet-food-name {
+    flex-basis: 100%;
+  }
+  .pet-pref {
+    flex: 1 1 100%;
+  }
+  .pet-pref .pet-choice {
+    flex: 1 1 0;
+    padding: 0 8px;
+  }
+}
+
+/* 寵物食物：連到烹飪頁的料理名稱，以及跳轉後的短暫標示 */
+.pet-food-link {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  text-decoration: underline;
+  text-decoration-color: var(--muted);
+  text-underline-offset: 3px;
+  cursor: pointer;
+}
+.pet-food-link:hover,
+.pet-food-link:focus-visible {
+  color: var(--green);
+  text-decoration-color: currentColor;
+}
+.pet-food-link span {
+  color: var(--muted);
+  font-size: 0.85em;
+}
+#rows tr.jump-target > td {
+  animation: jump-flash 2s ease-out;
+}
+@keyframes jump-flash {
+  0%,
+  40% {
+    background: color-mix(in srgb, var(--green) 18%, transparent);
+  }
+  100% {
+    background: transparent;
+  }
+}
+
+/* 成就：點標題列展開／收合該大滿貫的勾選清單 */
+.achievement-head {
+  cursor: pointer;
+  user-select: none;
+}
+.achievement-head:hover {
+  background: var(--pale);
+}
+.achievement-toggle {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+.achievement-chevron {
+  flex: 0 0 auto;
+  padding: 4px 10px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: #fff;
+  font-size: 12px;
+  color: var(--muted);
+  white-space: nowrap;
+}
+.achievement-group.is-collapsed .calc-card-heading {
+  border-bottom: 0;
+}
+.achievement-body[hidden] {
+  display: none;
+}
+.achievement-head {
+  gap: 8px;
+}
+.achievement-head h2 {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+.achievement-head .achievement-group-count {
+  margin-left: 0;
+  white-space: nowrap;
+}
+
+
+
+/* =====================================================================
+ * 成就與寵物：乾淨簡約風格
+ * 只作用在 #achievements-view、#pets-view，不影響其他頁面
+ * ===================================================================== */
+#achievements-view,
+#pets-view {
+  --m-surface: #ffffff;
+  --m-soft: #f6f7f5;
+  --m-line: #e6e8e3;
+  --m-text: #1f2622;
+  --m-sub: #6c736e;
+  --m-faint: #9aa19c;
+  --m-accent: #2f6b52;
+  --m-accent-soft: #eaf2ed;
+  --m-like: #c9434e;
+  --m-gold: #a9822f;
+  background: var(--m-surface);
+  border-color: var(--m-line);
+  box-shadow: none;
+  color: var(--m-text);
+}
+#achievements-view .calculator-heading,
+#pets-view .calculator-heading {
+  margin-bottom: 20px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid var(--m-line);
+}
+#achievements-view .calc-site-name,
+#pets-view .calc-site-name {
+  display: none;
+}
+#achievements-view .calc-kicker,
+#pets-view .calc-kicker {
+  margin-bottom: 4px;
+  color: var(--m-faint);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+}
+#achievements-view .calculator-heading h1,
+#pets-view .calculator-heading h1 {
+  margin-bottom: 6px;
+  font-size: clamp(24px, 3vw, 30px);
+  font-weight: 700;
+  letter-spacing: 0;
+  color: var(--m-text);
+}
+#achievements-view .calculator-heading p,
+#pets-view .calculator-heading p {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.7;
+  color: var(--m-sub);
+}
+#achievements-view .panel-progress {
+  margin-top: 14px;
+  font-size: 13px;
+  color: var(--m-sub);
+  font-variant-numeric: tabular-nums;
+}
+#achievements-view .panel-progress .bar,
+.achievement-meter {
+  height: 4px;
+  border-radius: 999px;
+  background: #eef0ec;
+  overflow: hidden;
+}
+#achievements-view .panel-progress .bar i,
+.achievement-meter i {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: #2f6b52;
+  transition: width 0.25s ease;
+}
+
+/* 卡片：白底、細線、無陰影；標題列不上底色 */
+#achievements-view .calc-card,
+#pets-view .calc-card {
+  background: var(--m-surface);
+  border: 1px solid var(--m-line);
+  border-radius: 14px;
+  box-shadow: none;
+}
+#achievements-view .calc-card-heading,
+#pets-view .calc-card-heading {
+  padding: 16px 18px 12px;
+  background: none;
+  border-bottom: 0;
+}
+#achievements-view .calc-card-heading h2,
+#pets-view .calc-card-heading h2 {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--m-text);
+}
+.achievement-meter {
+  margin: 0 18px 4px;
+}
+
+/* 成就：標題列 */
+#achievements-view .achievement-head:hover {
+  background: var(--m-soft);
+}
+#achievements-view .achievement-group-count {
+  font-size: 13px;
+  color: var(--m-sub);
+}
+#achievements-view .achievement-chevron {
+  position: relative;
+  width: 26px;
+  height: 26px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: none;
+}
+#achievements-view .achievement-chevron::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 7px;
+  height: 7px;
+  border-right: 1.6px solid var(--m-sub);
+  border-bottom: 1.6px solid var(--m-sub);
+  transform: translate(-50%, -70%) rotate(45deg);
+  transition: transform 0.2s ease;
+}
+#achievements-view .is-collapsed .achievement-chevron::before {
+  transform: translate(-50%, -30%) rotate(-135deg);
+}
+#achievements-view .achievement-head:hover .achievement-chevron {
+  background: var(--m-line);
+}
+#achievements-view .achievement-badge {
+  padding: 2px 8px;
+  background: var(--m-accent-soft);
+  color: var(--m-accent);
+  font-weight: 600;
+}
+#achievements-view .achievement-group.is-complete {
+  border-color: #cfe0d6;
+}
+#achievements-view .achievement-group.is-collapsed .achievement-meter {
+  margin-bottom: 16px;
+}
+
+/* 成就：說明與清單 */
+#achievements-view .achievement-info {
+  margin: 12px 18px 4px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  background: var(--m-soft);
+  font-size: 13px;
+  color: var(--m-sub);
+}
+#achievements-view .achievement-info p {
+  display: flex;
+  gap: 10px;
+  margin: 0 0 4px;
+  line-height: 1.6;
+}
+#achievements-view .achievement-info p:last-child {
+  margin-bottom: 0;
+}
+#achievements-view .achievement-info b {
+  flex: 0 0 4.5em;
+  min-width: 0;
+  margin: 0;
+  color: var(--m-faint);
+  font-weight: 500;
+}
+#achievements-view .achievement-reward {
+  color: var(--m-gold);
+  font-weight: 700;
+}
+#achievements-view .achievement-list {
+  padding: 4px 0 8px;
+}
+#achievements-view .achievement-item {
+  align-items: center;
+  gap: 12px;
+  padding: 9px 18px;
+}
+#achievements-view .achievement-item:hover {
+  background: var(--m-soft);
+}
+#achievements-view .achievement-item input {
+  appearance: none;
+  -webkit-appearance: none;
+  flex: 0 0 auto;
+  display: grid;
+  place-content: center;
+  box-sizing: border-box;
+  width: 20px;
+  min-width: 20px;
+  height: 20px;
+  min-height: 20px;
+  margin: 0;
+  padding: 0;
+  border: 1.5px solid #c9cec9;
+  border-radius: 6px;
+  background: #fff;
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s;
+}
+#achievements-view .achievement-item input::before {
+  content: "";
+  width: 10px;
+  height: 6px;
+  border-left: 2px solid #fff;
+  border-bottom: 2px solid #fff;
+  transform: translateY(-1px) rotate(-45deg) scale(0);
+  transition: transform 0.15s;
+}
+#achievements-view .achievement-item input:checked {
+  border-color: var(--m-accent);
+  background: var(--m-accent);
+}
+#achievements-view .achievement-item input:checked::before {
+  transform: translateY(-1px) rotate(-45deg) scale(1);
+}
+#achievements-view .achievement-item input:focus-visible {
+  outline: 2px solid #9fc1ae;
+  outline-offset: 2px;
+}
+#achievements-view .achievement-item b {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--m-text);
+}
+#achievements-view .achievement-item small {
+  font-size: 12px;
+  color: var(--m-sub);
+}
+#achievements-view .achievement-item.is-done b {
+  color: var(--m-text);
+}
+#achievements-view .achievement-item.is-done small {
+  color: var(--m-faint);
+}
+#achievements-view .achievement-foot {
+  margin: 0 18px;
+  padding: 10px 0 14px;
+  border-top: 1px solid var(--m-line);
+  font-size: 12px;
+  color: var(--m-faint);
+}
+
+/* 寵物：新增表單 */
+#pets-view .pet-form {
+  padding: 0;
+  margin-bottom: 16px;
+  background: none;
+  border: 0;
+  border-radius: 0;
+}
+#pets-view .pet-form label {
+  font-size: 12px;
+  color: var(--m-sub);
+}
+#pets-view .pet-form input,
+#pets-view .pet-form select {
+  height: 40px;
+  border: 1px solid var(--m-line);
+  border-radius: 10px;
+  background: #fff;
+  box-shadow: none;
+}
+#pets-view .pet-form .button.primary {
+  height: 40px;
+  padding: 0 16px;
+  border-radius: 10px;
+  background: var(--m-text);
+  border-color: var(--m-text);
+  color: #fff;
+}
+
+/* 寵物：寵物切換 */
+#pets-view .pet-tabs {
+  gap: 8px;
+  margin-bottom: 16px;
+}
+#pets-view .pet-tab {
+  padding: 6px 14px 6px 6px;
+  border: 1px solid var(--m-line);
+  border-radius: 999px;
+  background: #fff;
+  color: var(--m-text);
+  box-shadow: none;
+}
+#pets-view .pet-tab:hover {
+  background: var(--m-soft);
+}
+#pets-view .pet-tab.active {
+  border-color: var(--m-text);
+  background: var(--m-text);
+  color: #fff;
+}
+#pets-view .pet-type-badge {
+  background: var(--m-soft);
+  color: var(--m-sub);
+}
+#pets-view .pet-type-badge.pet-dog {
+  background: #f3efe6;
+  color: #8a6a2c;
+}
+#pets-view .pet-tab.active .pet-type-badge {
+  background: #ffffff26;
+  color: #fff;
+}
+
+/* 寵物：寵物卡片 */
+#pets-view .pet-stats {
+  display: inline-flex;
+  gap: 10px;
+  font-size: 13px;
+  color: var(--m-sub);
+}
+#pets-view .pet-stats b {
+  color: var(--m-text);
+  font-weight: 700;
+}
+#pets-view .pet-stats .is-like,
+#pets-view .pet-stats .is-like b {
+  color: var(--m-like);
+}
+#pets-view .pet-actions .text-button {
+  color: var(--m-sub);
+  font-size: 13px;
+}
+#pets-view .pet-actions .pet-delete:hover {
+  color: var(--m-like);
+}
+#pets-view .pet-toolbar {
+  padding: 14px 18px;
+  border-bottom: 1px solid var(--m-line);
+}
+#pets-view .pet-toolbar .search-wrap {
+  border: 1px solid var(--m-line);
+  border-radius: 10px;
+  background: var(--m-soft);
+  box-shadow: none;
+}
+#pets-view .pet-toolbar .search-wrap input {
+  background: transparent;
+}
+#pets-view .pet-toolbar .segments {
+  padding: 3px;
+  border: 0;
+  border-radius: 10px;
+  background: var(--m-soft);
+}
+#pets-view .pet-toolbar .segments button {
+  border-radius: 8px;
+  color: var(--m-sub);
+}
+#pets-view .pet-toolbar .segments button.active {
+  background: #fff;
+  color: var(--m-text);
+  box-shadow: 0 1px 2px #0000000f;
+}
+
+/* 寵物：食物列與三選一 */
+#pets-view .pet-food {
+  padding: 10px 18px;
+  border-bottom: 1px solid var(--m-line);
+  background: none;
+}
+#pets-view .pet-food:hover {
+  background: var(--m-soft);
+}
+#pets-view .pet-food-name {
+  font-size: 14px;
+  color: var(--m-text);
+}
+#pets-view .pet-food.is-none .pet-food-name {
+  color: var(--m-sub);
+}
+#pets-view .pet-food.is-like .pet-food-name,
+#pets-view .pet-food.is-dislike .pet-food-name {
+  color: var(--m-text);
+  font-weight: 600;
+}
+#pets-view .pet-food-link {
+  text-decoration-color: #cfd3ce;
+}
+#pets-view .pet-food-link:hover {
+  color: var(--m-accent);
+}
+#pets-view .pet-pref {
+  gap: 2px;
+  padding: 3px;
+  border: 0;
+  border-radius: 10px;
+  background: var(--m-soft);
+}
+#pets-view .pet-pref .pet-choice,
+#pets-view .pet-pref .pet-choice + .pet-choice {
+  min-height: 34px;
+  padding: 0 12px;
+  border: 0;
+  border-radius: 8px;
+  background: none;
+  color: var(--m-faint);
+  font-size: 13px;
+  font-weight: 500;
+}
+#pets-view .pet-pref .pet-choice:hover {
+  color: var(--m-text);
+}
+#pets-view .pet-pref .pet-choice.active {
+  background: #fff;
+  color: var(--m-text);
+  font-weight: 600;
+  box-shadow: 0 1px 2px #00000014;
+}
+#pets-view .pet-pref .pet-like.active {
+  color: var(--m-like);
+}
+#pets-view .pet-pref .pet-none.active {
+  color: var(--m-sub);
+}
+#pets-view .pet-meter {
+  margin: 0 18px 14px;
+}
+#pets-view .pet-meter i {
+  background: var(--m-like);
+}
+
+@media (max-width: 800px) {
+  #pets-view .pet-food {
+    padding: 12px 14px;
+  }
+  #pets-view .pet-pref .pet-choice,
+  #pets-view .pet-pref .pet-choice + .pet-choice {
+    flex: 1 1 0;
+    padding: 0 6px;
+  }
+  #pets-view .pet-form label {
+    flex: 1 1 140px;
+  }
+  #pets-view .pet-form input,
+  #pets-view .pet-form select {
+    width: 100%;
+  }
+  #pets-view .pet-form .button.primary {
+    flex: 1 1 100%;
+  }
+  #pets-view .pet-stats {
+    flex-basis: 100%;
+    order: 5;
+  }
+}
+
+/* 寵物：食物分組標題（河魚／湖魚／海魚、果醬、料理…） */
+.pet-food-group {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  padding: 14px 18px 6px;
+  border-bottom: 1px solid var(--line);
+  background: #fafaf9;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: #4d5650;
+}
+.pet-food-group small {
+  font-weight: 500;
+  color: #9aa19c;
+  font-variant-numeric: tabular-nums;
+}
+@media (max-width: 800px) {
+  .pet-food-group {
+    padding-inline: 14px;
+  }
+}
+
+/* 寵物：魚類食物在名稱旁顯示出沒地點 */
+.pet-food-name .pet-food-where {
+  display: inline;
+  margin-left: 8px;
+  font-size: 12px;
+  font-weight: 400;
+  color: #9aa19c;
+}
+@media (max-width: 800px) {
+  .pet-food-name .pet-food-where {
+    display: block;
+    margin: 2px 0 0;
+  }
+}
+
+/* 寵物：說明補充與每隻寵物的備註欄 */
+#pets-view .calculator-heading .pet-hint {
+  margin-top: 8px;
+  padding: 8px 12px;
+  border-radius: 10px;
+  background: #f6f7f5;
+  font-size: 13px;
+  color: #6c736e;
+}
+/* 寵物：每樣食物的備註（例如要餵幾隻） */
+#pets-view .pet-food-note {
+  flex: 0 1 180px;
+  width: 180px;
+  min-width: 0;
+  height: 34px;
+  min-height: 34px;
+  padding: 0 10px;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  background: transparent;
+  font: inherit;
+  font-size: 13px;
+  color: var(--m-text);
+  box-shadow: none;
+}
+#pets-view .pet-food-note::placeholder {
+  color: #c3c8c3;
+}
+#pets-view .pet-food:hover .pet-food-note,
+#pets-view .pet-food-note.has-note {
+  border-color: var(--m-line);
+  background: #fff;
+}
+#pets-view .pet-food-note:focus {
+  border-color: #9fc1ae;
+  background: #fff;
+  outline: 2px solid #9fc1ae;
+  outline-offset: 0;
+}
+@media (max-width: 800px) {
+  #pets-view .pet-food-note {
+    flex: 1 1 100%;
+    order: 3;
+    width: 100%;
+    height: 38px;
+    border-color: var(--m-line);
+    background: #fff;
+    font-size: 16px;
+  }
+}
+
+/* 寵物：卡片標題的名字可直接點擊修改 */
+#pets-view .pet-name-head {
+  flex: 0 1 auto;
+  min-width: 0;
+  margin: 0;
+}
+#pets-view .pet-name-edit {
+  width: 10em;
+  max-width: 100%;
+  height: 34px;
+  min-height: 34px;
+  margin: 0 0 0 -8px;
+  padding: 0 8px;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  background: transparent;
+  box-shadow: none;
+  font: inherit;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--m-text);
+  cursor: text;
+}
+#pets-view .pet-name-edit:hover {
+  border-color: var(--m-line);
+  background: var(--m-soft);
+}
+#pets-view .pet-name-edit:focus {
+  border-color: #9fc1ae;
+  background: #fff;
+  outline: 2px solid #9fc1ae;
+  outline-offset: 0;
+}
+
+/* 寵物：每行最後的「+」，按下才展開備註欄 */
+#pets-view .pet-note-add {
+  flex: 0 0 auto;
+  display: inline-grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  min-height: 32px;
+  padding: 0;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  background: none;
+  color: var(--m-faint);
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 1;
+  cursor: pointer;
+}
+#pets-view .pet-note-add:hover,
+#pets-view .pet-note-add:focus-visible {
+  border-color: var(--m-line);
+  background: #fff;
+  color: var(--m-text);
+}
+#pets-view .pet-food-note {
+  border-color: var(--m-line);
+  background: #fff;
+}
+@media (max-width: 800px) {
+  /* 手機：三選一和「+」同一行，備註欄展開時排到下一行 */
+  #pets-view .pet-pref {
+    flex: 1 1 0;
+    min-width: 0;
+  }
+  #pets-view .pet-note-add {
+    width: 38px;
+    height: 38px;
+  }
+}
+/* 寬螢幕：有備註時，備註欄換到下一行整行顯示；右側保留「+」的位置讓按鈕對齊 */
+@media (min-width: 801px) {
+  #pets-view .pet-food {
+    flex-wrap: wrap;
+  }
+  #pets-view .pet-food-note {
+    flex: 1 1 100%;
+    order: 3;
+    width: 100%;
+  }
+  #pets-view .pet-food:has(.pet-food-note) .pet-pref {
+    margin-right: 44px;
+  }
+}
+@media (max-width: 800px) {
+  #pets-view .pet-food:has(.pet-food-note) .pet-pref {
+    margin-right: 46px;
+  }
+}
+
+/* =====================================================================
+ * 手機版圖鑑列表：表格改成卡片，不用左右滑動就能看到地點、時段、食材等資訊
+ * 第一行：勾選｜名稱＋類型｜等級｜詳情；下面幾行放原本在右邊的欄位
+ * 只作用在 800px 以下，桌面版維持表格
+ * ===================================================================== */
+@media (max-width: 800px) {
+  .collection > .table-wrap {
+    overflow: visible;
+  }
+  .collection > .table-wrap > .list,
+  .collection > .table-wrap > .list.dish-list {
+    display: block;
+    min-width: 0;
+    width: 100%;
+  }
+  .collection > .table-wrap > .list > tbody {
+    display: block;
+  }
+
+  /* 表頭改成一列排序按鈕 */
+  .collection > .table-wrap > .list > thead {
+    display: block;
+    background: none;
+  }
+  .collection > .table-wrap > .list > thead > tr {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px;
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--line);
+  }
+  .collection > .table-wrap > .list > thead > tr::before {
+    content: "排序";
+    margin-right: 2px;
+    font-size: 12px;
+    color: #8b9580;
+  }
+  .collection > .table-wrap > .list > thead > tr > th {
+    display: block;
+    width: auto;
+    padding: 0;
+    border: 0;
+  }
+  .collection > .table-wrap > .list > thead > tr > th:not(:has(.column-sort)) {
+    display: none;
+  }
+  .collection > .table-wrap > .list > thead .column-sort {
+    gap: 4px;
+    padding: 4px 10px;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    background: #fff;
+    font-size: 12px;
+    color: var(--ink);
+  }
+  /* 目前排序的按鈕：實心綠底白字；表頭格子本身不上底色（避免按鈕後面出現方框） */
+  .collection > .table-wrap > .list > thead > tr > th[aria-sort] {
+    background: none;
+  }
+  .collection > .table-wrap > .list > thead th[aria-sort="ascending"] .column-sort,
+  .collection > .table-wrap > .list > thead th[aria-sort="descending"] .column-sort {
+    border-color: var(--green);
+    background: var(--green);
+    color: #fff;
+    font-weight: 600;
+  }
+  .collection > .table-wrap > .list > thead th[aria-sort="ascending"] .column-sort span,
+  .collection > .table-wrap > .list > thead th[aria-sort="descending"] .column-sort span {
+    color: #fff;
+  }
+  /* 手機版已有「排序」按鈕列，不需要「點選欄位標題可排序」的提示 */
+  .collection > .table-hint {
+    display: none;
+  }
+
+  /* 每一項：網格卡片 */
+  .collection > .table-wrap > .list > tbody > tr.item {
+    display: grid;
+    grid-template-columns: 30px minmax(0, 1fr) auto auto;
+    column-gap: 8px;
+    row-gap: 2px;
+    align-items: center;
+    padding: 10px 12px;
+    border-bottom: 1px solid #eef0e7;
+  }
+  .collection > .table-wrap > .list > tbody > tr.item > td {
+    display: block;
+    width: auto;
+    min-width: 0;
+    padding: 0;
+    border: 0;
+    text-align: left;
+  }
+  .collection > .table-wrap > .list > tbody > tr.item > td:first-child {
+    grid-column: 1;
+    grid-row: 1 / span 4;
+    align-self: start;
+    width: auto;
+    padding: 0;
+  }
+  .collection > .table-wrap > .list > tbody > tr.item > td:nth-child(2) {
+    grid-column: 2;
+    grid-row: 1;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 4px 6px;
+  }
+  .collection > .table-wrap > .list > tbody > tr.item > td:nth-child(2) .item-meta {
+    display: inline-flex;
+    margin: 0;
+  }
+  .collection > .table-wrap > .list > tbody > tr.item > td:nth-child(3) {
+    grid-column: 3;
+    grid-row: 1;
+  }
+  .collection > .table-wrap > .list > tbody > tr.item > td:last-child {
+    grid-column: 4;
+    grid-row: 1;
+  }
+  .collection > .table-wrap > .list > tbody > tr.item > td:nth-child(4) {
+    grid-column: 2 / -1;
+    grid-row: 2;
+  }
+  .collection > .table-wrap > .list > tbody > tr.item > td:nth-child(5):not(:last-child) {
+    grid-column: 2 / -1;
+    grid-row: 3;
+  }
+  .collection > .table-wrap > .list > tbody > tr.item .info-text,
+  .collection > .table-wrap > .list > tbody > tr.item .number {
+    font-size: 12px;
+  }
+  .collection > .table-wrap > .list > tbody > tr.item > td:nth-child(4) .number {
+    display: inline;
+    margin-left: 6px;
+  }
+  /* 烹飪：「解鎖：…」換到食材下一行 */
+  .collection > .table-wrap > .list.dish-list > tbody > tr.item > td:nth-child(4) .number {
+    display: block;
+    margin: 2px 0 0;
+  }
+  .collection > .table-wrap > .list > tbody > tr.item > td:nth-child(4) .info-text {
+    display: inline;
+  }
+  .collection > .table-wrap > .list > tbody > tr.item .weather-symbols {
+    display: inline-flex;
+    flex-wrap: wrap;
+    gap: 2px 6px;
+    margin: 0 0 0 6px;
+  }
+  .collection > .table-wrap > .list > tbody > tr.item > td:nth-child(5) > .info-text {
+    display: inline;
+  }
+  .collection > .table-wrap > .list > tbody > tr.item .row-detail {
+    min-height: 30px;
+    padding: 0 8px;
+    white-space: nowrap;
+  }
+
+  /* 園藝：收集進度與生長週期放同一行 */
+  .collection > .table-wrap > .list.flower-list > tbody > tr.item > td:nth-child(4) {
+    grid-column: 2;
+  }
+  .collection > .table-wrap > .list.flower-list > tbody > tr.item > td:nth-child(5):not(:last-child) {
+    grid-column: 3 / -1;
+    grid-row: 2;
+    text-align: right;
+  }
+  .collection > .table-wrap > .list.flower-list > tbody > tr.item > td:nth-child(5)::before {
+    content: "生長 ";
+    font-size: 11px;
+    color: #8b9580;
+  }
+
+  /* 烹飪：食材一行，利潤與金額同一行 */
+  .collection > .table-wrap > .list.dish-list > tbody > tr.item > td:nth-child(5):not(:last-child) {
+    grid-column: 2;
+    grid-row: 3;
+  }
+  .collection > .table-wrap > .list.dish-list > tbody > tr.item > td:nth-child(6) {
+    grid-column: 3 / -1;
+    grid-row: 3;
+    text-align: right;
+  }
+  .collection > .table-wrap > .list.dish-list > tbody > tr.item > td:nth-child(5)::before {
+    content: "1 星利潤 ";
+    font-size: 11px;
+    color: #8b9580;
+  }
+  .collection > .table-wrap > .list.dish-list > tbody > tr.item > td:nth-child(6)::before {
+    content: "金額 ";
+    font-size: 11px;
+    color: #8b9580;
+  }
+
+  /* 觀鳥：一般／五星／鳥哨各縮成一行，標題換成短標籤 */
+  .collection > .table-wrap > .list > tbody > tr.item :is(.bird-general-conditions, .bird-five-conditions, .bird-whistle-info) {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0 6px;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background: none;
+  }
+  .collection > .table-wrap > .list > tbody > tr.item :is(.bird-general-conditions, .bird-five-conditions, .bird-whistle-info) > strong {
+    flex: none;
+    font-size: 0;
+  }
+  .collection > .table-wrap > .list > tbody > tr.item :is(.bird-general-conditions, .bird-five-conditions, .bird-whistle-info) > strong::before {
+    display: inline-block;
+    padding: 0 5px;
+    border-radius: 4px;
+    background: #eef1e8;
+    font-size: 11px;
+    font-weight: 600;
+    line-height: 18px;
+    color: #6b805d;
+  }
+  .collection > .table-wrap > .list > tbody > tr.item .bird-general-conditions > strong::before { content: "一般"; }
+  .collection > .table-wrap > .list > tbody > tr.item .bird-five-conditions > strong::before { content: "五星"; background: #f6efd9; color: #8a6a2c; }
+  .collection > .table-wrap > .list > tbody > tr.item .bird-whistle-info > strong::before { content: "鳥哨"; }
+  .collection > .table-wrap > .list > tbody > tr.item :is(.bird-general-conditions, .bird-five-conditions, .bird-whistle-info) .weather-symbols {
+    margin: 0;
+  }
+
+  /* 展開的詳情：整行寬 */
+  .collection > .table-wrap > .list > tbody > tr.detail-row:not([hidden]) {
+    display: block;
+  }
+  .collection > .table-wrap > .list > tbody > tr.detail-row > td {
+    display: block;
+    width: 100%;
+    padding: 14px 12px !important;
+  }
+}
+
+/* 寵物：顏色改用網站主色綠（原本的黑色與其他頁面不一致） */
+#pets-view .pet-tab.active {
+  border-color: var(--green);
+  background: var(--green);
+  color: #fff;
+}
+#pets-view .pet-form .button.primary {
+  border-color: var(--green);
+  background: var(--green);
+  color: #fff;
+}
+#pets-view .pet-form .button.primary:hover {
+  filter: brightness(1.08);
+}
+
+/* 寵物：「改名」留在名字旁，「刪除」推到最右邊，避免誤觸 */
+#pets-view .pet-actions {
+  flex: 0 0 auto;
+  margin-left: auto;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 0;
+}
+/* 改名與刪除之間：中間一條細分隔線，距離適中又不會誤觸 */
+#pets-view .pet-actions .pet-delete {
+  position: relative;
+  margin-left: 25px;
+}
+#pets-view .pet-actions .pet-delete::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: -13px;
+  width: 1px;
+  height: 14px;
+  background: var(--m-line);
+  transform: translateY(-50%);
+}
+/* 改名與刪除用同一種按鈕外觀與滑過效果，只差顏色：改名是綠色、刪除是紅色 */
+#pets-view .pet-actions .text-button {
+  padding: 4px 10px;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  transition: color 0.15s, background-color 0.15s, border-color 0.15s;
+}
+#pets-view .pet-actions [data-pet-rename]:hover,
+#pets-view .pet-actions [data-pet-rename]:focus-visible {
+  border-color: #cfe0d6;
+  background: var(--m-accent-soft);
+  color: var(--m-accent);
+}
+#pets-view .pet-actions .pet-delete:hover,
+#pets-view .pet-actions .pet-delete:focus-visible {
+  border-color: #f0d4d6;
+  background: #fbf1f1;
+  color: var(--m-like);
+}
+
+/* =====================================================================
+ * 手機版篩選區：統一字級（原本 11～16px 混在一起）
+ * 16px：搜尋框、下拉選單、收錄類型（輸入元件，iPhone 低於 16px 會自動放大畫面）
+ * 14px：完成狀態切換、勾選項
+ * 13px：下方動作按鈕
+ * 12px：欄位標題、說明文字
+ * ===================================================================== */
+@media (max-width: 800px) {
+  .filters .kind-toggle {
+    height: 44px;
+    min-height: 44px;
+    font-size: 16px;
+  }
+  .filters .filter-grid select,
+  .filters .search-wrap input {
+    font-size: 16px;
+  }
+  .filters .segments button {
+    font-size: 14px;
+  }
+  .filters .five-star-filter {
+    font-size: 14px;
+  }
+  .filters .filter-grid > label,
+  .filters .filter-grid .kind-filter > legend {
+    font-size: 12px;
+    line-height: 1.4;
+  }
+  /* 收錄類型的框與旁邊下拉選單對齊（標題到框的距離一致） */
+  .filters .filter-grid .kind-filter > .kind-toggle {
+    margin-top: 5px;
+  }
+  .filters .filter-scroll-hint,
+  .filters .five-star-note,
+  .filters #bird-five-star-note {
+    font-size: 12px;
+  }
+  .filters .button,
+  .filters .text-button {
+    font-size: 13px;
+  }
+}
+
+/* 手機版篩選條件：641～800px 原本是一排要左右滑的欄位（收錄類型被壓窄、格子對不齊），
+ * 改成和 640px 以下一樣的網格：641～800px 三欄、640px 以下兩欄；地點跨兩欄 */
+@media (max-width: 800px) {
+  .filters .filter-scroll {
+    overflow: visible;
+    padding: 0;
+    margin: 0;
+  }
+  .filters .filter-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 10px 12px;
+    width: 100%;
+    overflow: visible;
+  }
+  .filters .filter-grid::after {
+    display: none;
+  }
+  .filters .filter-grid > label,
+  .filters .filter-grid > label.location-filter,
+  .filters .filter-grid > .kind-filter {
+    flex: initial;
+    min-width: 0;
+    white-space: normal;
+  }
+  .filters .filter-grid > label.location-filter {
+    grid-column: span 2;
+  }
+  .filters .filter-grid select {
+    width: 100%;
+    height: 44px;
+    margin-top: 5px;
+  }
+  .filters .filter-scroll-hint {
+    display: none;
+  }
+  /* 「僅五星」與「當前可獲取」靠左排在一起，不再一左一右 */
+  .filters .availability-options {
+    flex-wrap: wrap;
+    gap: 6px 18px;
+  }
+  .filters #availability-filter {
+    margin-left: 0;
+  }
+}
+@media (max-width: 640px) {
+  .filters .filter-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* 沒有開啟 JavaScript 時的網站說明 */
+.noscript-note {
+  /* 畫面在資料載入前整頁隱藏（body:not(.is-ready)），這段說明不受影響 */
+  visibility: visible;
+  box-sizing: border-box;
+  width: calc(100% - 32px);
+  max-width: 720px;
+  margin: 24px auto;
+  padding: 20px 24px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--paper);
+  line-height: 1.8;
+}
+.noscript-note h1 {
+  margin: 0 0 8px;
+  font-size: 24px;
 }

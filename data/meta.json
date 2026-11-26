@@ -1,5 +1,5 @@
 {
-  "dataVersion": "2026-11-25.24",
+  "dataVersion": "2026-11-26.1",
   "source": "https://heartopiawiki.weebly.com/",
   "author": "Guava",
   "fetchedAt": "2026-09-28T00:18:42+08:00",
@@ -30,15 +30,15 @@
     "policy": "舒展時間即五星時段，取代舊五星時段"
   },
   "maintenanceUpdate": {
-    "updatedAt": "2026-11-16",
-    "source": "使用者提供魚類出沒表截圖（簡中轉繁體）；名稱以既有 fish.json 為準",
+    "updatedAt": "2026-11-26",
+    "source": "v1.3.0：合併測試版成就與寵物頁；售價依倍率修正",
     "counts": {
-      "fish": 123,
-      "bugs": 89,
-      "birds": 93,
-      "flowers": 155,
-      "dishes": 209
+      "fish": 130,
+      "bugs": 103,
+      "birds": 103,
+      "plants": 39,
+      "dishes": 225
     },
-    "mergeScope": "新增13筆11–14級魚類；修正13筆魚類等級／天氣／地點／魚影；移除2筆重複魚類"
+    "mergeScope": "本批新增 0 筆；修改 6 筆（釣魚 1、捕蟲 5 售價依倍率修正）；移除 0 筆"
   }
 }

@@ -1,9 +1,41 @@
 [
+  {
+    "version": "1.3.0",
+    "date": "2026-11-26",
+    "label": "更新",
+    "summary": "圖鑑共 <strong>600 筆</strong> · 本批新增 <strong>0 筆</strong> · 修改 <strong>6 筆</strong> · 移除 <strong>0 筆</strong> · 新增成就與寵物紀錄頁",
+    "items": [
+      {
+        "title": "新增成就頁",
+        "text": "新增「成就」頁，可勾選 5 個大滿貫共 31 項稱號與彩蛋；成就進度單獨計算，不列入圖鑑總進度。"
+      },
+      {
+        "title": "新增寵物頁",
+        "text": "新增「寵物」頁，可新增寵物並記錄 107 種食物的喜好與備註，部分食物可直接連到圖鑑。"
+      },
+      {
+        "title": "篩選調整",
+        "text": "愛好等級改為各分類分開記憶，切換分類時不再互相影響。"
+      },
+      {
+        "title": "備份調整",
+        "text": "匯出與匯入備份時，一併保存成就與寵物紀錄。"
+      },
+      {
+        "title": "資料修正",
+        "text": "釣魚 1 種、捕蟲 5 種的 2～5 星售價依倍率修正。"
+      },
+      {
+        "title": "內部調整",
+        "text": "精簡料理與花卉的資料格式，網站載入的檔案變小，不影響既有資料與收藏紀錄。"
+      }
+    ]
+  },
     {
     "version": "1.2.5",
     "date": "2026-11-25",
     "label": "更新",
-    "summary": "圖鑑共 <strong>600 筆</strong> · 本批新增 <strong>41 筆</strong> · 修改 <strong>250 筆</strong> · 整理活動項目排序",
+    "summary": "圖鑑共 <strong>600 筆</strong> · 本批新增 <strong>41 筆</strong> · 修改 <strong>250 筆</strong> · 移除 <strong>0 筆</strong> · 整理活動項目排序",
     "items": [
       {
         "title": "活動資料新增",
@@ -79,7 +111,7 @@
     "version": "1.2.2",
     "date": "2026-11-09",
     "label": "更新",
-    "summary": "圖鑑共 <strong>658 筆</strong> · 新增 <strong>10 道料理</strong> · 更新活動檔期與材料價格資料",
+    "summary": "圖鑑共 <strong>658 筆</strong> · 本批新增 <strong>10 筆</strong> · 修改 <strong>4 筆</strong> · 移除 <strong>0 筆</strong> · 更新活動檔期與材料價格資料",
     "items": [
       {
         "title": "食譜新增",

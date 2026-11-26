@@ -62,6 +62,45 @@ const AtlasData = (() => {
     };
   }
 
+  // 花卉：同一種花的各花色共用的欄位只寫在「第一個花色」那一列，其他花色列只寫自己的
+  // id、name、color、stars（以及不同的 legacyIds、dataSource）。這裡把共用欄位補回每一列。
+  // 判斷方式：有 raw 的花卉列是該種花的第一列；沒有 raw 的列，從同名的第一列補欄位。
+  const FLOWER_SHARED_FIELDS = [
+    'number', 'trackable', 'level', 'kind', 'eventName', 'plantType',
+    'eventScheduleRef', 'importNoteRef', 'importNote', 'dataSource', 'aliases', 'raw',
+  ];
+  function expandFlowerSpecies(list) {
+    const leaders = new Map();
+    return list.map(entry => {
+      if (entry.plantType === 'crop') return entry;
+      if (entry.raw) {
+        leaders.set(entry.name, entry);
+        return entry;
+      }
+      const leader = leaders.get(entry.name);
+      if (!leader) return entry;
+      const full = { ...entry };
+      for (const key of FLOWER_SHARED_FIELDS)
+        if (!(key in full) && key in leader) full[key] = key === 'raw' ? { ...leader.raw } : leader[key];
+      return full;
+    });
+  }
+
+  // 料理的 raw.原料1～N 與 raw.N星售價 不再存在資料檔（以 ingredients、economics.prices 為準），
+  // 載入時依這兩個欄位補回，讓記憶體中的資料格式與以前相同。
+  function restoreDishRaw(item) {
+    const raw = { ...item.raw };
+    if (!Object.keys(raw).some(key => /^原料\d+$/.test(key))) {
+      let slot = 1;
+      for (const [name, quantity] of Object.entries(item.ingredients || {}))
+        for (let n = 0; n < quantity; n += 1) raw['原料' + slot++] = name;
+    }
+    (item.economics?.stars || []).forEach(({ star, price }) => {
+      if (!((star + '星售價') in raw)) raw[star + '星售價'] = price;
+    });
+    item.raw = raw;
+  }
+
   function restoreItem(entry, category, shared) {
     const item = { ...emptyFields(), ...entry, category };
 
@@ -81,6 +120,7 @@ const AtlasData = (() => {
     }
     if (entry.economics) item.economics = restoreEconomics(entry.economics);
     if (!item.raw) item.raw = {};
+    if (category === 'dishes') restoreDishRaw(item);
     return item;
   }
 
@@ -106,8 +146,18 @@ const AtlasData = (() => {
       return [];
     });
 
+    // 成就與寵物食物清單：獨立頁面用，讀不到時該頁顯示「資料待補」，不影響圖鑑本身
+    const [achievementFile, petFoodFile] = await Promise.all(
+      ['achievements.json', 'pet-foods.json'].map(name =>
+        fetchJson(name, version).catch(error => {
+          console.warn('讀取失敗：' + name, error);
+          return {};
+        })),
+    );
+
     const items = CATEGORY_NAMES.flatMap((category, index) =>
-      categoryLists[index].map(entry => restoreItem(entry, category, shared)));
+      (category === 'plants' ? expandFlowerSpecies(categoryLists[index]) : categoryLists[index])
+        .map(entry => restoreItem(entry, category, shared)));
 
     return {
       ...meta,
@@ -117,6 +167,8 @@ const AtlasData = (() => {
       materials: materialFile.materials,
       limitedMaterials: materialFile.limitedMaterials,
       changelog: Array.isArray(changelog) ? changelog : [],
+      achievementGroups: Array.isArray(achievementFile.groups) ? achievementFile.groups : [],
+      petFoods: Array.isArray(petFoodFile.foods) ? petFoodFile.foods : [],
     };
   }
 
@@ -144,5 +196,7 @@ const AtlasData = (() => {
     }
   }
 
-  return { load, loadOrShowError, showLoadError };
+  return { load, loadOrShowError, showLoadError, expandFlowerSpecies };
 })();
+// 讓 tools/ 的 Node 工具可以共用同一套花卉補欄位規則
+if (typeof module !== 'undefined' && module.exports) module.exports = AtlasData;

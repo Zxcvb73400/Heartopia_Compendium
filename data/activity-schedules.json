@@ -57,6 +57,15 @@
     "requiresActivityStation": true,
     "tokenName": "慶典幣"
   },
+  "復甦頌歌": {
+    "activityType": "活動",
+    "startsAt": "2026-04-04T05:59:00+08:00",
+    "endsAt": "2026-04-27T05:59:00+08:00",
+    "status": "expired",
+    "outsideAvailable": true,
+    "requiresActivityStation": false,
+    "tokenName": "無"
+  },
   "仲夏端陽": {
     "activityType": "活動",
     "startsAt": "2026-06-10T05:59:00+08:00",
@@ -106,15 +115,6 @@
     "activityType": "聯動",
     "startsAt": "2026-03-28T05:59:00+08:00",
     "endsAt": "2026-04-27T05:59:00+08:00",
-    "outsideAvailable": true,
-    "requiresActivityStation": false,
-    "tokenName": "無"
-  },
-  "復甦頌歌": {
-    "activityType": "活動",
-    "startsAt": "2026-04-04T05:59:00+08:00",
-    "endsAt": "2026-04-27T05:59:00+08:00",
-    "status": "expired",
     "outsideAvailable": true,
     "requiresActivityStation": false,
     "tokenName": "無"

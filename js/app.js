@@ -627,12 +627,18 @@
     if (panel) showPanel(panel);
     else showView(homeVisible);
   }
+  function progressItems(done) {
+    return [
+      ...ITEMS.filter(i => i.category !== 'plants' && i.trackable),
+      ...JournalCore.flowerGroups(ITEMS, done).filter(i => i.trackable),
+    ];
+  }
+  function isProgressComplete(item, done) {
+    return item.category === 'plants' ? item.complete : !!done[item.id];
+  }
   function updateProgress() {
-    const trackable = [
-        ...ITEMS.filter(i => i.category !== 'plants' && i.trackable),
-        ...JournalCore.flowerGroups(ITEMS, state.done).filter(i => i.trackable),
-      ],
-      isComplete = i => (i.category === 'plants' ? i.complete : !!state.done[i.id]),
+    const trackable = progressItems(state.done),
+      isComplete = i => isProgressComplete(i, state.done),
       total = trackable.length,
       done = trackable.filter(isComplete).length,
       pct = Math.round((done / total) * 100);
@@ -1395,15 +1401,30 @@
     const value = JSON.parse(localStorage.getItem(KEY + '.backup') || '{}');
     if (value && typeof value === 'object') backupMeta = value;
   } catch {}
+  function rememberBackup(meta) {
+    backupMeta = meta;
+    try {
+      localStorage.setItem(KEY + '.backup', JSON.stringify(meta));
+    } catch {}
+    updateBackupStatus();
+  }
   function updateBackupStatus() {
-    const baseline = backupMeta.done && typeof backupMeta.done === 'object' ? backupMeta.done : {},
-      ids = new Set([...Object.keys(baseline), ...Object.keys(state.done)]);
-    const changes = [...ids].filter(id => Boolean(baseline[id]) !== Boolean(state.done[id])).length;
-    const date = new Date(backupMeta.exportedAt),
-      valid = Number.isFinite(date.getTime());
+    const baseline = backupMeta.done && typeof backupMeta.done === 'object' ? backupMeta.done : {};
+    const completedBefore = new Set(
+      progressItems(baseline).filter(i => isProgressComplete(i, baseline)).map(i => i.id)
+    );
+    const changes = progressItems(state.done).filter(
+      i => completedBefore.has(i.id) !== isProgressComplete(i, state.done)
+    ).length;
+    const imported = !!backupMeta.importedAt;
+    const date = new Date(backupMeta.importedAt || backupMeta.exportedAt);
+    const valid = Number.isFinite(date.getTime());
+    const label = imported ? '上次匯入備份：' : '上次送出備份下載：';
     $('backup-status').textContent =
-      (valid ? '上次送出備份下載：' + date.toLocaleString('zh-TW') : '尚無匯出備份紀錄') +
-      (changes >= 10 ? ' · 已有 ' + changes + ' 筆進度變更，建議匯出備份。' : ' · 請確認下載檔案已保存。');
+      (valid ? label + date.toLocaleString('zh-TW') : '尚無匯入或匯出備份紀錄') +
+      (changes >= 10
+        ? ' · 有 ' + changes + ' 項圖鑑的五星完成狀態不同，建議匯出備份。'
+        : !imported && valid ? ' · 請確認下載檔案已保存。' : '');
     $('backup-status').classList.toggle('backup-due', changes >= 10);
   }
   setInterval(renderFilterSummary, 60000);
@@ -1637,11 +1658,7 @@
     a.href = url;
     a.download = `心動小鎮五星進度-${new Date().toLocaleDateString('sv-SE')}.json`;
     a.click();
-    backupMeta = { exportedAt: backup.exportedAt, done: { ...state.done } };
-    try {
-      localStorage.setItem(KEY + '.backup', JSON.stringify(backupMeta));
-    } catch {}
-    updateBackupStatus();
+    rememberBackup({ exportedAt: backup.exportedAt, done: { ...state.done } });
     setTimeout(() => URL.revokeObjectURL(url), 10000);
     toast('已送出備份下載，請保留 JSON 檔案。');
   });
@@ -1655,13 +1672,14 @@
     try {
       if (file.size > 2 * 1024 * 1024) throw new Error('檔案過大，請選擇圖鑑匯出的進度備份。');
       pendingImport = JournalCore.readBackup(JSON.parse(await file.text()), ALL_ITEMS, RETIRED_ITEM_IDS);
-      const before = Object.keys(state.done).length,
-        after = Object.keys(pendingImport.state.done).length;
+      const importedDone = pendingImport.state.done;
+      const before = progressItems(state.done).filter(i => isProgressComplete(i, state.done)).length,
+        after = progressItems(importedDone).filter(i => isProgressComplete(i, importedDone)).length;
       const achievements = Object.keys(pendingImport.state.achievements).length,
         pets = pendingImport.state.pets.length,
         skipped = pendingImport.skipped;
       $('import-summary').textContent =
-        `目前有 ${before} 筆勾選，備份含 ${after} 筆可還原勾選（花卉按花色記錄；完成率按整種花計算）。` +
+        `目前有 ${before} 項圖鑑已達成五星，備份含 ${after} 項（花卉按整種花計算）。` +
         `備份另含 ${achievements} 項成就、${pets} 隻寵物紀錄。` +
         (skipped ? '另有 ' + skipped + ' 項無法對應目前圖鑑，將略過。' : '');
       $('import-dialog').showModal();
@@ -1672,6 +1690,7 @@
   });
   function restore(merge) {
     if (!pendingImport) return;
+    const importedDone = { ...pendingImport.state.done };
     if (merge) {
       state.done = { ...state.done, ...pendingImport.state.done };
       state.achievements = { ...state.achievements, ...pendingImport.state.achievements };
@@ -1680,6 +1699,7 @@
     selectedPetId = null;
     pendingImport = null;
     save();
+    if (storageAvailable) rememberBackup({ importedAt: new Date().toISOString(), done: importedDone });
     configureCategory();
     $('import-dialog').close();
     toast(storageAvailable ? '進度已還原並保存。' : '進度已還原，但未能寫入瀏覽器，請匯出備份。');

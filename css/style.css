@@ -1603,15 +1603,17 @@ body:has(dialog[open]) {
   color: var(--sub);
 }
 .home-summary {
-  display: flex;
-  align-items: center;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: end;
+  align-self: end;
 }
 .home-summary strong {
   color: var(--green);
 }
 .home-summary .bar {
-  width: 210px;
   height: 8px;
+  margin-top: 0;
 }
 .home-grid {
   display: grid;
@@ -1678,18 +1680,18 @@ body:has(dialog[open]) {
   .home-card p {
     min-height: 0;
   }
-  .home-summary {
-    flex-wrap: wrap;
-  }
+}
+.home-progress {
+  display: grid;
+  gap: 4px;
+  line-height: 1.4;
+  font-size: 14px;
 }
 .home-goal {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
-.home-goal > span {
-  font-size: 14px;
+  grid-column: 1 / -1;
+  margin-bottom: 14px;
   color: var(--sub);
+  font-size: 14px;
 }
 
 /* Keep all visible desktop filters on one row. */
@@ -2061,16 +2063,19 @@ main > .site-update-note {
 }
 .home-intro h1 {
   grid-column: 1 / -1;
-  margin: 0 0 8px;
+  margin: 0 0 16px;
 }
 .home-summary {
-  margin: 8px 0;
-  gap: 22px;
+  gap: 16px;
+  max-width: 560px;
 }
 .home-summary strong {
   font-size: 36px;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
 }
 #home-continue {
+  align-self: end;
   justify-self: end;
 }
 .home-grid {
@@ -2110,13 +2115,9 @@ main > .site-update-note {
   }
   .home-summary {
     gap: 12px;
-    flex-wrap: wrap;
   }
   .home-summary strong {
     font-size: 30px;
-  }
-  .home-summary .bar {
-    width: 120px;
   }
   .home-guide {
     padding: 14px 16px;
@@ -2128,9 +2129,6 @@ main > .site-update-note {
   }
   .home-intro h1 {
     font-size: 22px;
-  }
-  #home-continue {
-    margin-top: 6px;
   }
   .home-card {
     padding: 14px 16px;
@@ -3577,8 +3575,9 @@ body:not(.is-ready) > :not(.load-error) {
   }
   .list { min-width: 720px; }
   
-  .home-intro { grid-template-columns: minmax(0, 1fr); gap: 6px; padding: 16px; }
-  .home-intro h1 { font-size: 21px; letter-spacing: 0; }
+  .home-intro { grid-template-columns: minmax(0, 1fr); gap: 12px; padding: 16px; }
+  .home-intro h1 { margin-bottom: 0; font-size: 21px; letter-spacing: 0; }
+  .home-goal { margin-bottom: 4px; }
   .home-summary { gap: 10px; }
   .home-summary strong { font-size: 28px; }
   #home-continue { justify-self: stretch; min-height: 44px; }

@@ -99,9 +99,7 @@ python -m http.server 8000
 只有這次只修改單一、特定項目時，才寫出該項目名稱。
 `summary`、`text` 會直接當 HTML 顯示，只放自己寫的內容，不要貼外部來源的 HTML。
 
-> 頁尾「最後更新」的時間，和原本一樣是讀取 `index.html` 的伺服器修改時間
-> （讀不到時用 `index.html` 裡 `<meta name="atlas-updated-at">` 的值）。
-> **只更新 data 資料夾時，這個時間不會跟著變**，請一併重新上傳 `index.html`，或修改該 meta 的日期。
+> 頁尾顯示發布準備時間（台灣時間）。暫存前執行 `node tools/bump-version.js --release` 會更新 `index.html` 的時間。
 
 ## 資料格式說明
 

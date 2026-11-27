@@ -31,51 +31,6 @@
   document.body.classList.add('is-ready');
   // 活動暫時不顯示；完整資料用於保存與還原收藏紀錄。
   /* ----------------------------------------------------------------
-   * 網站更新時間：頁尾顯示的「最後更新」
-   * ---------------------------------------------------------------- */
-  async function updateSiteTimestamp() {
-    const label = document.getElementById('site-last-updated');
-    const fallback = document.querySelector('meta[name="atlas-updated-at"]')?.content;
-    const show = value => {
-      const date = new Date(value);
-      if (!Number.isFinite(date.getTime())) return;
-      label.dateTime = date.toISOString();
-      label.textContent = new Intl.DateTimeFormat('sv-SE', {
-        timeZone: 'Asia/Taipei',
-        year: 'numeric',
-        month: '2-digit',
-        day: '2-digit',
-        hour: '2-digit',
-        minute: '2-digit',
-        hourCycle: 'h23',
-      })
-        .format(date)
-        .replaceAll('-', '/');
-    };
-    show(fallback);
-    if (location.protocol === 'file:') {
-      show(document.lastModified);
-      return;
-    }
-    if (!['http:', 'https:'].includes(location.protocol)) return;
-    const controller = new AbortController(),
-      timeout = setTimeout(() => controller.abort(), 5000);
-    try {
-      const response = await fetch(location.href.split('#')[0], {
-        method: 'HEAD',
-        cache: 'no-cache',
-        signal: controller.signal,
-      });
-      const modified = response.headers.get('Last-Modified');
-      if (response.ok && modified) show(modified);
-    } catch {
-      // Keep the saved update time when the host has no metadata or the request fails.
-    } finally {
-      clearTimeout(timeout);
-    }
-  }
-  updateSiteTimestamp();
-  /* ----------------------------------------------------------------
    * 資料整理：套用活動檔期、食材目錄、已下架項目
    * ---------------------------------------------------------------- */
   const ALL_ITEMS = DATA.items.map(i =>

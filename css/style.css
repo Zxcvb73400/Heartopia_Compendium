@@ -242,7 +242,9 @@ main {
   align-items: center;
   justify-content: space-between;
 }
-h1 {
+h1,
+.calc-h1-title,
+.noscript-note h2 {
   font-family: "Microsoft JhengHei", sans-serif;
   font-size: 32px;
   letter-spacing: 2px;
@@ -1595,7 +1597,9 @@ body:has(dialog[open]) {
 .home-intro h1 {
   font-size: 28px;
 }
-.home-intro p {
+.home-intro > p {
+  grid-column: 1 / -1;
+  margin: 0 0 6px;
   color: var(--sub);
 }
 .home-summary {
@@ -2453,7 +2457,7 @@ main > .site-update-note {
   font-weight: 700;
   letter-spacing: 0.12em;
 }
-.calculator-heading h1 {
+.calculator-heading .calc-h1-title {
   margin: 0 0 8px;
   font-size: clamp(24px, 3vw, 32px);
   letter-spacing: 0.02em;
@@ -2900,7 +2904,7 @@ main > .site-update-note {
     margin-bottom: 10px;
     padding-bottom: 10px;
   }
-  .calculator-heading h1 {
+  .calculator-heading .calc-h1-title {
     font-size: 24px;
   }
   .calculator-heading p {
@@ -3267,7 +3271,7 @@ main > .site-update-note {
   gap: 12px;
   margin-bottom: 8px;
 }
-.calculator-heading .calc-title-row h1 {
+.calculator-heading .calc-title-row .calc-h1-title {
   margin: 0;
 }
 .calc-title-row .icon-button {
@@ -5068,7 +5072,7 @@ body:not(.is-ready) > :not(.load-error) {
   background: var(--paper);
   line-height: 1.8;
 }
-.noscript-note h1 {
+.noscript-note h2 {
   margin: 0 0 8px;
   font-size: 24px;
 }

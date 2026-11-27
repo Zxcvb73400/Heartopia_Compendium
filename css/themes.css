@@ -37,6 +37,15 @@
   --crop-ink: #2f6b4a; --crop-soft: #e2f1e7;
 }
 
+/* ===== 蜂蜜金 ===== */
+:root[data-theme="honey"] {
+  --bg: #fff7df;     --paper: #fffaeb;  --soft: #fbf1d7;   --pale: #f4e6bc;  --track: #eee0b5;
+  --line: #96835a;
+  --green: #7a5900;  --deep: #563e08;
+  --ink: #362b17;    --text: #514125;   --muted: #655331;  --faint: #695935;
+  --gold: #b88c2e;   --gold-soft: #f6e8ba;
+}
+
 /* ===== 琥珀秋楓：米色紙張底＋焦糖棕 ===== */
 :root[data-theme="maple"] {
   --bg: #f6f1e8;     --paper: #fffcf6;  --soft: #f6eee2;   --pale: #f3e8d8;  --track: #eadfcb;
@@ -108,6 +117,24 @@
   --info-ink: #1d6b5c; --info-soft: #dff2ec; --info-line: #9fd3c4;
 }
 
+/* ===== 純黑 ===== */
+:root[data-theme="black"] {
+  --bg: #e8e8e8;     --paper: #f5f5f5;  --soft: #eeeeee;   --pale: #dedede;  --track: #d4d4d4;
+  --line: #808080;
+  --green: #000000;  --deep: #191919;
+  --ink: #191919;    --text: #393939;   --muted: #505050;  --faint: #5b5b5b;
+  --gold: #777777;   --gold-soft: #e6e6e6;
+}
+
+/* ===== 純白 ===== */
+:root[data-theme="white"] {
+  --bg: #ffffff;     --paper: #ffffff;  --soft: #f8f8f8;   --pale: #f0f0f0;  --track: #e9e9e9;
+  --line: #8a8a8a;
+  --green: #505050;  --deep: #292929;
+  --ink: #242424;    --text: #414141;   --muted: #585858;  --faint: #646464;
+  --gold: #767676;   --gold-soft: #f0f0f0;
+}
+
 /* =====================================================================
  * 夜間模式（v1.3.2）
  * js/theme.js 依面板的「夜間模式」開關在 <html> 加上 data-mode="dark"；
@@ -162,6 +189,15 @@
   --ink: #f0f0df;    --text: #c9cbb0;   --muted: #aeb196;  --faint: #9da184;
   --gold: #d4ae65;   --gold-soft: #352c1a;
   --crop-ink: #8fd3a8; --crop-soft: #19301f;
+}
+
+/* ===== 蜂蜜金・夜間 ===== */
+:root[data-mode="dark"][data-theme="honey"] {
+  --bg: #211c12;     --paper: #2b2416;  --soft: #262013;   --pale: #413621;  --track: #352c1b;
+  --line: #978264;
+  --green: #e5c46a;  --deep: #f1deac;
+  --ink: #f4ead2;    --text: #d8c7a2;   --muted: #c0ad83;  --faint: #b5a176;
+  --gold: #e2b85c;   --gold-soft: #3f3219;
 }
 
 /* ===== 琥珀秋楓・夜間 ===== */
@@ -225,6 +261,24 @@
   --green: #a7b9ed;  --deep: #cfd8f4;
   --ink: #e9edf8;    --text: #bec7e1;   --muted: #a9b2ce;  --faint: #979fbd;
   --gold: #d5ae69;   --gold-soft: #352b1c;
+}
+
+/* ===== 純黑・夜間 ===== */
+:root[data-mode="dark"][data-theme="black"] {
+  --bg: #000000;     --paper: #000000;  --soft: #101010;   --pale: #242424;  --track: #1c1c1c;
+  --line: #666666;
+  --green: #d4d4d4;  --deep: #f2f2f2;
+  --ink: #f5f5f5;    --text: #d4d4d4;   --muted: #b0b0b0;  --faint: #999999;
+  --gold: #c6c6c6;   --gold-soft: #262626;
+}
+
+/* ===== 純白・夜間 ===== */
+:root[data-mode="dark"][data-theme="white"] {
+  --bg: #202020;     --paper: #292929;  --soft: #242424;   --pale: #414141;  --track: #353535;
+  --line: #767676;
+  --green: #ffffff;  --deep: #f5f5f5;
+  --ink: #f0f0f0;    --text: #d0d0d0;   --muted: #b5b5b5;  --faint: #a4a4a4;
+  --gold: #d4d4d4;   --gold-soft: #444444;
 }
 
 /* ===== 夜間：標籤撞色調整（同淺色版的理由） ===== */
@@ -311,7 +365,7 @@
   top: calc(100% + 8px);
   right: 0;
   z-index: 40;
-  width: 298px; /* 9 個色塊：9×24 + 8×6 + 左右內距 */
+  width: 208px; /* 6 欄：6×24 + 5×6 + 左右內距與框線 */
   padding: 14px 16px;
   background: var(--paper);
   border: 1px solid var(--line);
@@ -328,10 +382,10 @@
   font-weight: 700;
   color: var(--deep);
 }
-/* 九個色塊：顏色寫在 index.html 每個按鈕的 --swatch（＝該配色的主色） */
+/* 色塊：顏色寫在 index.html 每個按鈕的 --swatch（＝該配色的主色） */
 .theme-swatches {
   display: grid;
-  grid-template-columns: repeat(9, 24px);
+  grid-template-columns: repeat(6, 24px);
   gap: 6px;
 }
 .theme-swatch {

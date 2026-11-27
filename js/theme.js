@@ -10,7 +10,7 @@
   var KEY = 'heartopia-five-star-atlas.v1.theme';
   var MODE_KEY = 'heartopia-five-star-atlas.v1.mode';
   var DEFAULT = 'forest'; // 森林綠：css/style.css 的 :root，不加 data-theme
-  var THEMES = ['forest', 'tea', 'maple', 'cocoa', 'sakura', 'milk', 'mauve', 'lavender', 'bay']; // 順序與面板色塊相同
+  var THEMES = ['forest', 'tea', 'honey', 'maple', 'cocoa', 'sakura', 'milk', 'mauve', 'lavender', 'bay', 'black', 'white']; // 順序與面板色塊相同
   var MODES = ['auto', 'light', 'dark'];
   var root = document.documentElement;
   var systemDark = window.matchMedia ? window.matchMedia('(prefers-color-scheme: dark)') : null;

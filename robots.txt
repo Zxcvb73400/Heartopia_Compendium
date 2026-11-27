@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://heartopia-atlas.zxcvb7340-0.workers.dev/sitemap.xml
+Sitemap: https://heartopia-atlas.zyling.dev/sitemap.xml

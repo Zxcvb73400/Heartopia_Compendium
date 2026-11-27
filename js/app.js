@@ -444,8 +444,9 @@
   function showPanel(name) {
     homeVisible = false;
     $('home-view').hidden = true;
-    document.querySelector('.hero').hidden = true;
+    document.querySelector('.hero').hidden = !['achievements', 'pets'].includes(name);
     document.querySelector('.collection').hidden = true;
+    $('collection-heading').hidden = true;
     $('release-log').hidden = true;
     setNavActive($('nav-home'), false);
     for (const c of JournalCore.categories) setNavActive($('nav-' + c), false);
@@ -475,8 +476,9 @@
     bugs: '<path d="M12 9C4-1 0 7 5 12C0 17 6 24 12 15C18 24 24 17 19 12C24 7 20-1 12 9Z"/><path d="M12 8v10m0-10-2-4m2 4 2-4"/>',
     birds:
       '<path d="M4 17C9 20 19 19 19 10c0-5-6-6-7-1L4 8l4 6-5 4m16-9 3 1-3 1M10 18v3m4-3v3M9 12l5 2 2-3"/><circle cx="16" cy="8" r=".5"/>',
+    // 園藝：土地上長出兩片葉子的新苗（原本的花形和捕蟲圖示太像）
     plants:
-      '<path d="M12 9C4-2 0 10 8 12C-2 19 11 24 12 16C15 25 25 16 17 12C26 7 14-2 12 9Z"/><circle cx="12" cy="12" r="3"/>',
+      '<path d="M2.5 20.5h19M4.5 20.5c1.5-2.6 4.4-4 7.5-4s6 1.4 7.5 4"/><path d="M12 16.5V9.5"/><path d="M12 13C9 13 6.5 11 6.5 7.5 9.5 7.5 12 9.5 12 13Z"/><path d="M12 10.5c0-3 2.2-5 5.5-5 0 3-2.2 5-5.5 5Z"/>',
     dishes:
       '<path d="M4 12h16c0 5-3 8-8 8s-8-3-8-8ZM2 12h20M8 8c-3-3 3-3 0-6m5 6c-3-3 3-3 0-6m5 6c-3-3 3-3 0-6M8 22h8"/>',
   };
@@ -494,7 +496,10 @@
     '<path d="M8 4h8v5a4 4 0 0 1-8 0Z"/><path d="M8 6H5a3 3 0 0 0 3 4m8-4h3a3 3 0 0 1-3 4M12 13v4m-4 3h8l-1-3H9Z"/>';
   paths.pets =
     '<ellipse cx="12" cy="16" rx="4.5" ry="3.8"/><circle cx="6" cy="10.5" r="1.8"/><circle cx="18" cy="10.5" r="1.8"/><circle cx="9.3" cy="6.5" r="1.8"/><circle cx="14.7" cy="6.5" r="1.8"/>';
-  for (const p of ['achievements', 'pets']) $('nav-' + p).querySelector('.nav-icon').innerHTML = icon(p);
+  for (const p of ['achievements', 'pets']) {
+    $('nav-' + p).querySelector('.nav-icon').innerHTML = icon(p);
+    $(p + '-icon').innerHTML = icon(p);
+  }
   const meta = {
     fish: { name: '魚類', desc: '河流、湖泊與海洋裡，等待上鉤的五星。' },
     bugs: { name: '蟲類', desc: '走進花田與森林，尋找小小的五星蹤跡。' },
@@ -566,6 +571,7 @@
     $('home-view').hidden = !home;
     document.querySelector('.hero').hidden = home;
     document.querySelector('.collection').hidden = home;
+    $('collection-heading').hidden = home;
     $('release-log').hidden = !home;
     $('nav-home').classList.toggle('active', home);
     if (home) $('nav-home').setAttribute('aria-current', 'page');
@@ -848,7 +854,7 @@
   function gardenNameCell(g, open, panel, typeLabel) {
     return (
       `<td><button class="flower-toggle item-name" data-flower="${g.id}" aria-expanded="${open}" aria-controls="${panel}">${esc(g.name)}</button>` +
-      `<div class="item-meta"><span class="badge">${typeLabel}</span> <span class="badge ${JournalCore.kindClass(g)}">${esc(JournalCore.kindLabel(g))}</span></div></td>`
+      `<div class="item-meta"><span class="badge ${typeLabel === '花卉' ? 'type-flower' : 'type-crop'}">${typeLabel}</span> <span class="badge ${JournalCore.kindClass(g)}">${esc(JournalCore.kindLabel(g))}</span></div></td>`
     );
   }
   function levelCell(item) {
@@ -927,7 +933,7 @@
     $('thead').innerHTML =
       `<tr><th>完成</th>${sortHeader('花卉／作物名稱', 'name')}${sortHeader('等級', 'level')}<th>收集進度</th>${sortHeader('生長週期', 'growth')}<th>詳情</th></tr>`;
     $('rows').innerHTML = visible.map(g => (g.plantType === 'crop' ? renderCrop(g) : renderFlower(g))).join('');
-    $('empty').hidden = visible.length > 0;
+    renderEmptyState(visible.length);
     $('thead').hidden = visible.length === 0;
     updateProgress();
   }
@@ -1017,7 +1023,7 @@
   function habitatTimes(i) {
     const weather =
       i.weather
-        .map(w => `<span class="${w === '彩虹' ? 'rainbow' : ''}">${{ 晴: '☀ 晴', 雨: '☂ 雨', 彩虹: '🌈 彩虹日' }[w]}</span>`)
+        .map(w => `<span class="${{ 晴: 'sunny', 雨: 'rainy', 彩虹: 'rainbow' }[w] || ''}">${{ 晴: '☀ 晴', 雨: '☂ 雨', 彩虹: '🌈 彩虹日' }[w]}</span>`)
         .join('') || '天氣未知';
     return line(i.times.length === 4 ? '全天' : i.times.join(' / ') || '時段未知') + `<div class="weather-symbols">${weather}</div>`;
   }
@@ -1120,7 +1126,7 @@
       `${visible.filter(i => state.done[i.id]).length} 項已完成${pending ? ' · ' + pending + ' 項資料待確認' : ''}`;
     $('thead').innerHTML = listHeader(c, f, habitat);
     $('rows').innerHTML = visible.map(i => renderItemRow(i, c, f, habitat)).join('');
-    $('empty').hidden = visible.length > 0;
+    renderEmptyState(visible.length);
     $('thead').hidden = visible.length === 0;
     updateProgress();
   }
@@ -1296,6 +1302,38 @@
     save();
     configureCategory();
   }
+  /* 已套用的篩選：沒有結果時列出「清除篩選」會清掉的條件（天氣、時段不清除，所以不列）。 */
+  function appliedFilters() {
+    const c = state.active,
+      f = state.filters[c],
+      habitat = ['fish', 'bugs', 'birds'].includes(c),
+      list = [];
+    if (f.status !== 'all') list.push({ todo: '未完成', done: '已完成' }[f.status]);
+    if (f.search) list.push('搜尋「' + f.search + '」');
+    if (f.level !== 'all') list.push(f.level + ' 級以下');
+    if (f.kind.length !== 3) list.push(f.kind.length ? f.kind.join('、') : '未選擇收錄類型');
+    if (habitat && f.location !== 'all') list.push($('location').selectedOptions[0]?.textContent || f.location);
+    if (c === 'plants' && f.plantType !== 'all') list.push({ flower: '花卉', crop: '作物' }[f.plantType]);
+    if (c === 'birds' && f.fiveStarOnly) list.push('僅五星');
+    if (f.cookableOnly) list.push('當前可獲取');
+    else if (c === 'dishes' && f.craftableOnly) list.push('當前可製作');
+    return list;
+  }
+  // 沒有結果時依原因提供下一步：有套用篩選就給「清除篩選」；沒有的話提示天氣、時段
+  function renderEmptyState(count) {
+    const c = state.active,
+      list = appliedFilters(),
+      noun = { fish: '魚類', bugs: '蟲類', birds: '鳥類', plants: '花卉或作物', dishes: '料理' }[c];
+    $('empty').hidden = count > 0;
+    $('empty-title').textContent = '目前沒有符合條件的' + noun + '。';
+    $('empty-hint').textContent = list.length
+      ? '已套用：' + list.join(' · ')
+      : ['fish', 'bugs', 'birds'].includes(c)
+        ? '試著調整天氣或時段。'
+        : '';
+    $('empty-hint').hidden = !$('empty-hint').textContent;
+    $('empty-reset').hidden = !list.length;
+  }
   function renderFilterSummary() {
     const c = state.active,
       f = state.filters[c],
@@ -1320,6 +1358,22 @@
     if (f.cookableOnly) parts.push('當前可獲取');
     else if (c === 'dishes' && f.craftableOnly) parts.push('當前可製作');
     $('filter-summary').textContent = '目前篩選：' + parts.join(' · ');
+    // 手機版收合列：顯示和預設條件不同的篩選數（搜尋與完成狀態收合時仍看得到，不計入）
+    const d = JournalCore.defaults(c);
+    const changed = [
+      f.level !== d.level,
+      f.kind.length !== d.kind.length,
+      habitat && f.weather !== d.weather,
+      habitat && f.location !== d.location,
+      c === 'plants' && f.plantType !== d.plantType,
+      c === 'birds' && f.fiveStarOnly !== d.fiveStarOnly,
+      c === 'dishes' && f.profitStar !== d.profitStar,
+      f.cookableOnly !== d.cookableOnly,
+      c === 'dishes' && !f.cookableOnly && f.craftableOnly !== d.craftableOnly,
+    ].filter(Boolean).length;
+    $('filter-count').textContent = changed;
+    $('filter-count').hidden = !changed;
+    $('filter-reset-mini').hidden = !changed;
     $('use-current-time').hidden = !habitat;
     if (habitat)
       $('time-context').textContent =
@@ -1400,6 +1454,13 @@
     configureCategory();
   }
   $('reset-filters').addEventListener('click', resetFilters);
+  // 手機版：篩選條件預設收合，只露出搜尋、完成狀態與這一列；桌面版這一列隱藏、條件全部顯示
+  $('filter-toggle').addEventListener('click', () => {
+    const open = !$('filter-panel').classList.contains('is-open');
+    $('filter-panel').classList.toggle('is-open', open);
+    $('filter-toggle').setAttribute('aria-expanded', String(open));
+  });
+  $('filter-reset-mini').addEventListener('click', resetFilters);
   $('empty-reset').addEventListener('click', clearFilters);
   $('clear-filters').addEventListener('click', clearFilters);
   $('use-current-time').addEventListener('click', () => {
@@ -1493,7 +1554,7 @@
     if (i.eventName) return birdDetails(i);
     return (
       birdDetails(i) +
-      '<h4>一般出沒條件（百科）</h4>' +
+      '<h4>一般出沒條件</h4>' +
       line('時段：' + (i.times.length === 4 ? '全天' : i.times.join(' / '))) +
       line('天氣：' + i.weather.join('／'))
     );
@@ -1713,6 +1774,26 @@
     showView(false);
     configureCategory();
   });
+  /* ----------------------------------------------------------------
+   * 右上角「配色」面板：這裡只負責打開／關閉；選色塊後換配色的程式在 js/theme.js
+   * ---------------------------------------------------------------- */
+  function setThemeMenu(open) {
+    $('theme-menu').hidden = !open;
+    $('theme-toggle').setAttribute('aria-expanded', String(open));
+  }
+  $('theme-toggle').addEventListener('click', e => {
+    e.stopPropagation();
+    setThemeMenu($('theme-menu').hidden);
+  });
+  // 點面板內部不要關閉面板（選色塊由 js/theme.js 處理）
+  $('theme-menu').addEventListener('click', e => e.stopPropagation());
+  document.addEventListener('click', () => setThemeMenu(false));
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape' && !$('theme-menu').hidden) {
+      setThemeMenu(false);
+      $('theme-toggle').focus();
+    }
+  });
   for (const action of ['help', 'export', 'import'])
     $('home-' + action).addEventListener('click', () => $(action).click());
   document.querySelector('#help-dialog .release-notice a').addEventListener('click', e => {
@@ -1742,6 +1823,7 @@
     const a = achievementStats();
     $('nav-achievements').querySelector('.nav-count').textContent = a.total ? `${a.done} / ${a.total}` : '';
     $('nav-pets').querySelector('.nav-count').textContent = state.pets.length ? state.pets.length + ' 隻' : '';
+    $('pets-count').textContent = state.pets.length ? state.pets.length + ' 隻' : '';
   }
   // 各大滿貫的展開／收合狀態只記在這台瀏覽器（不進備份）；預設展開
   const ACH_COLLAPSE_KEY = KEY + '.achievements-collapsed';
@@ -1763,6 +1845,16 @@
     const done = state.achievements[i.id];
     return `<li><label class="achievement-item${done ? ' is-done' : ''}"><input type="checkbox" data-achievement="${esc(i.id)}"${done ? ' checked' : ''}><span><b>${esc(i.name)}</b>${i.desc ? `<small>${esc(i.desc)}</small>` : ''}</span></label></li>`;
   }
+  // 批量：這一組的稱號全部勾選或全部取消
+  function achievementBatchBar(g, s) {
+    const key = esc(g.key);
+    return (
+      '<div class="batch-bar">' +
+      `<button type="button" class="button batch-button" data-achievement-batch="all" data-group="${key}"${s.done === s.total ? ' disabled' : ''}>全部完成</button>` +
+      `<button type="button" class="text-button" data-achievement-batch="none" data-group="${key}"${s.done ? '' : ' disabled'}>全部取消</button>` +
+      '</div>'
+    );
+  }
   // 一組大滿貫：可收合的標題、進度條、獲得稱號與解鎖條件、稱號清單、備註
   function achievementGroup(g) {
     const s = achievementStats(g.items),
@@ -1780,7 +1872,7 @@
       `<span class="achievement-group-count">${s.total ? s.done + ' / ' + s.total : '待補'}</span><span class="achievement-chevron" aria-hidden="true"></span></header>`;
     const meter = `<div class="achievement-meter" aria-hidden="true"><i style="width:${s.total ? Math.round((s.done / s.total) * 100) : 0}%"></i></div>`;
     const list = g.items.length
-      ? `<ul class="achievement-list">${g.items.map(i => achievementItem(i)).join('')}</ul>`
+      ? achievementBatchBar(g, s) + `<ul class="achievement-list">${g.items.map(i => achievementItem(i)).join('')}</ul>`
       : '<p class="panel-empty">成就名稱與描述待補，資料更新後即可勾選。</p>';
     return (
       `<section class="calc-card achievement-group${complete ? ' is-complete' : ''}${open ? '' : ' is-collapsed'}">` +
@@ -1853,6 +1945,24 @@
     if (!$('achievements-view').hidden) renderAchievements();
   });
   $('achievement-groups').addEventListener('click', e => {
+    const batch = e.target.closest('[data-achievement-batch]');
+    if (batch) {
+      const g = ACHIEVEMENT_GROUPS.find(x => x.key === batch.dataset.group);
+      if (!g) return;
+      const all = batch.dataset.achievementBatch === 'all';
+      if (!all && !confirm(`確定取消「${g.name}」的全部 ${g.items.length} 項勾選嗎？`)) return;
+      for (const i of g.items) {
+        if (all) state.achievements[i.id] = true;
+        else delete state.achievements[i.id];
+      }
+      save();
+      renderAchievements();
+      updateProgress();
+      toast(all ? `「${g.name}」已全部完成。` : `已取消「${g.name}」的勾選。`);
+      return $('achievement-groups')
+        .querySelector(`[data-group="${CSS.escape(g.key)}"][data-achievement-batch="${all ? 'none' : 'all'}"]`)
+        ?.focus({ preventScroll: true });
+    }
     const head = e.target.closest('[data-achievement-toggle]');
     if (!head) return;
     const key = head.dataset.achievementToggle;
@@ -1891,7 +2001,7 @@
   // 正在新增備註、但還沒打字的食物（只在畫面上暫時展開）
   const openNotes = new Set();
   const noteAddButton = f =>
-    `<button type="button" class="pet-note-add" data-note-add="${esc(f.id)}" aria-label="替${esc(f.name)}新增備註" title="新增備註">+</button>`;
+    `<button type="button" class="pet-note-add" data-note-add="${esc(f.id)}" aria-label="替${esc(f.name)}新增備註" title="新增備註"><span aria-hidden="true">＋</span>備註</button>`;
   // 有備註或剛按了「+」才顯示輸入欄，否則只顯示「+」
   function noteField(pet, f) {
     const text = pet.notes[f.id] || '';
@@ -1950,6 +2060,18 @@
     );
   }
   // 搜尋框與篩選按鈕；「已吃過」與「不喜歡」合併成一個篩選：吃過但沒標喜歡
+  // 目前列出的食物：套用搜尋文字與「全部／未吃過／喜歡／不喜歡」篩選
+  function shownPetFoods(pet) {
+    const query = petSearch.trim().toLowerCase();
+    return foodsFor(pet).filter(
+      f =>
+        (!query || f.name.toLowerCase().includes(query) || (pet.notes[f.id] || '').toLowerCase().includes(query)) &&
+        (petFilter === 'all' ||
+          (petFilter === 'todo' && !pet.eaten[f.id]) ||
+          (petFilter === 'liked' && pet.liked[f.id]) ||
+          (petFilter === 'disliked' && pet.eaten[f.id] && !pet.liked[f.id])),
+    );
+  }
   function petToolbar() {
     const filters = { all: '全部', todo: '未吃過', liked: '喜歡', disliked: '不喜歡' };
     const buttons = Object.entries(filters)
@@ -1957,7 +2079,18 @@
       .join('');
     return (
       `<div class="pet-toolbar"><label class="search-wrap"><span>⌕</span><input id="pet-search" type="search" placeholder="搜尋食物…" aria-label="搜尋食物" value="${esc(petSearch)}"></label>` +
-      `<div class="segments" role="group" aria-label="食物篩選">${buttons}</div></div>`
+      `<div class="segments" role="group" aria-label="食物篩選">${buttons}</div></div>` +
+      petBatchBar()
+    );
+  }
+  // 批量：只在「未吃過」篩選時出現，把目前列出的未吃過食物全部設為「不喜歡」（可再用搜尋縮小範圍）
+  function petBatchBar() {
+    if (petFilter !== 'todo') return '';
+    const pet = currentPet();
+    const targets = pet ? shownPetFoods(pet).filter(f => !(pet.eaten[f.id] && !pet.liked[f.id])) : [];
+    return (
+      '<div class="batch-bar pet-batch-bar"><span>批量設定目前列出的未吃過食物</span>' +
+      `<button type="button" class="button batch-button" data-pet-batch="dislike"${targets.length ? '' : ' disabled'}><span aria-hidden="true">✕</span>全部設為不喜歡（${targets.length} 樣）</button></div>`
     );
   }
   // 一種食物：名稱（有圖鑑資料時可跳過去）、魚的地點、備註、未吃過／喜歡／不喜歡、筆記
@@ -2007,15 +2140,7 @@
       eaten = foods.filter(f => pet.eaten[f.id]).length,
       liked = foods.filter(f => pet.liked[f.id]).length,
       disliked = eaten - liked,
-      query = petSearch.trim().toLowerCase(),
-      shown = foods.filter(
-        f =>
-          (!query || f.name.toLowerCase().includes(query) || (pet.notes[f.id] || '').toLowerCase().includes(query)) &&
-          (petFilter === 'all' ||
-            (petFilter === 'todo' && !pet.eaten[f.id]) ||
-            (petFilter === 'liked' && pet.liked[f.id]) ||
-            (petFilter === 'disliked' && pet.eaten[f.id] && !pet.liked[f.id])),
-      );
+      shown = shownPetFoods(pet);
     const list = shown.length
       ? `<ul class="pet-food-list">${shown.map(f => petFoodItem(pet, f)).join('')}</ul>`
       : '<p class="panel-empty">這個條件下沒有食物。</p>';
@@ -2073,6 +2198,27 @@
     const itemLink = e.target.closest('[data-pet-link]');
     if (itemLink) return openItem(itemLink.dataset.petLink);
     const refocus = sel => $('pet-detail').querySelector(sel)?.focus({ preventScroll: true });
+    if (e.target.closest('[data-pet-batch="dislike"]') && petFilter === 'todo') {
+      const targets = shownPetFoods(pet).filter(f => !(pet.eaten[f.id] && !pet.liked[f.id]));
+      if (!targets.length) return;
+      const liked = targets.filter(f => pet.liked[f.id]).length;
+      if (
+        !confirm(
+          `確定把目前列出的 ${targets.length} 樣食物都設為「不喜歡」嗎？` +
+            (liked ? `其中 ${liked} 樣原本是「喜歡」，也會改成「不喜歡」。` : '') +
+            '之後可以逐一改回。',
+        )
+      )
+        return;
+      for (const f of targets) {
+        pet.eaten[f.id] = true;
+        delete pet.liked[f.id];
+      }
+      save();
+      renderPets();
+      toast(`已把 ${targets.length} 樣食物設為「不喜歡」。`);
+      return refocus('[data-pet-batch]');
+    }
     const stateBtn = e.target.closest('[data-pet-state]');
     if (stateBtn) {
       // 三選一：未吃過＝清除；喜歡＝吃過＋喜歡；不喜歡＝吃過但不標喜歡

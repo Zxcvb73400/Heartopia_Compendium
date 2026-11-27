@@ -1,0 +1,411 @@
+/* 心動小鎮五星圖鑑 配色（v1.3.1）
+ * ------------------------------------------------------------------
+ * 預設配色「森林綠」寫在 css/style.css 的 :root，這裡只放其他六組。
+ * 玩家按右上角「配色」按鈕選色塊切換；選擇記在瀏覽器（js/theme.js），
+ * 切換時在 <html> 加上 data-theme="名稱"，下方對應區塊的變數就會覆蓋預設值。
+ *
+ * 每組只需要填【主題色】的基本值；【狀態色】（刪除紅、活動徽章等）所有配色共用，不在這裡改。
+ * 下方「共用推導」會從基本值自動算出較次要的顏色，新增配色時通常不用另外寫。
+ *
+ * 新增一組配色：
+ *   1. 在本檔照下方格式新增 :root[data-theme="英文名"] 區塊。
+ *   2. 在 index.html 的 #theme-menu 色塊區加一個按鈕：data-theme-swatch="英文名"、--swatch 填主色、aria-label 與 title 填中文名。
+ *   3. 在 js/theme.js 的 THEMES 加上英文名。
+ * 對比度下限：文字對背景 4.5:1；主色按鈕上的白字 4.5:1；框線、進度條 3:1。
+ * ------------------------------------------------------------------ */
+
+/* ===== 共用推導：非預設配色都套用 ===== */
+:root[data-theme] {
+  --sub: color-mix(in srgb, var(--text) 55%, var(--muted));          /* 次要內文：內文與次要文字之間 */
+  --pale-strong: color-mix(in srgb, var(--green) 14%, var(--paper));  /* 比 --pale 深一階的主色淺底 */
+  --line-strong: color-mix(in srgb, var(--line) 78%, var(--muted));   /* 較明顯的框線 */
+  --accent-line: color-mix(in srgb, var(--green) 45%, var(--paper));  /* 焦點外框、選取框線 */
+  --bar-from: color-mix(in srgb, var(--green) 50%, var(--paper));     /* 進度條漸層起點 */
+  --on-accent: #ffffff;
+  --on-accent-soft: color-mix(in srgb, #ffffff 78%, var(--green));
+  --gold-ink: #7a5c1c;
+}
+
+/* ===== 焙茶橄欖：米白紙底＋深橄欖（v1.3.1 新增，第 9 組，之後可能刪改） ===== */
+:root[data-theme="tea"] {
+  --bg: #f6f4e9;     --paper: #fffef7;  --soft: #f5f3e6;   --pale: #ecedd9;  --track: #e9e5cf;
+  --line: #e4e0cc;
+  --green: #545d22;  --deep: #3b4317;
+  --ink: #30331f;    --text: #505537;   --muted: #62664d;  --faint: #707457;
+  --gold: #b49043;   --gold-soft: #f5e8c8;
+  /* 標籤：主色是橄欖綠，「作物」改葉綠，避免和主色混淆 */
+  --crop-ink: #2f6b4a; --crop-soft: #e2f1e7;
+}
+
+/* ===== 琥珀秋楓：米色紙張底＋焦糖棕 ===== */
+:root[data-theme="maple"] {
+  --bg: #f6f1e8;     --paper: #fffcf6;  --soft: #f6eee2;   --pale: #f3e8d8;  --track: #eadfcb;
+  --line: #e8dece;
+  --green: #95572b;  --deep: #74421d;
+  --ink: #3a2c20;    --text: #6a5540;   --muted: #736455;  --faint: #807363;
+  --gold: #a87f2c;   --gold-soft: #f3e4c4;
+}
+
+/* ===== 可可褐：奶油白底＋深可可（v1.3.1 新增，第 8 組） ===== */
+:root[data-theme="cocoa"] {
+  --bg: #f7f2ed;     --paper: #fffcf8;  --soft: #f6efe8;   --pale: #f2e8e2;  --track: #eee2d8;
+  --line: #e9dfd6;
+  --green: #6e4840;  --deep: #50322d;
+  --ink: #392b28;    --text: #624e49;   --muted: #6c5e58;  --faint: #7a6c64;
+  --gold: #b18a46;   --gold-soft: #f5e8cf;
+}
+
+/* ===== 櫻花粉：暖白底＋乾燥玫瑰 ===== */
+:root[data-theme="sakura"] {
+  --bg: #f8f2f1;     --paper: #fffdfc;  --soft: #f8efee;   --pale: #f5e6e9;  --track: #efdfdd;
+  --line: #ecdedc;
+  --green: #9e4a64;  --deep: #7c364e;
+  --ink: #3b2a2f;    --text: #6d5158;   --muted: #756368;  --faint: #827175;
+  --gold: #b0843f;   --gold-soft: #f6ead6;
+}
+
+/* ===== 草莓牛奶：粉白底＋覆盆子粉（粉色系明亮版） ===== */
+:root[data-theme="milk"] {
+  --bg: #fcf5f7;     --paper: #fffdfe;  --soft: #fbeff3;   --pale: #fce8ef;  --track: #f4dfe6;
+  --line: #f0dde4;
+  --green: #b8436a;  --deep: #923253;
+  --ink: #3c2530;    --text: #6f4f5c;   --muted: #78616d;  --faint: #866f7a;
+  --gold: #b07f3a;   --gold-soft: #f8ead3;
+}
+
+/* ===== 藕荷粉：灰粉底＋藕紫（粉色系低調版） ===== */
+:root[data-theme="mauve"] {
+  --bg: #f5f1f3;     --paper: #fefdfd;  --soft: #f3edf0;   --pale: #f0e7ec;  --track: #e6dce1;
+  --line: #e7dfe3;
+  --green: #855a74;  --deep: #67435a;
+  --ink: #33282e;    --text: #625560;   --muted: #6f646a;  --faint: #7d7278;
+  --gold: #a9853f;   --gold-soft: #f3ead8;
+  /* 標籤：主色偏紫，避免和主色混淆（見下一行） */
+  --past-ink: #6b5d4f; --past-soft: #f2ede6; --past-line: #e0d6ca; /* 主色偏紫：「過往」改暖灰褐（和「日常」灰分開）、「花色」改玫瑰 */
+  --purple-ink: #a2446a; --purple-soft: #f9e7ee;
+}
+
+/* ===== 薰衣草夜：淡紫灰底＋藍紫 ===== */
+:root[data-theme="lavender"] {
+  --bg: #f4f2f8;     --paper: #fefdff;  --soft: #f1eff7;   --pale: #ebe8f5;  --track: #e1ddef;
+  --line: #e2dfed;
+  --green: #5b4f93;  --deep: #443a77;
+  --ink: #2c2840;    --text: #5a5574;   --muted: #69657c;  --faint: #767289;
+  --gold: #ac8740;   --gold-soft: #f3ead6;
+  /* 標籤：主色偏紫，避免和主色混淆（見下一行） */
+  --past-ink: #6b5d4f; --past-soft: #f2ede6; --past-line: #e0d6ca; /* 主色偏紫：「過往」改暖灰褐（和「日常」灰分開）、「花色」改玫瑰 */
+  --purple-ink: #a2446a; --purple-soft: #f9e7ee;
+}
+
+/* ===== 靛墨藍：冷白底＋深靛藍（v1.3.1 取代原本的海灣藍；沿用 data-theme="bay"，之前選海灣藍的人會自動換成靛墨藍） ===== */
+:root[data-theme="bay"] {
+  --bg: #f2f3f8;     --paper: #fdfdff;  --soft: #eff1f8;   --pale: #e7ebf7;  --track: #e1e5f1;
+  --line: #e1e5ef;
+  --green: #3a4d83;  --deep: #293963;
+  --ink: #292f45;    --text: #46516b;   --muted: #575f76;  --faint: #687087;
+  --gold: #b38b44;   --gold-soft: #f5ead3;
+  /* 標籤：主色是藍，「當前」改青綠，避免和主色混淆 */
+  --info-ink: #1d6b5c; --info-soft: #dff2ec; --info-line: #9fd3c4;
+}
+
+/* =====================================================================
+ * 夜間模式（v1.3.2）
+ * js/theme.js 依面板的「夜間模式」開關在 <html> 加上 data-mode="dark"；
+ * 沒動過開關時跟隨系統深色設定。七組配色各有對應的夜間版本，與配色選擇彼此獨立。
+ * 夜間的主色改為較亮的色調，主色按鈕上的文字改用深色（--on-accent）。
+ * 對比度下限同上：文字對背景 4.5:1；主色按鈕上的深字 4.5:1。
+ * ===================================================================== */
+
+/* 夜間色票（v1.3.1 調整；主色、深主色、完成底與《異色版設計稿》夜間提案同步）：淡字對卡片至少 4.5:1、次要字約 6.4:1；框線稍亮；
+ * 深主色（標題、項目名稱）＝主色 40% 混標題字，降低飽和度，避免整頁都是亮色主色。 */
+/* ===== 夜間共用：狀態色與推導（所有配色共用，排在各淺色配色之後才能覆蓋） ===== */
+:root[data-mode="dark"] {
+  color-scheme: dark;
+  --sub: color-mix(in srgb, var(--text) 55%, var(--muted));
+  --pale-strong: color-mix(in srgb, var(--green) 20%, var(--paper));
+  --line-strong: color-mix(in srgb, var(--line) 72%, var(--muted));
+  --accent-line: color-mix(in srgb, var(--green) 55%, var(--paper));
+  --bar-from: color-mix(in srgb, var(--green) 65%, var(--paper));  /* 夜間進度條漸層起點：暗→亮，起點對底槽至少 3:1 */
+  --on-accent: color-mix(in srgb, var(--bg) 80%, #000000);
+  --on-accent-soft: color-mix(in srgb, var(--on-accent) 68%, var(--green));
+  --gold-ink: color-mix(in srgb, var(--gold) 78%, #ffffff);
+
+  --danger: #ef7079;       --danger-ink: #f0907f;   --danger-soft: #3a2022;  --danger-line: #5c3034;
+  --warn-ink: #e3a872;     --warn-soft: #33281a;
+  --info-ink: #8fc1f0;     --info-soft: #1c2b3c;    --info-line: #355678;
+  --past-ink: #c4b9d3;     --past-soft: #28242e;    --past-line: #3e3747;
+  /* 分類標籤（夜間）：日常、作物、貓、狗 */
+  --daily-ink: #c9d0d4;    --daily-soft: #2a2e31;
+  --crop-ink: #bfd68e;     --crop-soft: #26301a;
+  --cat-ink: #f0b783;      --cat-soft: #36261a;
+  --dog-ink: #a9b5d8;      --dog-soft: #232a3a;
+  --sun-ink: #f0c060;      --rain-ink: #8fc1f0;   /* 天氣「晴」「雨」 */
+  --slate-ink: #a9b5d8;    --slate-soft: #232a3a;
+  --purple-ink: #cfaadb;   --purple-soft: #2e2433;
+  --neutral-ink: #b4bbb5;
+}
+
+/* ===== 森林綠・夜間（v1.3.1：主色與底色降低飽和度，避免螢光綠） ===== */
+:root[data-mode="dark"]:not([data-theme]) {
+  --bg: #131614;     --paper: #1b201d;  --soft: #171b19;   --pale: #313c35;  --track: #272d29;
+  --line: #3d4540;
+  --green: #95b9a3;  --deep: #c5d6cb;
+  --ink: #e5e9e6;    --text: #bfc8bf;   --muted: #a1ada3;  --faint: #8d9991;
+  --gold: #d2ac62;   --gold-soft: #352c1c;
+}
+
+/* ===== 焙茶橄欖・夜間 ===== */
+:root[data-mode="dark"][data-theme="tea"] {
+  --bg: #171810;     --paper: #202217;  --soft: #1b1d13;   --pale: #3e412c;  --track: #2d3020;
+  --line: #474b36;
+  --green: #c5ce8c;  --deep: #dfe2be;
+  --ink: #f0f0df;    --text: #c9cbb0;   --muted: #aeb196;  --faint: #9da184;
+  --gold: #d4ae65;   --gold-soft: #352c1a;
+  --crop-ink: #8fd3a8; --crop-soft: #19301f;
+}
+
+/* ===== 琥珀秋楓・夜間 ===== */
+:root[data-mode="dark"][data-theme="maple"] {
+  --bg: #17130f;     --paper: #201b15;  --soft: #1b1712;   --pale: #433528;  --track: #30281f;
+  --line: #493f34;
+  --green: #e2ad80;  --deep: #ebd0b7;
+  --ink: #f1e8dc;    --text: #d1bfa8;   --muted: #b3a492;  --faint: #9e9181;
+  --gold: #d6ad5a;   --gold-soft: #372c18;
+}
+
+/* ===== 可可褐・夜間 ===== */
+:root[data-mode="dark"][data-theme="cocoa"] {
+  --bg: #1b1513;     --paper: #271d19;  --soft: #211916;   --pale: #463631;  --track: #382a25;
+  --line: #503f38;
+  --green: #d6aa9e;  --deep: #e7cfc5;
+  --ink: #f3e7df;    --text: #d6bfb5;   --muted: #c0a89e;  --faint: #ac9389;
+  --gold: #d6ae68;   --gold-soft: #392c1e;
+}
+
+/* ===== 櫻花粉・夜間 ===== */
+:root[data-mode="dark"][data-theme="sakura"] {
+  --bg: #181314;     --paper: #211a1c;  --soft: #1c1618;   --pale: #453338;  --track: #31262a;
+  --line: #483c40;
+  --green: #e9a7b9;  --deep: #edccd5;
+  --ink: #f0e4e7;    --text: #d0b9bf;   --muted: #b5a2a7;  --faint: #9f8e93;
+  --gold: #d4aa66;   --gold-soft: #352b1d;
+}
+
+/* ===== 草莓牛奶・夜間 ===== */
+:root[data-mode="dark"][data-theme="milk"] {
+  --bg: #1a1216;     --paper: #24191f;  --soft: #1e151a;   --pale: #49313b;  --track: #36252d;
+  --line: #4d3b44;
+  --green: #f3a0bd;  --deep: #f4cad9;
+  --ink: #f5e6ec;    --text: #d6b8c4;   --muted: #baa0ab;  --faint: #a48d97;
+  --gold: #d6a866;   --gold-soft: #372b1c;
+}
+
+/* ===== 藕荷粉・夜間 ===== */
+:root[data-mode="dark"][data-theme="mauve"] {
+  --bg: #171316;     --paper: #201b1f;  --soft: #1b1719;   --pale: #40353d;  --track: #2f272d;
+  --line: #463d44;
+  --green: #d3adc6;  --deep: #e3cfdc;
+  --ink: #eee5ea;    --text: #cbbcc5;   --muted: #b0a3ab;  --faint: #9c9098;
+  --gold: #ceab68;   --gold-soft: #332b1d;
+}
+
+/* ===== 薰衣草夜・夜間 ===== */
+:root[data-mode="dark"][data-theme="lavender"] {
+  --bg: #13121a;     --paper: #1b1a24;  --soft: #17161f;   --pale: #373547;  --track: #29263a;
+  --line: #403e50;
+  --green: #b9afe8;  --deep: #d5d0ef;
+  --ink: #e8e6f3;    --text: #c0bcd8;   --muted: #a6a3bb;  --faint: #9390a7;
+  --gold: #d1ab66;   --gold-soft: #332b1d;
+}
+
+/* ===== 靛墨藍・夜間 ===== */
+:root[data-mode="dark"][data-theme="bay"] {
+  --bg: #131522;     --paper: #1b1f30;  --soft: #171a29;   --pale: #343b52;  --track: #282e44;
+  --line: #414963;
+  --green: #a7b9ed;  --deep: #cfd8f4;
+  --ink: #e9edf8;    --text: #bec7e1;   --muted: #a9b2ce;  --faint: #979fbd;
+  --gold: #d5ae69;   --gold-soft: #352b1c;
+}
+
+/* ===== 夜間：標籤撞色調整（同淺色版的理由） ===== */
+:root[data-mode="dark"][data-theme="bay"] {
+  --info-ink: #7fd1bd; --info-soft: #17302b; --info-line: #2f5c52;
+}
+:root[data-mode="dark"][data-theme="mauve"],
+:root[data-mode="dark"][data-theme="lavender"] {
+  --past-ink: #cdbfae; --past-soft: #2e2822; --past-line: #4a4036; /* 暖灰褐，和「日常」灰分開 */
+  --purple-ink: #eea0bd; --purple-soft: #3a2230;
+}
+
+/* ===== 夜間：側欄選中項目改成淡主色底＋主色字（淺色版是實心主色；夜間實心亮色塊太刺眼） ===== */
+:root[data-mode="dark"] .nav-item.active,
+:root[data-mode="dark"] .sidebar .nav-item.active,
+:root[data-mode="dark"] .sidebar #nav-calculator.active,
+:root[data-mode="dark"] .sidebar .panel-nav.active {
+  background: var(--pale-strong);
+  color: var(--deep);
+  box-shadow: inset 3px 0 0 var(--green);
+}
+:root[data-mode="dark"] .nav-item.active .nav-count,
+:root[data-mode="dark"] .sidebar .nav-item.active .nav-count {
+  color: var(--muted);
+}
+
+/* 夜間：已完成的列用更明顯一階的主色淡底，和未完成列區分 */
+:root[data-mode="dark"] .item.complete,
+:root[data-mode="dark"] .list tbody tr.item.complete:hover {
+  background: var(--pale-strong);
+}
+:root[data-mode="dark"] .list tbody tr.item.complete > td,
+:root[data-mode="dark"] .collection > .table-wrap > .list > tbody > tr.item.complete {
+  border-bottom-color: var(--bg);
+}
+
+/* ===== 夜間：表格輪廓（表頭底色與列底色太接近、分隔線太淡，整張表會融進背景） ===== */
+:root[data-mode="dark"] .collection > .table-wrap {
+  border: 1px solid var(--line-strong);
+  border-radius: 10px;
+  overflow: hidden;
+}
+:root[data-mode="dark"] .list thead,
+:root[data-mode="dark"] .collection > .table-wrap > .list > thead {
+  background: var(--track);
+}
+:root[data-mode="dark"] .list th,
+:root[data-mode="dark"] .collection > .table-wrap > .list > thead > tr {
+  border-bottom-color: var(--line-strong);
+}
+:root[data-mode="dark"] .list td,
+:root[data-mode="dark"] .collection > .table-wrap > .list > tbody > tr.item {
+  border-bottom-color: var(--line-strong);
+}
+
+/* 夜間：陰影改用純黑才看得出層次 */
+:root[data-mode="dark"] .theme-menu {
+  box-shadow: 0 10px 28px #00000080;
+}
+
+/* =====================================================================
+ * 右上角「配色」按鈕與面板（#theme-toggle、#theme-menu，程式在 js/theme.js 與 js/app.js）
+ * ===================================================================== */
+.theme-picker {
+  position: relative;
+  display: inline-flex;
+}
+#theme-toggle {
+  display: inline-grid;
+  place-items: center;
+  color: var(--deep);
+  cursor: pointer;
+}
+#theme-toggle svg {
+  width: 17px;
+  height: 17px;
+}
+#theme-toggle[aria-expanded="true"] {
+  border-color: var(--green);
+  background: var(--pale);
+}
+.theme-menu {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  z-index: 40;
+  width: 298px; /* 9 個色塊：9×24 + 8×6 + 左右內距 */
+  padding: 14px 16px;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  box-shadow: 0 10px 28px #263c2e1f;
+  text-align: left;
+}
+.theme-menu[hidden] {
+  display: none;
+}
+.theme-menu-title {
+  margin: 0 0 10px;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--deep);
+}
+/* 九個色塊：顏色寫在 index.html 每個按鈕的 --swatch（＝該配色的主色） */
+.theme-swatches {
+  display: grid;
+  grid-template-columns: repeat(9, 24px);
+  gap: 6px;
+}
+.theme-swatch {
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  border: 2px solid var(--paper);
+  border-radius: 50%;
+  background: var(--swatch);
+  box-shadow: 0 0 0 1px var(--line);
+  cursor: pointer;
+}
+.theme-swatch.active {
+  box-shadow: 0 0 0 2px var(--deep);
+}
+.theme-swatch:focus-visible {
+  outline: 2px solid var(--green);
+  outline-offset: 2px;
+}
+/* 夜間模式開關（打開＝夜間；沒動過開關時跟隨系統深淺色） */
+.theme-dark {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 14px;
+  padding-top: 12px;
+  border-top: 1px solid var(--line);
+  font-size: 12px;
+  color: var(--deep);
+  cursor: pointer;
+}
+.theme-dark input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+.theme-switch {
+  position: relative;
+  width: 34px;
+  height: 20px;
+  border-radius: 999px;
+  background: var(--line-strong);
+  transition: background 0.15s;
+}
+.theme-switch::after {
+  content: '';
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--paper);
+  box-shadow: 0 1px 2px #0002;
+  transition: transform 0.15s;
+}
+.theme-dark input:checked + .theme-switch {
+  background: var(--green);
+}
+.theme-dark input:checked + .theme-switch::after {
+  transform: translateX(14px);
+}
+.theme-dark input:focus-visible + .theme-switch {
+  outline: 2px solid var(--green);
+  outline-offset: 2px;
+}
+/* 面板放在上方工具列裡，避開工具列對 span 的通用樣式 */
+#theme-menu .theme-dark > span:first-child {
+  margin: 0;
+  padding: 0;
+  font-size: 12px;
+  color: var(--deep);
+  opacity: 1;
+}
+#theme-menu span.theme-switch {
+  margin: 0;
+}

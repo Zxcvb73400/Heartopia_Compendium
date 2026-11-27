@@ -9,32 +9,35 @@
 <meta name="color-scheme" content="light">
 <title>心動小鎮五星圖鑑｜釣魚、捕蟲、觀鳥、園藝與烹飪</title>
 <meta name="description" content="心動小鎮五星圖鑑與收藏圖鑑：查詢釣魚、捕蟲、觀鳥五星條件、園藝花色與烹飪資料，追蹤收藏進度、成就與寵物飲食紀錄，並試算料理成本與利潤。非官方玩家整理，資料持續更新。">
-<link rel="canonical" href="https://heartopia-atlas.zxcvb7340-0.workers.dev/">
+<link rel="canonical" href="https://heartopia-atlas.zyling.dev/">
 <meta property="og:title" content="心動小鎮五星圖鑑｜收藏圖鑑與料理成本計算">
 <meta property="og:description" content="查詢心動小鎮釣魚、捕蟲、觀鳥五星條件、園藝花色及烹飪資料，記錄圖鑑進度、成就與寵物紀錄，試算料理成本與利潤。非官方玩家整理。">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="心動小鎮五星圖鑑">
 <meta property="og:locale" content="zh_TW">
-<meta property="og:url" content="https://heartopia-atlas.zxcvb7340-0.workers.dev/">
+<meta property="og:url" content="https://heartopia-atlas.zyling.dev/">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="心動小鎮五星圖鑑｜收藏圖鑑與料理成本計算">
 <meta name="twitter:description" content="查詢心動小鎮釣魚、捕蟲、觀鳥五星條件、園藝花色與烹飪資料，追蹤收藏進度、成就與寵物紀錄，並試算料理成本與利潤。">
-<meta name="atlas-updated-at" content="2026-11-26">
+<meta name="atlas-updated-at" content="2026-11-27">
 <meta name="theme-color" content="#34654f">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "WebSite",
   "name": "心動小鎮五星圖鑑",
-  "url": "https://heartopia-atlas.zxcvb7340-0.workers.dev/",
+  "url": "https://heartopia-atlas.zyling.dev/",
   "description": "非官方心動小鎮五星圖鑑與收藏圖鑑，可查詢釣魚、捕蟲、觀鳥、園藝和烹飪資料，追蹤收藏進度、成就與寵物飲食紀錄，並試算料理成本與利潤。",
   "inLanguage": "zh-Hant-TW"
 }
 </script>
 <!-- 圖示用實體檔案，搜尋結果與手機主畫面才抓得到 -->
-<link rel="icon" href="favicon.svg" type="image/svg+xml">
-<link rel="apple-touch-icon" href="apple-touch-icon.png">
-<link rel="stylesheet" href="css/style.css?v=2026-11-26.1">
+<link rel="icon" href="favicon.svg?v=2026-11-27.1" type="image/svg+xml">
+<link rel="apple-touch-icon" href="apple-touch-icon.png?v=2026-11-27.1">
+<link rel="stylesheet" href="css/style.css?v=2026-11-27.1">
+<!-- 配色：其他六組配色與配色按鈕樣式；theme.js 在畫面出現前套用上次選的配色 -->
+<link rel="stylesheet" href="css/themes.css?v=2026-11-27.1">
+<script src="js/theme.js?v=2026-11-27.1"></script>
 </head>
 <body>
 <!-- 沒有執行 JavaScript 時（部分搜尋引擎、關閉 JS 的瀏覽器）顯示的網站說明 -->
@@ -44,21 +47,22 @@
   <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="side-panel">分類 ▾</button>
   <div class="side-panel" id="side-panel">
   <a class="brand" href="#">心動小鎮五星圖鑑</a>
-  <button id="nav-home" class="nav-item home-nav"><span class="nav-icon" aria-hidden="true"></span><span class="nav-name">首頁</span></button><nav id="categories" aria-label="圖鑑分類"></nav><button id="nav-achievements" class="nav-item panel-nav" type="button"><span class="nav-icon" aria-hidden="true"></span><span class="nav-name">成就</span><span class="nav-count"></span></button><button id="nav-pets" class="nav-item panel-nav" type="button"><span class="nav-icon" aria-hidden="true"></span><span class="nav-name">寵物</span><span class="nav-count"></span></button><button id="nav-calculator" class="nav-item calculator-nav" type="button"><span class="nav-icon" aria-hidden="true"></span><span class="nav-name">成本計算機</span></button>
+  <button id="nav-home" class="nav-item home-nav"><span class="nav-icon" aria-hidden="true"></span><span class="nav-name">首頁</span></button><nav id="categories" aria-label="圖鑑分類"></nav><button id="nav-achievements" class="nav-item panel-nav" type="button"><span class="nav-icon" aria-hidden="true"></span><span class="nav-name">成就</span><span class="nav-count"></span></button><button id="nav-pets" class="nav-item panel-nav" type="button"><span class="nav-icon" aria-hidden="true"></span><span class="nav-name">寵物</span><span class="nav-count"></span></button><div class="nav-divider" role="separator" aria-hidden="true"></div><button id="nav-calculator" class="nav-item calculator-nav" type="button"><span class="nav-icon" aria-hidden="true"></span><span class="nav-name">成本計算機</span></button>
 </div>
 </aside>
 <div class="page">
- <header class="topbar"><div class="tools"><span id="save-state" role="status">準備保存</span><button id="export" class="button">匯出備份</button><button id="import" class="button">匯入進度</button><button id="help" class="icon-button" aria-label="使用說明">?</button><input id="file" type="file" accept=".json,application/json" hidden></div></header>
+ <header class="topbar"><div class="tools"><span id="save-state" role="status">準備保存</span><button id="export" class="button">匯出備份</button><button id="import" class="button">匯入進度</button><div class="theme-picker"><button id="theme-toggle" class="icon-button" type="button" aria-label="配色" title="配色" aria-haspopup="true" aria-expanded="false" aria-controls="theme-menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a9 9 0 1 0 0 18c1.1 0 1.6-.8 1.3-1.7l-.4-1.1c-.4-1.1.4-2.2 1.6-2.2H17a4 4 0 0 0 4-4c0-5-4-9-9-9Z"/><circle cx="7.5" cy="11" r="1"/><circle cx="10" cy="7" r="1"/><circle cx="15" cy="7.5" r="1"/></svg></button><div id="theme-menu" class="theme-menu" role="group" aria-label="配色" hidden><p class="theme-menu-title">配色</p><div class="theme-swatches"><button type="button" class="theme-swatch active" data-theme-swatch="forest" style="--swatch:#34654f" aria-label="森林綠" aria-pressed="true"></button><button type="button" class="theme-swatch" data-theme-swatch="tea" style="--swatch:#545d22" aria-label="焙茶橄欖" aria-pressed="false"></button><button type="button" class="theme-swatch" data-theme-swatch="maple" style="--swatch:#95572b" aria-label="琥珀秋楓" aria-pressed="false"></button><button type="button" class="theme-swatch" data-theme-swatch="cocoa" style="--swatch:#6e4840" aria-label="可可褐" aria-pressed="false"></button><button type="button" class="theme-swatch" data-theme-swatch="sakura" style="--swatch:#9e4a64" aria-label="櫻花粉" aria-pressed="false"></button><button type="button" class="theme-swatch" data-theme-swatch="milk" style="--swatch:#b8436a" aria-label="草莓牛奶" aria-pressed="false"></button><button type="button" class="theme-swatch" data-theme-swatch="mauve" style="--swatch:#855a74" aria-label="藕荷粉" aria-pressed="false"></button><button type="button" class="theme-swatch" data-theme-swatch="lavender" style="--swatch:#5b4f93" aria-label="薰衣草夜" aria-pressed="false"></button><button type="button" class="theme-swatch" data-theme-swatch="bay" style="--swatch:#3a4d83" aria-label="靛墨藍" aria-pressed="false"></button></div><label class="theme-dark"><span>夜間模式</span><input id="theme-dark" type="checkbox" role="switch"><span class="theme-switch" aria-hidden="true"></span></label></div></div><button id="help" class="icon-button" aria-label="使用說明">?</button><input id="file" type="file" accept=".json,application/json" hidden></div></header>
 <!-- 主要內容 -->
  <main>
 <section id="home-view" aria-label="首頁"><div class="home-intro"><h1>心動小鎮五星圖鑑</h1><div class="home-summary"><div class="home-goal"><span>全圖鑑五星目標已達成</span><strong id="home-percent">0%</strong></div><div><span id="home-count"></span><div class="bar"><i id="home-bar"></i></div></div></div><button id="home-continue" class="button primary">繼續紀錄</button></div><h2>看看你的全圖鑑進度</h2><div id="home-cards" class="home-grid"></div><section class="home-guide"><h2>三步開始使用</h2><ol><li><b>選擇圖鑑與條件</b>：依名稱、等級、地點與時段找到目標。</li><li><b>記下已完成五星圖鑑</b>：取得五星後勾選；花卉可展開逐一記錄花色，收齊全部已知花色才算完成。</li><li><b>定期匯出備份</b>：進度保存在目前瀏覽器。換裝置時，先匯出 JSON，再到新裝置匯入。</li></ol><div class="home-actions"><button class="button" id="home-help">完整使用說明</button><button class="button" id="home-export">匯出備份</button><button class="button" id="home-import">匯入進度</button></div></section></section>
+  
   <section class="hero"><h2 class="hero-title">心動小鎮五星圖鑑</h2><div class="total-card"><strong id="total-done">0</strong><span id="total-count"></span><span id="total-ring"><span id="total-percent">0%</span></span></div></section>
   
   <div class="storage-note"><p>紀錄進度只保存在目前瀏覽器，不會自動跨裝置同步。清除網站資料前，請先匯出備份。</p><p id="backup-status" role="status"></p></div>
+  <div id="collection-heading" class="collection-heading page-title-out"><div class="title-group"><span id="category-icon" class="category-icon"></span><h2 id="category-title"></h2></div><div class="category-progress"><span id="category-count"></span><div class="bar"><i id="category-bar"></i></div></div></div>
   <section class="collection">
-   <div class="collection-heading"><div class="title-group"><span id="category-icon" class="category-icon"></span><h2 id="category-title"></h2></div><div class="category-progress"><span id="category-count"></span><div class="bar"><i id="category-bar"></i></div></div></div>
-   <div class="filters">
-    <div class="filter-top"><label class="search-wrap"><span>⌕</span><input id="search" type="search" placeholder="搜尋名稱、地點或食材…" aria-label="搜尋名稱、地點或食材"></label><div id="status-tabs" class="segments" role="group" aria-label="完成狀態"><button data-status="all">全部</button><button data-status="todo">未完成</button><button data-status="done">已完成</button></div></div>
+   <div id="filter-panel" class="filters">
+    <div class="filter-top"><label class="search-wrap"><span>⌕</span><input id="search" type="search" placeholder="搜尋名稱、地點或食材…" aria-label="搜尋名稱、地點或食材"></label><div id="status-tabs" class="segments" role="group" aria-label="完成狀態"><button data-status="all">全部</button><button data-status="todo">未完成</button><button data-status="done">已完成</button></div><div class="filter-mobile-bar"><button id="filter-toggle" class="filter-toggle" type="button" aria-expanded="false" aria-controls="filter-panel">篩選條件<span id="filter-count" class="filter-count" hidden></span><span class="filter-toggle-arrow" aria-hidden="true">▾</span></button><button id="filter-reset-mini" class="text-button" type="button" hidden>重設預設條件</button></div></div>
     <div class="filter-scroll"><div class="filter-grid"><label id="plant-type-label" hidden>花卉／作物<select id="plantType"><option value="all">全部</option><option value="flower">花卉</option><option value="crop">作物</option></select></label><label>愛好等級（含以下）<select id="level"></select></label><fieldset id="kind-filter" class="kind-filter"><legend>收錄類型</legend><button id="kind-toggle" class="kind-toggle" type="button" aria-expanded="false" aria-controls="kind-menu">全部 ▾</button><div id="kind-menu" class="kind-menu" hidden><label><input type="checkbox" data-kind-option value="日常">日常</label><label><input type="checkbox" data-kind-option value="當前活動">當前活動</label><label><input type="checkbox" data-kind-option value="過往活動">過往活動</label><div class="kind-all-row"><label><input id="kind-all" type="checkbox">All</label></div></div></fieldset><label id="profit-star-label" hidden>星級<select id="profitStar"><option value="1" selected>1 星</option><option value="2">2 星</option><option value="3">3 星</option><option value="4">4 星</option><option value="5">5 星</option></select></label><label data-habitat>天氣<select id="weather"><option value="晴">晴天</option><option value="雨">雨天</option><option value="彩虹">彩虹日可出現</option><option value="rainbow-only">彩虹日限定</option></select></label><label data-habitat><span id="time-label">時段</span><select id="time"><option value="all">全部時段</option><option value="0-6時">00:00–06:00</option><option value="6-12時">06:00–12:00</option><option value="12-18時">12:00–18:00</option><option value="18-24時">18:00–24:00</option></select></label><label data-habitat class="location-filter">地點<select id="location"></select></label></div></div>
     <p class="filter-scroll-hint">左右滑動查看其他篩選條件 →</p>
     <div class="availability-options"><div id="bird-five-star" hidden><label class="five-star-filter"><input id="five-star-only" type="checkbox">僅五星</label></div><div id="availability-filter"><label class="five-star-filter"><input id="cookable-only" type="checkbox" checked>當前可獲取</label></div><div id="craftable-filter" hidden><label class="five-star-filter"><input id="craftable-only" type="checkbox" checked>當前可製作</label></div></div>
@@ -67,30 +71,37 @@
    </div>
    <div class="list-toolbar"><div><b id="result-count"></b><span id="result-note"></span></div><button id="dish-number-sort" class="button" type="button" hidden aria-pressed="false" title="依料理編號由小到大排列">編號排序 ↑</button></div>
    <p class="table-hint">點選欄位標題可排序。</p><div class="table-wrap" tabindex="0" role="region" aria-label="圖鑑清單，可左右滑動"><table class="list"><thead id="thead"></thead><tbody id="rows"></tbody></table></div>
-   <div id="empty" class="empty" hidden><span>⌕</span><h3>這個條件下，還沒有項目</h3><p>試著調整等級、天氣、時段或地點。</p><button id="empty-reset" class="button">清除其他篩選</button></div>
+   <div id="empty" class="empty" hidden><span>⌕</span><h3 id="empty-title">目前沒有符合條件的項目。</h3><p id="empty-hint"></p><button id="empty-reset" class="button">清除篩選</button></div>
   </section>
-  <section id="calculator-view" class="calculator-view" aria-label="料理成本計算機" hidden>
-   <header class="calculator-heading">
- <div class="calc-intro"><p class="calc-site-name">心動小鎮五星圖鑑</p><span class="calc-kicker">料理材料與利潤試算</span><div class="calc-title-row"><h1>成本計算機</h1><button id="calc-help" class="icon-button" type="button" aria-label="開啟成本計算機使用教學" aria-haspopup="dialog" aria-controls="calc-help-dialog" title="計算機使用教學">?</button></div><p>一次比較最多六道料理，可以調整食材、用量、金額。</p></div>
+  <section id="calculator-view" class="panel-page" aria-label="料理成本計算機" hidden>
+   <header class="calculator-heading page-title-out">
+ <div class="calc-intro"><span class="calc-kicker">料理材料與利潤試算</span><div class="calc-title-row"><h1>成本計算機</h1><button id="calc-help" class="icon-button" type="button" aria-label="開啟成本計算機使用教學" aria-haspopup="dialog" aria-controls="calc-help-dialog" title="計算機使用教學">?</button></div><p>一次比較最多六道料理，可以調整食材、用量、金額。</p></div>
  
 </header>
+   <div class="calculator-view panel-card">
    <div class="calculator-controls calc-select-controls"><div id="calc-dish-slots" class="calc-dish-slots"><button id="calc-add-dish" class="button calc-dynamic-add" type="button">＋ 新增料理</button></div></div>
    <div class="calc-recipe-grid" id="calc-recipe-grid"></div>
    <section id="calc-compare-section" class="calc-card calc-compare-section" hidden><h2>料理利潤比較</h2><div id="calc-comparison"></div></section>
    <p id="calc-missing" class="calc-note" role="status"></p><p class="calc-note">計算方式：每份成本＝各材料（每份用量 × 單價）加總。料理售價與利潤依每份計算；修改單價會同步反映於所有料理。未維護材料單價預設為 0 金幣；限時材料標籤只表示取得受限，不代表料理停止製作。</p>
+   </div>
   </section>
   <!-- 成就：大滿貫成就勾選，不計入首頁的全圖鑑進度 -->
-  <section id="achievements-view" class="calculator-view panel-view" aria-labelledby="achievements-title" hidden>
-   <header class="calculator-heading"><p class="calc-site-name">心動小鎮五星圖鑑</p><span class="calc-kicker">大滿貫成就紀錄</span><h1 id="achievements-title">成就</h1><p>勾選已獲得的事件稱號，同一事件的稱號全部取得即達成大滿貫。成就進度單獨計算，不列入首頁的全圖鑑五星進度。</p>
-    <div class="panel-progress"><span id="achievements-count"></span><div class="bar"><i id="achievements-bar"></i></div></div></header>
+  <section id="achievements-view" class="panel-page panel-view" aria-labelledby="achievements-title" hidden>
+   <header class="collection-heading panel-heading page-title-out"><div class="title-group"><span id="achievements-icon" class="category-icon"></span><h2 id="achievements-title">成就</h2></div><div class="category-progress"><span id="achievements-count"></span><div class="bar"><i id="achievements-bar"></i></div></div></header>
+   <div class="calculator-view panel-card">
+   <div class="panel-desc"><p>勾選已獲得的事件稱號，同一事件的稱號全部取得即達成大滿貫。成就進度單獨計算，不列入首頁的全圖鑑五星進度。</p></div>
    <div id="achievement-groups" class="achievement-groups"></div>
+   </div>
   </section>
   <!-- 寵物：玩家自行新增寵物，記錄吃過、喜歡與不喜歡的食物 -->
-  <section id="pets-view" class="calculator-view panel-view" aria-labelledby="pets-title" hidden>
-   <header class="calculator-heading"><p class="calc-site-name">心動小鎮五星圖鑑</p><span class="calc-kicker">飲食紀錄</span><h1 id="pets-title">寵物</h1><p>新增你的貓咪／狗狗，記錄每一隻對每樣食物的反應：未吃過、喜歡或不喜歡（吃過但沒有喜歡，就算不喜歡）。</p><p class="pet-hint">如果試不出來，可能是因為愛吃與否不只跟食物種類有關，也和餵食數量有關；這裡只記錄喜歡／不喜歡，其他觀察（例如要餵幾隻）可以按每樣食物後面的「＋」寫備註。</p></header>
+  <section id="pets-view" class="panel-page panel-view" aria-labelledby="pets-title" hidden>
+   <header class="collection-heading panel-heading page-title-out"><div class="title-group"><span id="pets-icon" class="category-icon"></span><h2 id="pets-title">寵物</h2></div><div class="category-progress"><span id="pets-count"></span></div></header>
+   <div class="calculator-view panel-card">
+   <div class="panel-desc"><p>新增你的貓咪／狗狗，記錄每一隻對每樣食物的反應：未吃過、喜歡或不喜歡（吃過但沒有喜歡，就算不喜歡）。</p><p class="pet-hint">如果試不出來，可能是因為愛吃與否不只跟食物種類有關，也和餵食數量有關；這裡只記錄喜歡／不喜歡，其他觀察（例如要餵幾隻）可以按每樣食物後面的「＋」寫備註。</p></div>
    <form id="pet-form" class="pet-form" autocomplete="off"><label>名字<input id="pet-name" type="text" maxlength="20" placeholder="可留空，例如：小橘"></label><label>種類<select id="pet-type"><option value="cat">貓</option><option value="dog">狗</option></select></label><button class="button primary" type="submit">＋ 新增寵物</button></form>
    <div id="pet-tabs" class="pet-tabs" role="group" aria-label="選擇寵物"></div>
    <div id="pet-detail"></div>
+   </div>
   </section>
   <section id="release-log" class="release-log release-pages" aria-labelledby="release-heading">
    <div class="release-section-heading"><h2 id="release-heading">更新紀錄</h2></div>
@@ -99,7 +110,7 @@
   </section>
   <p><button id="report-issue" class="button">記錄資料問題</button> <small>產生問題紀錄，複製後可貼到留言告知作者；不會自動傳送。</small></p>
   <!-- 頁尾：資料來源說明 -->
-<footer class="source-footer"><section class="release-source-notes" aria-label="資料來源與更新說明"><h3>資料來源與更新說明</h3><p>圖鑑目前<strong>緩慢更新中</strong>。如發現資料遺漏、名稱或等級錯誤等問題，歡迎使用「記錄資料問題」告知作者，協助修正。</p>
+<footer class="source-footer"><section class="release-source-notes" aria-label="資料來源與更新說明"><h3>資料來源與更新說明</h3><p>圖鑑目前<strong>根據作者需求緩慢更新中</strong>。如發現資料遺漏、名稱或等級錯誤等問題，歡迎使用「記錄資料問題」告知作者，協助修正。</p>
   <p>資料來源：心動小鎮非官方圖鑑百科（Guava）、Facebook、小紅書等公開平台之玩家分享資訊，以及自行蒐集的遊戲圖鑑資料。尚未確認的條件會標示為 N/A 或待補。</p>
   <p>售價、成本與利潤的倍率計算皆以無條件捨去為主，數字可能會有些許誤差；花卉售價依遊戲規則進位至 5 的倍數。如發現數字與遊戲不符，歡迎使用「記錄資料問題」並附上截圖協助修正。</p></section>
 <p>料理利潤＝星級售價－每份成本。成本以材料售價計算，子料理以 1 星售價計入；不計製作時間。</p>
@@ -128,7 +139,7 @@
 <details class="help-topic"><summary>篩選條件與出沒時間</summary><div><ul><li><strong>初始條件：</strong>10 級及以下、全部收錄類型、晴天與開啟時的本機時段。之後修改的篩選會記住，重新整理或下次開啟時沿用；只有時段會改回當下的本機時段，搜尋文字會清空。</li><li><strong>當前可獲取與當前可製作（烹飪）：</strong>「當前可獲取」是日常或進行中活動的料理；「當前可製作」再加上活動已結束、但不需要限時料理台且沒有用到限時材料的料理；過往活動不算當前可獲取。可獲取的料理一定可製作，所以勾選「當前可獲取」時，「當前可製作」會一併勾選。</li><li><strong>等級：</strong>包含所選等級以下的項目；各分類分開記憶，換分類時不會互相影響（例如釣魚選 10 級、觀鳥選 8 級）。未知等級請選「不限等級」。</li><li><strong>清除其他篩選：</strong>清除目前分類的搜尋及其他篩選，保留天氣與時段。「重設預設條件」恢復初始設定。</li><li><strong>天氣與時段：</strong>魚、蟲、鳥共用這兩項條件。時間不會自動跟著時鐘切換，可按「切換到現在時段」手動更新。</li><li><strong>鳥類五星：</strong>「僅五星」使用五星條件篩選，與一般出沒資訊分開顯示。篩選結果不保證遊戲即時出沒，待確認資訊請以遊戲實際情況為準。</li></ul></div></details>
 <details class="help-topic"><summary>排序與料理利潤</summary><div><ul><li>烹飪與成本計算機的料理選單預設依編號由小到大排列；烹飪列表可按「編號排序」恢復此順序。其他分類依日常、當前活動、過往活動分組。手動切換排序後，以所選欄位為主。</li><li>點選名稱、等級、地點等可排序的欄位標題，再點一次可切換排序方向。</li><li>料理可選 1～5 星查看利潤；展開詳情可查看成本、售價與食材。</li><li>利潤依來源資料計算，不計時間與食材轉售的機會成本；未知數值排在後方。</li><li>2～5 星售價依 1 星售價乘以倍率推算時，以無條件捨去計算，數字可能與遊戲內有些許誤差；花卉依遊戲規則進位至 5 的倍數。</li></ul></div></details>
 <details class="help-topic"><summary>成本計算機：選料理、改材料、比成本</summary><div><ol><li>從側邊選單進入「成本計算機」。料理下拉選單可瀏覽全部料理，也可輸入名稱搜尋。</li><li>選單最上方的「＋自訂料理」可建立空白料理；輸入名稱後也可用該名稱建立。</li><li>調整每份用量與單價，或輸入材料名稱後按「加入」。修改同名材料單價會同步影響所有比較中的料理。</li><li>按「＋ 新增料理」加入其他料理，可比較最多六道。選擇兩道以上時，下方顯示成本與各星級利潤比較表。</li></ol><div class="help-callout"><p><strong>計算：</strong>每份成本＝各材料（用量 × 單價）加總；每份利潤＝對應星級售價 − 每份成本。</p><p><strong>價格：</strong>未設定的材料單價目前預設為 0 金幣，請自行確認並調整。「限時材料」表示材料取得受限，不代表料理停止製作。</p><p><strong>自訂料理：</strong>可試算材料成本；目前尚無星級售價，利潤顯示「待補」。</p><p><strong>保存：</strong>試算調整僅保留於本次開啟頁面，重新整理後重設；圖鑑 JSON 備份不包含這些調整。</p></div></div></details>
-<details class="help-topic"><summary>成就與寵物</summary><div><ul><li><strong>成就：</strong>從側邊選單進入「成就」，勾選已獲得的事件稱號（例如海釣、引蟲出洞），某個事件的稱號全部勾選後，該大滿貫會自動顯示「已達成」。點各大滿貫的標題列可展開或收合勾選清單。成就進度單獨計算，不列入首頁的全圖鑑五星進度。</li><li><strong>寵物：</strong>輸入名字並選擇貓或狗後按「新增寵物」。選擇寵物後，每樣食物從「未吃過／喜歡／不喜歡」三選一；吃過但不喜歡就選「不喜歡」，選回「未吃過」即可清除。上方可搜尋食物，或只看未吃過、喜歡、不喜歡的食物；每樣食物可寫備註。名稱可直接點一下修改，也可刪除寵物；名稱旁有 ↗ 的食物可直接跳到圖鑑查看。</li><li>成就與寵物紀錄都保存在目前瀏覽器，並包含在「匯出備份」的 JSON 中。</li></ul></div></details>
+<details class="help-topic"><summary>成就與寵物</summary><div><ul><li><strong>成就：</strong>從側邊選單進入「成就」，勾選已獲得的事件稱號（例如海釣、引蟲出洞），某個事件的稱號全部勾選後，該大滿貫會自動顯示「已達成」。點各大滿貫的標題列可展開或收合勾選清單。每組都有「全部完成」「全部取消」可一次勾選或取消整組。成就進度單獨計算，不列入首頁的全圖鑑五星進度。</li><li><strong>寵物：</strong>輸入名字並選擇貓或狗後按「新增寵物」。選擇寵物後，每樣食物從「未吃過／喜歡／不喜歡」三選一；吃過但不喜歡就選「不喜歡」，選回「未吃過」即可清除。上方可搜尋食物，或只看未吃過、喜歡、不喜歡的食物；每樣食物可寫備註。名稱可直接點一下修改，也可刪除寵物；名稱旁有 ↗ 的食物可直接跳到圖鑑查看。篩選「未吃過」時會出現「全部設為不喜歡」，可把目前列出的未吃過食物一次改成不喜歡（可再用搜尋縮小範圍）。</li><li>成就與寵物紀錄都保存在目前瀏覽器，並包含在「匯出備份」的 JSON 中。</li></ul></div></details>
 <details class="help-topic"><summary>備份、還原與換裝置</summary><div><ol><li>按「匯出備份」，確認 JSON 檔案已下載並保存。</li><li>換裝置、換瀏覽器或從本機檔案移到網站時，在新位置按「匯入進度」，選取備份檔。</li><li>「合併進度」保留雙方已完成項目與目前篩選；「取代目前進度」使用備份的勾選與篩選，操作前請先備份。</li></ol><p>收藏進度只保存在目前瀏覽器，不會上傳或跨裝置同步。清除網站資料、更換網址或瀏覽器，可能無法讀取原進度。</p><p>首次累積 10 筆收集，或與上次匯出相比有 10 筆變更時，系統會提醒備份；保存紀錄不代表檔案已下載成功。</p><p><strong>舊版備份：</strong>可匯入相容的舊版 JSON；有兩份進度時可依序合併。舊版花色紀錄會對應至可見花色，無法對應的項目會在匯入前提示，原始備份檔不受影響。</p></div></details>
 <details class="help-topic"><summary>回報資料問題</summary><div><p>使用「記錄資料問題」產生含版本與目前篩選的文字紀錄，補上項目名稱、問題及可核對的來源，複製後貼到留言告知作者；目前不會自動傳送。</p></div></details>
 </div><button class="button primary" data-close>知道了</button></dialog>
@@ -137,5 +148,5 @@
 <!-- 載入順序不可調換：核心邏輯 → 資料載入器 → 畫面程式 -->
 <script src="js/journal-core.js?v=2026-11-26.1"></script>
 <script src="js/data-loader.js?v=2026-11-26.1"></script>
-<script src="js/app.js?v=2026-11-26.1"></script>
+<script src="js/app.js?v=2026-11-27.1"></script>
 </body></html>
